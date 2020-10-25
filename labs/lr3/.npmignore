@@ -2,6 +2,8 @@ config/Lib.json
 keys
 .vscode
 .env.dev
+.flowconfig
+.babelrc
 nodemon.json
 gulpfile.js
 front/src/img
