@@ -39,9 +39,8 @@ module.exports = Promise.all(
     .then(
         results =>
             results.forEach((result, index) => {
-                // console.log(files[index], result.length)
                 const envConfig = dotenv.parse(result);
-                // console.log('envConfig :>> ', envConfig);
                 for (const k in envConfig) process.env[k] = process.env[k] || envConfig[k]
             }))
+
     // .then(() => console.log('process.env :>> ', process.env))
