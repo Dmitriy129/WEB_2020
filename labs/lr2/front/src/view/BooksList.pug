@@ -1,0 +1,41 @@
+//- - var booksQuantity = 15
+//- - var userLogin = "blabla"
+//- - var tableHeader=[{name:"num",title:"#"},{name:"name",title:"Название"},{name:"author",title:"Автор"},{name:"releaseDate",title:"Дата выпуска"},{name:"availability",title:"Наличие"},{name:"user",title:"На руках у"},{name:"returnDate",title:"Дата возврата"}]
+
+extends index
+block append style
+    link(rel='stylesheet' href='src/style/BooksList.css')
+    link(rel='stylesheet' href='src/style/NewBookForm.css')
+    link(rel='stylesheet' href='src/style/PTable.css')
+
+block append script
+    script(src="src/script/BooksList.js" defer)
+block content
+    include NavBar.pug
+    .main1
+        p.title
+            |Список книг
+        .filter
+            //- input(type="text")
+            input(type="checkbox" id="payt2" onchange="onChangeToogleFilter(event)")
+            label.toogle(for="payt2")
+            label.text(for="payt2") Фильтр
+        form.filterConf(onsubmit="submitFilter(event)")
+            div
+                .filterName Выберите период
+                    .date
+                        a 
+                            |С Даты
+                        input(name="dateFrom" type="date")
+                    .date
+                        a 
+                            |По Дату
+                        input(name="dateTo" type="date")
+            div
+                a.filterName.availability Сейчас в библиотеке:
+                    input(type="checkbox" name="availability" id="availability")
+                    label(for="availability")
+            input.primaryRoundBtn(type="submit" value="Отфильтровать")
+        include includes/PTable.pug
+        //- include includes/NewBookForm.pug
+

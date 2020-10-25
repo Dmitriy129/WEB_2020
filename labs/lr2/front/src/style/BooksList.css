@@ -1,0 +1,126 @@
+.main1 {
+  margin-left: 16px;
+  margin-right: 16px;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+#payt2 {
+  display: none;
+}
+.toogle[for="payt2"] {
+  position: relative;
+  display: block;
+  width: 32px;
+  height: 8px;
+  padding: 8px;
+  border: 2px solid;
+  border-color: #285fe0;
+  /* border-color: black; */
+  border-radius: 32px;
+
+  /* line-height: 10px; */
+  /* color: #31b3ff; */
+  /* text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.15); */
+  /* background: rgb(71, 71, 71); */
+  /* box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 0 0 5px rgb(60, 60, 60),
+    inset 0 6px 6px rgba(0, 0, 0, 0.5),
+    inset 0 -6px 1px rgba(255, 255, 255, 0.2); */
+  cursor: pointer;
+  transition: 0.25s;
+  overflow: hidden;
+  transform: scale(0.8);
+}
+.toogle[for="payt2"]:before {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  display: block;
+  width: 24px;
+  height: 24px;
+  border: 2px solid;
+  border-color: #285fe0;
+  /* border-color: black; */
+  border-radius: 50px;
+  /* background: #ccc linear-gradient(#fcfff4 0%, #dfe5d7 40%, #b3bead 100%); */
+
+  transition: 0.25s;
+  box-shadow: -33px 0 0 25px #285fe0;
+}
+#payt2:checked ~ .toogle[for="payt2"]:before {
+  left: 22px;
+  border-color: #285fe0;
+}
+#payt2:checked ~ .toogle[for="payt2"] {
+  border-color: #285fe0;
+}
+
+.filter {
+  display: inline-flex;
+}
+
+.filter > label.text {
+  margin: auto;
+  cursor: pointer;
+}
+
+.filterConf {
+  padding: 8px;
+}
+.filterConf > div {
+  margin: 16px 0;
+}
+.date {
+  padding-left: 16px;
+  display: flex;
+}
+.date > a {
+  width: 100px;
+  padding-top: 8px;
+}
+.date > input {
+  border: none;
+  border-bottom: 1px solid #285fe0;
+  outline: none;
+}
+
+.availability {
+  display: flex;
+  align-items: center;
+}
+
+.availability > input {
+  display: none;
+}
+.availability > label {
+  margin-left: 8px;
+}
+
+[for="availability"] {
+  cursor: pointer;
+  position: relative;
+  display: block;
+  width: 24px;
+  height: 24px;
+  border: 1px solid;
+  border-color: black;
+  border-radius: 8px;
+  transition: 0.25s;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+[for="availability"]:hover {
+  border-color: #285fe0;
+}
+
+.availability > input:checked ~ [for="availability"] {
+  border-color: #285fe0;
+  background-image: url("/public/img/check.svg");
+}
+
+form.filterConf {
+  display: none;
+}

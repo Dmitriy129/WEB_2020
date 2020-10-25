@@ -1,0 +1,17 @@
+//- id
+//- name
+//- author
+//- cost
+if picture
+    .card.picture(id=`picture_${picture.id}`)
+        p.imgbox
+            img(src=`/public/savedImg/${picture.img}`, alt='')
+        .info
+            h2.name #{picture.name}
+            p.author #{picture.author}
+            p.cost Оценочная стоимость: 
+                span #{picture.cost} ₽
+        a.primaryBtn(href=`/picture/${picture.id}`)  Подробнее...
+        if picture.auction
+            a.successBtn(href=`/auction/${picture.auction.id}`)  Идет аукцион
+        

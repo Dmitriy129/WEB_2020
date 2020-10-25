@@ -1,0 +1,4 @@
+{
+    "C_Cpp.default.configurationProvider": "go2sh.cmake-integration",
+    "compile-hero.disable-compile-files-on-did-save-code": false
+}

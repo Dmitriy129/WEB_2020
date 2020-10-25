@@ -1,0 +1,84 @@
+/* .modalForm {
+  width: 600px;
+  position: absolute;
+  top: 50%;
+  bottom: 50%;
+  left: 0%;
+  right: 0%;
+  z-index: 2;
+  margin: auto;
+  height: fit-content;
+  min-height: 300px;
+  box-shadow: 0 0 8px #285fe0;
+  border-radius: 16px;
+  padding: 16px;
+  background-color: #ffffff;
+}
+
+.blur {
+  width: 100vw;
+  height: 100vh;
+  background-color: #285fe07a;
+  position: absolute;
+  top: 0;
+  left: 0;
+} */
+
+.line {
+  width: 100%;
+  display: flex;
+  padding-top: 16px;
+}
+.line > a {
+  margin: 0;
+  margin-top: auto;
+  width: 30%;
+}
+.line > input {
+  /* width: 100%; */
+  height: 24px;
+}
+.line > textarea:focus,
+.line > input:focus {
+  /* border-bottom: 1px dashed #285fe0; */
+  transform: scale(1.05);
+  border-color: #285fe07e;
+}
+.line > input,
+.line > textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #285fe0;
+  /* border-left: 1px solid #285fe0; */
+  outline: none;
+  /* border-radius: 0 16px; */
+  padding: 4px;
+  transition: 0.25s;
+}
+.line.center {
+  justify-content: center;
+}
+
+.modalForm > .primaryRoundBtn {
+  margin-top: 24px;
+}
+
+.bookImg {
+  display: none;
+}
+[for="file"] {
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  margin: auto;
+  border-bottom: 1px solid #285fe0;
+}
+[for="file"] > img {
+  height: 24px;
+  padding-right: 8px;
+}
+
+label.onload > img:not(.onload),
+label:not(.onload) > img.onload {
+  display: none;
+}

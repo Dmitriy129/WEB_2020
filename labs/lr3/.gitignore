@@ -1,0 +1,7 @@
+dist
+savedImg
+keys
+front/public
+node_modules
+.env*
+.vscode

@@ -1,0 +1,50 @@
+@import "global";
+
+.pre {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../img/github-logo.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.github {
+  border: 1px solid black;
+  border-radius: @my-size;
+  color: black;
+  padding: @my-size * 2;
+  margin: auto;
+  width: fit-content;
+  height: fit-content;
+  position: absolute;
+  top: 50%;
+  bottom: 50%;
+  left: 0%;
+  right: 0%;
+  z-index: 2;
+  overflow: hidden;
+  text-decoration: none;
+  text-align: center;
+  display: table;
+  .transition;
+
+  &:hover {
+    transform: scale(1.1);
+    border-radius: @my-size * 2;
+
+    .octocat {
+      transform: scale(1.1);
+    }
+  }
+
+  span {
+    display: table-cell;
+    vertical-align: middle;
+    padding-right: @my-size;
+  }
+}
+
+.octocat {
+  height: 30px;
+  .transition;
+}

@@ -1,0 +1,19 @@
+link(rel='stylesheet' href='src/style/NavBar.css')
+.top
+    .left
+        a.top_text(href='/')
+            | Библиотека
+    .center
+        p.top_text
+            | Логин: 
+            span(id="userLogin")
+                |#{userLogin}
+    .center
+        p.top_text
+            | Книг на руках: 
+            span(id="booksQuantity")
+                |#{booksQuantity}
+    .right
+        a.top_text(href="/logout")
+            |Выйти
+

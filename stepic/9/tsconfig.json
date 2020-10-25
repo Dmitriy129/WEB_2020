@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "outDir": "dist",
+    "skipLibCheck": true
+    // "sourceMap": true,
+    // "declaration": true,
+  }
+}

@@ -1,0 +1,28 @@
+
+server {
+    listen 80;
+    server_name  server;
+    listen       443 ssl;
+
+    ssl_certificate $SSL_FULLCHAIN;
+    ssl_certificate_key $SSL_PRIVKEY;
+
+    ssl_session_timeout  20m;
+
+    ssl_protocols  SSLv2 SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers  HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers   on;
+
+    location  / {
+        location /tetris {
+            root /etc/nginx/html;
+        }
+
+        location ~* ^.+\.(svg|jpg|jpeg|gif|png|ico|zip|tgz|gz|rar|bz2|doc|xls|exe|pdf|ppt|txt|tar|wav|bmp|rtf)$ {
+            root /etc/nginx/public/;
+
+        }
+        root /etc/nginx/html/login;
+    }
+
+}

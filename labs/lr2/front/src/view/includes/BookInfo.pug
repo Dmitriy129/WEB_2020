@@ -1,0 +1,21 @@
+p.title
+    span(id="author") #{author}
+    |"
+    span(id="bookName") #{book}
+    |" - (
+    span(id="releaseDate") #{releaseDate}
+    |)
+
+.book
+    img.bookAva(src=`/public/${img ? "savedImg/"+img : "img/book.png"}`)
+    p.bookContent #{content}
+if !IhaveThis 
+    p.availability Наличие: #{availability}
+if !(availability==="Есть в наличии")
+    p.location Находится у: #{userlogin}
+    p.returnDate Дата возврата: #{returnDate}
+.btn_box
+    button.primaryRoundBtn(onclick=`${IhaveThis ? "actionBook('submit')" : (availability==="Есть в наличии") ? "actionBook('take')": false}`)
+        | #{IhaveThis ? "Сдать книгу" : (availability==="Есть в наличии") ? "Взять книгу" : "Книги нет в наличии"}
+    button.primaryRoundBtn(onclick=`openFormModal('${id}')`)
+        |  Редактировать

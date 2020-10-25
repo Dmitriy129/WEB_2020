@@ -1,0 +1,67 @@
+body {
+    margin: 0;
+    font-family: Montserrat;
+    overflow-x: hidden;
+    width: 100%;
+    /* justify-content: center; */
+}
+
+form {
+    text-align: center;
+    margin-top: 48vh;
+}
+
+
+.inputName,
+.btn {
+    color: rgb(26, 59, 227);
+    height: auto;
+    border: solid 1px rgb(26, 59, 227);
+    border-radius: 32px;
+    /* width: 200px; */
+    text-align: center;
+    padding: 8px;
+    background: none;
+    width: 118px;
+    outline: none;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.btn:hover {
+    color: #fff;
+    background-color: rgb(26, 59, 227);
+
+}
+
+.inputName {
+    width: 100px;
+}
+
+
+
+@keyframes snow {
+    0% {
+        background-position: 0px 50vh, 50vw 0px, 100vw 100vh;
+    }
+
+    100% {
+        background-position: 100vw 100vh, 0vw 30vh, 0vw 0vh;
+    }
+}
+
+div#wrapper {
+    position: fixed;
+    background: url('login/c5.png'),
+        url('login/c6.png'),
+        url('login/c7.png');
+    background-size: 200px;
+    z-index: -1;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    -webkit-animation: snow 60s linear infinite;
+    -moz-animation: snow 60s linear infinite;
+    -ms-animation: snow 60s linear infinite;
+    animation: snow 60s linear infinite;
+}

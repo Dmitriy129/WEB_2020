@@ -1,0 +1,15 @@
+version: '3'
+services:
+  nginx: 
+    env_file:
+      - .env
+    image: nginx
+    container_name: nginx-tetris
+    volumes:
+      - ./data/tepmlates:/etc/nginx/templates
+      - ${SSL_DIR_PATH}:/etc/nginx/ssl
+      - ./data/front/view:/etc/nginx/html
+      - ./data/front/public:/etc/nginx/public
+    ports:
+      - 8000:80
+      - 4430:443

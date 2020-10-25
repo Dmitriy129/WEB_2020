@@ -1,0 +1,47 @@
+.pre {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../../public/img/github-logo.svg");
+  /* background-size: contain; */
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.github {
+  border: 1px solid black;
+  border-radius: 8px;
+  color: black;
+  padding: 16px;
+  margin: auto;
+  width: fit-content;
+  height: fit-content;
+  position: absolute;
+  top: 50%;
+  bottom: 50%;
+  left: 0%;
+  right: 0%;
+  z-index: 2;
+  overflow: hidden;
+  text-decoration: none;
+  text-align: center;
+  display: table;
+  transition: 0.25s;
+}
+
+.octocat {
+  height: 30px;
+  transition: 0.25s;
+}
+
+.github > span {
+  display: table-cell;
+  vertical-align: middle;
+  padding-right: 8px;
+}
+
+.github:hover {
+  transform: scale(1.1);
+  border-radius: 16px;
+}
+.github:hover > .octocat {
+  transform: scale(1.1);
+}

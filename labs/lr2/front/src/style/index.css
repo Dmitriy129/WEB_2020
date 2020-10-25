@@ -1,0 +1,36 @@
+@font-face {
+  font-family: "IBM_Plex_Sans";
+  src: url("/public/fonts/IBM_Plex_Sans/IBMPlexSans-Light.ttf");
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+* {
+  font-family: IBM_Plex_Sans !important;
+}
+input {
+  outline: none;
+}
+
+.primaryRoundBtn {
+  border: 1px;
+  color: rgb(26, 59, 227);
+  height: auto;
+  border: solid 1px rgb(26, 59, 227);
+  border-radius: 32px;
+  text-align: center;
+  padding: 8px;
+  background: none;
+  width: 200px;
+  outline: none;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.primaryRoundBtn:hover {
+  color: #fff;
+  background-color: rgb(26, 59, 227);
+}

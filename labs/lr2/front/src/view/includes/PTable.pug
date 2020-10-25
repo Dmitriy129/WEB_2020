@@ -1,0 +1,25 @@
+//- -var tableHeaderDefault=[{name:"num",title:"#"},{name:"name",title:"Название"},{name:"author",title:"Автор"},{name:"releaseDate",title:"Дата выпуска"},{name:"availability",title:"Наличие"},{name:"location",title:"Место нахождение"},{name:"returnDate",title:"Дата возврата"}]
+div(id="tableBox")
+    //- link(rel='stylesheet' href='src/style/PTable.css')
+    script(src="src/script/PTable.js")
+    table.myTable
+        tr.head
+            th #
+            each val,key in table.header
+                th(name=`${key}`) #{val}
+            if table.actions
+                th.action
+                    img.trash(src="/public/img/plus.svg" alt="add", onclick=`addRow()`)
+
+        each data,row in table.data
+            tr
+                td #{row}
+                each val,key in table.header
+                    td(name=`${key}`)
+                        a(class=(key==='book' || key==='userlogin') && 'tableLink' , href=key==='book'&& `${key}/${data.id}`, onclick=(key==='userlogin' && !!data.userID &&`openUserModal('${data.userID}')`))
+                            |#{data[key]}
+                if table.actions
+                    td.action
+                        a
+                            img.trash(src="/public/img/edit.svg" alt="edit", onclick=`editRow('${data.id}')`)
+                            img.trash(src="/public/img/trash.svg" alt="del", onclick=`removeRow('${data.id}')`)

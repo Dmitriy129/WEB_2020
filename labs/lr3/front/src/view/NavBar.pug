@@ -1,0 +1,24 @@
+
+if me
+    .top
+        .left
+            p
+                a.nav(href='/auctions') Аукционы
+            p
+                a.nav(href='/pictures') Картины
+            p
+                a.nav(href='/users') Пользователи
+        .center
+            p 
+                a.nav(href=`/user/${me.id}`, id='navbar_fullname') #{me.name} #{me.surname}
+            p Баланс: 
+                span(id='navbar_balance') #{me.balance}
+            p Картин:
+                span(id='navbar_picturesQ') #{me.picturesQ}
+        .right
+            a
+            a.dangerBtn(href='/logout')  Выйти из аккаунта
+            a
+
+
+

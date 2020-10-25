@@ -1,0 +1,15 @@
+.row
+  .imgbox.card
+    img(src=`${user.img}`, alt=`${user.img}`)
+  if user.id == me.id
+    .addPictureForm.card
+      include PictureForm
+.row
+  .info.card
+    h2.name #{user.name} #{user.surname}
+    p.login #{user.login}
+    p.balance#balance Баланс: #{user.balance}
+    if user.id == me.id
+      p
+        input.primaryBtn#howMuchMoneyUp(type="number" step="1" )
+        button.successBtn(onclick=`upMoney(event,'${user.id}')`) Полполнить баланс

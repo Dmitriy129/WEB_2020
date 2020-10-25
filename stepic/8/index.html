@@ -1,0 +1,26 @@
+Terminal ID: 18169
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <title>Title</title>
+  </head>
+
+  <body>
+    <h3>Test</h3>
+    <div id="resizable" style="width: 100px"></div>
+    <button>On</button>
+    <script>
+      $(document).ready(
+        $("button").on("click", () =>
+          $("#resizable").width(function(i, val) {
+            debugger;
+            return val === 100 ? 200 : 100;
+          })
+        )
+      );
+    </script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+
+extends ModalWindow
+block append style
+    //- link(rel='stylesheet' href='src/style/NewBookForm.css')
+block append content
+    form.modalForm(onsubmit=`${action === 'edit'?'editBookData(event,"'+id+'")':'addBook(event)'}`)
+        .line
+            a Название
+            input(type='text' name='book' value=`${book||''}`)
+        .line
+            a Автор
+            input(type='text' name='author' value=`${author||''}`)
+        .line
+            a Дата выпуска
+            input(type='date' name='releaseDate' value=`${releaseDate||''}`)
+        .line
+            a Описание
+            textarea(name="content" cols="30" rows="3" )
+                |#{content}
+        .line.center
+            //- input(type="file" accept="image/*")
+            input.bookImg( type="file" accept="image/*" id="file" onchange=`imgOnChange(this)`)
+            label(for="file")
+                //- <i class="icon fa fa-check"></i>
+                img.icon(src="public/img/image.svg" alt="")
+                img.icon.onload(src="public/img/image.fill.svg" alt="")
+                | Загрузить обложку
+
+        input.primaryRoundBtn(type='submit' value='Сохранить')

@@ -1,0 +1,65 @@
+@import "global";
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+
+  * {
+    font-family: @my-font !important;
+  }
+}
+
+input {
+  outline: none;
+}
+
+.btn(@color: @my-blue ) {
+  border: 1px;
+  color: @color;
+  height: auto;
+  border: solid 1px @color;
+  // border-radius: 32px;
+  .roundBtn;
+  text-align: center;
+  padding: @my-size;
+  background: none;
+  width: @my-size * 25;
+  outline: none;
+  .transition;
+  .pointer;
+
+  &:hover {
+    color: white;
+    background-color: @color;
+  }
+
+  .disabled {
+    background-color: @my-grey !important;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+.roundBtn(@size: @my-size) {
+  border-radius: @size * 4;
+}
+
+.primaryBtn {
+  .btn(@my-blue);
+}
+
+.successBtn {
+  .btn(@my-green);
+}
+
+.warningBtn {
+  .btn(@my-orange);
+}
+
+.dangerBtn {
+  .btn(@my-red);
+}

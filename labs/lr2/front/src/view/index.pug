@@ -1,0 +1,16 @@
+doctype
+html(lang="ru")
+    head
+        block style
+            link(rel='stylesheet' href='src/style/index.css')
+            link(rel='stylesheet' href='src/style/ModalWindow.css')
+        block title
+        block script
+            script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
+            script(src="src/script/http.js",defer)
+            script(src="src/script/UserModal.js")
+            script(src="src/script/ModalWindow.js")
+            script(src='src/script/NewBookForm.js' defer)
+
+    body
+        block content

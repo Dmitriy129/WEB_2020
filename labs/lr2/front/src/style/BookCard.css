@@ -1,0 +1,33 @@
+.main1 {
+  margin-left: 16px;
+  margin-right: 16px;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.title > #author {
+  padding-right: 8px;
+}
+
+.bookAva {
+  min-width: 200px;
+  box-shadow: 0 0 8px #285fe0;
+  border-radius: 4px;
+  padding: 2px;
+  margin-right: 24px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  height: 300px;
+}
+
+.book {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.btn_box {
+  display: grid;
+}
+.btn_box > * {
+  margin-bottom: 8px;
+}

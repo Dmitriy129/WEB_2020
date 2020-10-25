@@ -1,0 +1,61 @@
+@import "global";
+
+.picturebox {
+  margin: @my-size;
+}
+
+.pictureInfo {
+  .row {
+    display: flex;
+
+    .imgbox {
+      .shadow;
+      // box-shadow: 0 0 (@my-size * 1) @my-grey;
+      max-height: 40vh;
+      max-width: fit-content;
+      text-align: center;
+      padding: @my-size * 2;
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+
+    .descriptionbox {
+      p.description {
+      }
+    }
+
+    .info {
+      padding: @my-size * 2;
+
+      h2.name {
+      }
+
+      p.author {
+      }
+
+      p.cost {
+      }
+
+      p.user {
+        a {
+          .pointer;
+          color: black;
+
+          &:hover {
+            .transition;
+            color: @my-blue;
+          }
+        }
+      }
+
+      .actions {
+        button {
+          margin-right: @my-size * 2;
+        }
+      }
+    }
+  }
+}

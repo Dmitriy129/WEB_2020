@@ -1,0 +1,48 @@
+.myTable {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+
+  text-align: left;
+}
+
+.myTable > * > * > th,
+.myTable > * > * > td {
+  border: unset;
+  padding: 8px;
+}
+
+.myTable > * > tr:nth-child(even) {
+  background-color: #285fe043;
+}
+
+.myTable > * > tr {
+  border-bottom: 1px solid #285fe07f;
+}
+
+.tableLink:-webkit-any-link {
+  color: unset;
+  text-decoration: unset !important;
+}
+.tableLink {
+  cursor: pointer;
+}
+.tableLink:hover {
+  transform: scale(1.3);
+}
+
+.action {
+  text-align: center;
+}
+.action > a > img {
+  margin: 8px;
+}
+
+.trash {
+  margin: auto;
+  cursor: pointer;
+  transition: transform 0.25s;
+}
+.trash:hover {
+  transform: scale(1.5);
+}

@@ -1,0 +1,21 @@
+.row
+  .imgbox.card
+    img(src=`/public/savedImg/${picture.img}`, alt=`${picture.img}`)
+  .descriptionbox.card
+    p.description #{picture.description}
+.row
+  .info.card
+    h2.name #{picture.name}
+    p.author #{picture.author}
+    p.cost Стоимость: #{picture.cost}
+    if owner
+      .actions
+        if picture.auction
+          button.primaryBtn(onclick = `goto('/auction/${picture.auction.id}')`) Перейти на аукцион
+        else
+          button.primaryBtn(onclick = `openAuctionForm('create','${picture.id}')`) Выставить на аукцион
+          button.dangerBtn(onclick = `delPicture('${picture.id}')`) Удалить
+        button.warningBtn(onclick = `openPictureForm('${picture.id}')`) Редактировать
+    else  
+      if picture.auction && picture.auction.access
+        button.primaryBtn(onclick = `goto('/auction/${picture.auction.id}')`) Перейти на аукцион

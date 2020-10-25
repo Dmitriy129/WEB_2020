@@ -1,0 +1,23 @@
+//- - var author = "Автор Автор"
+//- - var bookName = "Название книги вот такое"
+//- - var releaseDate = "20/05/1997"
+//- - var bookContent= "Краткое описание книги"
+//- - var availability= false
+//- - var location= "location"
+//- - var returnDate= "returnDate"
+//- - var IhaveThis= true
+extends index
+block append style
+    link(rel='stylesheet' href='src/style/BookCard.css')
+    link(rel='stylesheet' href='src/style/ModalWindow.css')
+block append script
+    script(src="src/script/BookCard.js")
+    link(rel='stylesheet' href='src/style/BookCard.css')
+block content
+    include NavBar.pug
+    .main1(id="bookInfo")
+        include includes/BookInfo.pug
+
+
+
+

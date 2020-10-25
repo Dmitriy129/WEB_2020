@@ -1,0 +1,17 @@
+
+extends ModalWindow
+block append style
+    link(rel='stylesheet' href='src/style/UserInfo.css')
+block append content
+    .row1
+        img.avatar(src=`${user.img || '/public/img/user.default.svg'}`)
+        .fio
+            p #{user.login}
+            p 
+                | #{user.name} 
+                | #{user.surname}
+    .row2
+        p.title Книги на руках
+        include PTable.pug
+
+

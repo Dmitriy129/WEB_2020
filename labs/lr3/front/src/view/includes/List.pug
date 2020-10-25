@@ -1,0 +1,18 @@
+
+link(rel='stylesheet' href='/public/css/List.css')
+script(src='/public/script/List.js' defer)
+div.listBox
+  div.list(id='cardList')
+    if users
+      script(src='/public/script/Users.js',defer)
+      each user in users
+        include UserCard
+    else if pictures
+      script(src='/public/script/Pictures.js',defer)
+      each picture in pictures
+        include PictureCard
+    else if auctions
+      script(src='/public/script/Auctions.js',defer)
+      each auction in auctions
+        include AuctionCard
+
