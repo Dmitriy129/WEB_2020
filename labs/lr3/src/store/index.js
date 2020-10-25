@@ -148,8 +148,8 @@ class SingletonStore {
 
     this.startState = startState || defaultState
     if (this.startState) {
-      this.startState.pictures.forEach(SingletonStore.instance.createPicture)
-      this.startState.users.forEach(SingletonStore.instance.createUser)
+      this.startState.pictures && this.startState.pictures.forEach(SingletonStore.instance.createPicture)
+      this.startState.users && this.startState.users.forEach(SingletonStore.instance.createUser)
     }
   }
 
