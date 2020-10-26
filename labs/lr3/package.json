@@ -1,6 +1,6 @@
 {
   "name": "fox1209-myauct1",
-  "version": "1.1.0",
+  "version": "1.1.6",
   "main": "index.js",
   "scripts": {
     "dev": "gulp watch | NODE_ENV=dev nodemon index.js",

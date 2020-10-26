@@ -118,6 +118,7 @@ class Store {
   }
   deltPicture(picture) {
     if (picture.canBeDeleted()) {
+      picture.user.pictures = picture.user.pictures.filter(e => e !== picture)
       this.state.pictures = this.state.pictures.filter(e => e !== picture)
       return true
     }

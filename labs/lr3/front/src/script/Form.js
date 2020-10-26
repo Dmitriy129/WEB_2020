@@ -1,5 +1,5 @@
 
-var formParser = function (form, cb) {
+window.formParser = function (form, cb) {
     // let pr1 = new Promise((resolve, reject) => {
     //     let data = {};
     //     Array.from(form).map(

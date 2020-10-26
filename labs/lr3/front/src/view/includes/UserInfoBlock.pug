@@ -11,5 +11,5 @@
     p.balance#balance Баланс: #{user.balance}
     if user.id == me.id
       p
-        input.primaryBtn#howMuchMoneyUp(type="number" step="1" )
+        input.primaryBtn#howMuchMoneyUp(type="number" step="1" min="1" value="100")
         button.successBtn(onclick=`upMoney(event,'${user.id}')`) Полполнить баланс
