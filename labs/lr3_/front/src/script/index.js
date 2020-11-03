@@ -1,0 +1,1 @@
+window.goto = (pathname) => document.location.pathname = pathname

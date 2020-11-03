@@ -1,0 +1,32 @@
+@font-face {
+  font-family: "IBM_Plex_Sans";
+  src: url("../fonts/IBMPlexSans-Light.ttf");
+}
+
+@my-grey: #c4c4c4;
+@my-blue: rgb(6, 27, 135);
+@my-green: rgb(24, 119, 0);
+@my-orange: rgb(121, 73, 0);
+@my-red: rgb(223, 107, 107);
+@my-font: IBM_Plex_Sans;
+@my-size: 8px;
+
+.pointer {
+  cursor: pointer;
+}
+
+.transition {
+  transition: 0.5s;
+}
+
+.shadow(@size: 1, @color: @my-grey) {
+  box-shadow: 0 0 (@my-size * @size) @color;
+}
+
+.card {
+  .shadow;
+  border-radius: @my-size / 2;
+  padding: @my-size;
+  margin: @my-size / 2;
+  flex-grow: 1;
+}

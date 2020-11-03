@@ -1,0 +1,11 @@
+if user
+    .card.user(id=`user_${user.id}`)
+        p.imgbox
+            img(src=`${user.img}`, alt='')
+        .info
+            h2.name #{user.name}  #{user.surname}
+            p.login #{user.login}
+            p.pictures Количество картин: #{user.pictures.length}
+        a.primaryBtn(href=`/user/${user.id}`) Профиль
+
+        

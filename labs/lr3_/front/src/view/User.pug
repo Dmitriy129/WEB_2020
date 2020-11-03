@@ -1,0 +1,18 @@
+
+extends index
+block append style
+  link(rel='stylesheet' href='/public/css/User.css')
+
+block append script
+  script(src='/public/script/Form.js')
+  script(src='/public/script/User.js' defer)
+  //- script(src='/public/script/PictureForm.js')
+block content
+  .userbox
+    .userInfo 
+      include includes/UserInfoBlock
+    -let pictures = user.pictures
+  //- if pictures.length > 0
+  .card
+    p Список картин, которыми владею
+    include includes/List

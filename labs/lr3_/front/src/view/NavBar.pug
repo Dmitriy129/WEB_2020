@@ -1,0 +1,25 @@
+
+if me
+    .top
+        .left
+            p
+                a.nav(href='/auctions') Список аукционов
+            p
+                a.nav(href='/pictures') Список картин
+            p
+                a.nav(href='/users') Список пользоватлей
+        .center
+            p 
+                a.nav(href=`/user/${me.id}`, id='navbar_fullname') #{me.name} #{me.surname}
+            p  Днег: 
+                span(id='navbar_balance') #{me.balance}
+                 | шекелей
+            p Картин:
+                span(id='navbar_picturesQ') #{me.picturesQ}
+        .right
+            a
+            a.dangerBtn(href='/logout')  Выйти
+            a
+
+
+

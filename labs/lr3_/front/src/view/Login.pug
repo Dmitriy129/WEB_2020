@@ -1,0 +1,20 @@
+
+extends index
+block append style
+    link(rel='stylesheet' href='/public/css/Login.css')
+block append script
+    script(src='/public/script/Login.js')
+block content
+    .pre
+        .box
+            span кнопка входа ниже
+            p
+                span кнопка входа правее
+                a.github(href=`https://github.com/login/oauth/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirect_uri}`)
+                    span Вход через GitHub
+                span кнопка входа левее
+            span кнопка входа выше
+            //- img.octocat(src='/public/img/Octocat.jpg')
+
+
+

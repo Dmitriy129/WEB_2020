@@ -1,0 +1,36 @@
+@import "global";
+
+.listBox {
+  padding: 8px;
+
+  .list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    // align-items: flex-start;
+    align-items: baseline;
+    flex-basis: 400px;
+    flex-wrap: wrap;
+    // height: 500px;
+    height: auto;
+    width: 100%;
+
+    .card {
+      width: fit-content;
+      max-width: 300px;
+      overflow: hidden;
+      padding-bottom: 20px;
+      .imgbox {
+        margin: 0;
+        overflow: hidden;
+
+        img {
+          // max-width: 100%;
+          max-height: 300px;
+        }
+
+        text-align: center;
+      }
+    }
+  }
+}

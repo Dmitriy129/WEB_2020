@@ -1,0 +1,28 @@
+@import "global";
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  .shadow(2, @my-orange);
+  padding: 0 @my-size * 2;
+  border-radius: 0 0 8px 8px;
+  .left {
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  .right {
+    margin: auto 0;
+  }
+}
+
+a.nav {
+  color: black;
+  .transition;
+
+  &:hover {
+    color: @my-blue;
+  }
+}

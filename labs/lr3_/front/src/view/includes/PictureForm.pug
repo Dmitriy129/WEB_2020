@@ -1,0 +1,25 @@
+
+- form || (form = {})
+
+form.pictureForm(onsubmit=`${form.action === 'edit'?'editPicture(event,"'+form.id+'")':'createPicture(event)'}`)
+    .line.center
+        p #{form.action === 'edit'?'Редактироать картину':'Создать картину'}
+    .line
+        a Название
+        input(type='text' name='name' value=`${form.name||''}`)
+    .line
+        a Автор
+        input(type='text' name='author' value=`${form.author||''}`)
+    .line
+        a Цена
+        input(type='number' name='cost'  value=`${form.cost || ''}`)
+    .line
+        a Описание
+        textarea( name='description') #{form.description}
+    .line.center
+        input( type='file' accept='image/*' id='file' onchange=`imgOnChange(this)`)
+        label(for='file')
+            img.icon(src='/public/img/image.svg' alt='')
+            img.icon.onload(src='/public/img/image.fill.svg' alt='')
+            | Загрузить обложку
+    input.successBtn(type='submit' value='Сохранить')

@@ -1,0 +1,26 @@
+//- id
+//- name
+//- author
+//- description
+//- cost
+//- img
+//- userID
+extends index
+block append style
+  link(rel='stylesheet' href='/public/css/Picture.css')
+  link(rel='stylesheet' href='/public/css/PictureForm.css')
+  link(rel='stylesheet' href='/public/css/AuctionForm.css')
+  link(rel='stylesheet' href='/public/css/ModalWindow.css')
+block append script
+  script(src='/public/script/Picture.js' defer)
+  script(src='/public/script/Form.js' defer)
+  script(src='/public/script/PictureForm.js' defer)
+  script(src='/public/script/ModalWindow.js' defer)
+  
+block content
+  .picturebox
+    .pictureInfo(id='pictureInfo')
+      include includes/PictureInfoBlock
+  - user = picture.user
+  if user
+    include includes/UserCard

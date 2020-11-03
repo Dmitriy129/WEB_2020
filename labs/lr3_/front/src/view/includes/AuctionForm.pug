@@ -1,0 +1,23 @@
+
+- form || (form = {})
+
+form.auctionForm(onsubmit=`${form.action === 'edit'?'editAuction(event,"'+form.id+'")':'createAuction(event,"'+form.id+'")'}`)
+    .line.center
+        p #{form.action === 'edit'?'Редактироать аукцион':'Создать аукцион'}
+    .line
+        a Дата начала
+        - date = new Date()
+        input(type='date' name='date' value=`${form.date||date.getFullYear().toString().padStart(4, '0')+'-'+(date.getMonth()+1).toString().padStart(2, '0')+'-'+date.getDate().toString().padStart(2, '0')}`)
+    .line
+        a Время начала
+        input(type='time' name='time' value=`${form.time||date.getHours().toString().padStart(2, '0')+':'+date.getMinutes().toString().padStart(2, '0')}`)
+    .line
+        a Начальная цена
+        input(type='number' name='costStart'  value=`${form.cost || 0}`)
+    .line
+        a Множитель шага
+        input(type='number' name='rateMultiplier' min=1.01  max=1.5 step=0.01 value=`${form.rateMultiplier || 1.01}`)
+    .line
+        a Временной интервал
+        input(type='number' name='timeInterval' min=5 step=5 value=`${form.timeInterval || 30}`)
+    input.successBtn(type='submit' value='Сохранить')
