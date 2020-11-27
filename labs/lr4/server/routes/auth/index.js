@@ -35,7 +35,7 @@ router.use((req, res, next) => {
             maxAge: 900000,
             httpOnly: true,
         });
-        if (req._parsedUrl.pathname === "/login") {
+        if (req._parsedUrl.pathname === "/auth") {
             res.redirect("/");
             return;
         }
@@ -43,10 +43,10 @@ router.use((req, res, next) => {
         res.clearCookie("userID")
         res.clearCookie("accessToken")
         if (
-            req._parsedUrl.pathname !== "/login" &&
+            req._parsedUrl.pathname !== "/gitapi" &&
             req._parsedUrl.pathname !== "/git"
         ) {
-            res.redirect("/login")
+            res.redirect("/auth")
             return;
         }
     }
@@ -55,7 +55,7 @@ router.use((req, res, next) => {
 });
 
 router.get("/git", (req, res) => {
-    // console.log("/git");
+    console.log("/git");
     const requestToken = req.query.code;
 
     axios({
@@ -64,43 +64,44 @@ router.get("/git", (req, res) => {
         headers: {
             accept: "application/json",
         },
-    }).then((response) => {
-        axios({
-            method: "get",
-            url: `https://api.github.com/user`,
-            headers: {
-                Authorization: "token " + response.data.access_token,
-            },
-        })
-            .then(
-                (response) => {
-                    let accessToken = uuidv4();
-                    let user =
-                        Store.findUser(response.data.id) ||
-                        Store.createUser({
-                            id: response.data.id,
-                            name: response.data.name,
-                            login: response.data.login,
-                            img: response.data.avatar_url,
-                        })
-
-
-
-                    user.accessToken = accessToken;
-                    res.cookie("userID", response.data.id, {
-                        maxAge: 900000,
-                        // httpOnly: true,
-                    });
-                    res.cookie("accessToken", accessToken, {
-                        maxAge: 900000,
-                        httpOnly: true,
-                    });
-                    res.redirect("/");
-                })
-            .catch((err) => {
-                res.status(403).send("Ошибка авторизации")
-            })
     })
+        .then((response) => {
+            axios({
+                method: "get",
+                url: `https://api.github.com/user`,
+                headers: {
+                    Authorization: "token " + response.data.access_token,
+                },
+            })
+                .then(
+                    (response) => {
+                        let accessToken = uuidv4();
+                        let user =
+                            Store.findUser(response.data.id) ||
+                            Store.createUser({
+                                id: response.data.id,
+                                name: response.data.name,
+                                login: response.data.login,
+                                img: response.data.avatar_url,
+                            })
+
+
+
+                        user.accessToken = accessToken;
+                        res.cookie("userID", response.data.id, {
+                            maxAge: 900000,
+                            // httpOnly: true,
+                        });
+                        res.cookie("accessToken", accessToken, {
+                            maxAge: 900000,
+                            httpOnly: true,
+                        });
+                        res.redirect("/");
+                    })
+                .catch((err) => {
+                    res.status(403).send("Ошибка авторизации")
+                })
+        })
         .catch((err) => {
             res.status(403).send("Ошибка авторизации")
         })

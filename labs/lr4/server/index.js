@@ -1,7 +1,7 @@
 var fs = require("fs");
 const https = require("https");
 const express = require("express");
-const path = require("path");
+// const path = require("path");
 const bodyParser = require("body-parser");
 
 /*  */
@@ -10,7 +10,6 @@ require('dotenv').config()
 
 // const WebSocket = require("ws");
 // const WSManager = require("./ws")
-
 const options = {
     key: fs.readFileSync(process.env.SSL_PRIVATE_KEY),
     cert: fs.readFileSync(process.env.SSL_FULLCHAIN_KEY),

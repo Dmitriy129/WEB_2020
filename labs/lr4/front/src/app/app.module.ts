@@ -30,14 +30,11 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     AuthComponent,
-    BarTopComponent
+    BarTopComponent,
   ],
   imports: [
-     RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
-    ),
-    BrowserModule
+    RouterModule.forRoot(appRoutes,{ enableTracing: true }     ),
+    BrowserModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
