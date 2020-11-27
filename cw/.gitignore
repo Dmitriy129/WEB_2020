@@ -1,0 +1,6 @@
+.vscode
+dist
+keys
+front/public
+node_modules
+.env*
