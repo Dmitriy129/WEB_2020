@@ -1,0 +1,29 @@
+@import "global";
+
+table {
+  border: 1px solid @my-orange;
+  font-family: @my-font;
+  font-size: 14px;
+  background: white;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  margin: 0 auto 20px;
+  tbody {
+    tr {
+      th {
+        font-weight: normal;
+        font-size: 14px;
+        // color: #039;
+        border-bottom: 1px dashed @my-orange;
+        padding: 12px 17px;
+      }
+      td {
+        a {
+          color: black;
+        }
+        padding: 7px 17px;
+      }
+    }
+  }
+}

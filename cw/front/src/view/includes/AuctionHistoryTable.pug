@@ -1,0 +1,11 @@
+table#auctionHistory
+    tr
+        th Пользователь
+        th Действие
+        th Время
+    each row, index in table
+        tr(id=`row_${index}`)
+            td 
+                a(href=`/user/${row.user.id}`) #{row.user.login}
+            td #{row.msg}
+            td #{row.time}

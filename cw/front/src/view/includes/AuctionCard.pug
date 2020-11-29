@@ -1,0 +1,29 @@
+//- id
+//- picture
+//- timeStart
+//- costStart
+//- rateMultiplier
+//- timeInterval
+//- costNow
+//- users
+//- reservedMoney
+//- access
+if auction
+    .card.auction(id=`auction_${auction.id}`)
+        p.imgbox
+            img(src=`/public/savedImg/${auction.picture.img}`, alt='')
+        .info
+            h2.name #{auction.picture.name} 
+            p.costStart Цена сейчас: #{auction.costNow} 
+            p.rateMultiplier Множитель ставки #{auction.rateMultiplier} 
+            p.costStart #{auction.costStart} 
+
+        if(auction.access)
+            a.successBtn(href=`/auction/${auction.id}`) Войти
+        else
+            if(auction.finished)
+                a.dangerBtn Аукцион закончился
+            else  
+                a.dangerBtn Начало в #{auction.timeStart.getDate().toString().padStart(2, '0')+'.'+(auction.timeStart.getMonth()+1).toString().padStart(2, '0')+'.'+auction.timeStart.getFullYear().toString().padStart(4, '0')+ ' ' +auction.timeStart.toLocaleTimeString()}
+        a.primaryBtn(href=`/auction/${auction.id}/history`) История
+

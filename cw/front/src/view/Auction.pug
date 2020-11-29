@@ -1,0 +1,18 @@
+extends index
+block append style
+  link(rel='stylesheet' href='/public/css/Auction.css')
+  link(rel='stylesheet' href='/public/css/AuctionForm.css')
+  link(rel='stylesheet' href='/public/css/ModalWindow.css')
+block append script
+  script(src='/public/script/Form.js')
+  script(src='/public/script/Auction.js' defer)
+  script(src='/public/script/ModalWindow.js' defer)
+block content
+  .auctionbox
+    .auctionInfo#auctionInfo
+      include includes/AuctionInfoBlock
+    .card
+      p Наблюдатели
+      - users = auction.users
+      include includes/List
+

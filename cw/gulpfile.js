@@ -29,6 +29,7 @@ const copy = (from, to) =>
 gulp.task('less', lessBuild);
 gulp.task('js', jsBuild);
 gulp.task('img', () => copy('./front/src/img/*', './front/public/img'));
+gulp.task('savedImg', () => copy('./front/src/savedImg/*', './front/public/savedImg'));
 gulp.task('fonts', () => copy('./front/src/fonts/*', './front/public/fonts'));
 
 gulp.task('watch', function () {
@@ -36,7 +37,7 @@ gulp.task('watch', function () {
     gulp.watch('front/src/less/**/*.less', gulp.series('less'));
 });
 
-gulp.task('default', gulp.series('less', 'js', 'img', 'fonts'));
+gulp.task('default', gulp.series('less', 'js', 'img', 'savedImg', 'fonts'));
 
 
 
