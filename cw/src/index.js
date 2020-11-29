@@ -1,4 +1,8 @@
-module.exports = (config = {}) =>
-    require('./env')
-        .then(() => require('./app'))
-        .then(() => (new (require('./store'))).initState(config.startData))
+module.exports = async () => {
+    await require('./app')
+    await new (require('./store'))
+}
+// module.exports = () =>
+//     require('./env')
+//         .then(() => require('./app'))
+//         .then(() => new (require('./store')))

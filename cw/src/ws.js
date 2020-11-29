@@ -33,12 +33,6 @@ class WSManager {
     addListner(cb) {
         this.onMsgArr.push(cb);
     }
-    // add(ws) {
-    //     this.clients.push(ws)
-    // }
-    // rem(ws) {
-    //     this.clients = this.clients.filter(ws_ => ws_ !== ws)
-    // }
     join(roomName, ws) {
         this.rooms[roomName] || (this.rooms[roomName] = [])
         this.rooms[roomName].indexOf(ws) === -1 && this.rooms[roomName].push(ws)
@@ -61,7 +55,6 @@ class WSManager {
         this.interval = setInterval(() => {
             this.wss.clients.forEach((ws) => {
                 if (ws.isAlive === false) return ws.terminate();
-                // ws.isAlive = false;
                 ws.ping((res) => res);
             });
         }, 30000);
@@ -72,23 +65,11 @@ class WSManager {
 
         this.wss.on('connection', (ws) => {
             ws.on('message',
-                // console.log('received: %s', res);
                 (message) => {
                     const res = JSON.parse(message)
-                    // this.onMsgArr.forEach(fun => fun(res, ws))
                     for (let fun of this.onMsgArr) fun(res, ws)
                 }
             )
-
-            // ws.on('join', function incoming(room) {
-            //     // console.log('received: %s', message);
-            // });
-            // ws.on('leave', function incoming(room) {
-            //     this.leave(room, ws)
-            //     // console.log('received: %s', message);
-            // });
-
-            // ws.send('something');
         });
 
 

@@ -1,73 +1,14 @@
 
 const wsm = (new (require("../ws"))).getInstance()
 
-// const userCounter = require("../api/Counter")("user")
-
 module.exports = class User {
     constructor({ id, login, name, img, accessToken }) {
-        // this.id = userCounter.next()
         this.id = id
         this.login = login
         this.name = name ? name.split(" ")[0] : login
         this.surname = name ? name.split(" ")[1] : login
         this.img = img
         this.accessToken = accessToken
-        this.pictures = []
-        this.balance = 1234567890
-    }
-    canPay(cost) {
-        return this.balance >= cost
-    }
-
-    changeBalance(newBalance) {
-        this.balance = newBalance
-        wsm.currWsSend({
-            action: "balanceUpdated",
-            data: { newBalance }
-        }, this.ws)
-        return true
-    }
-    picturesUpdated() {
-        wsm.currWsSend({
-            action: "picturesQUpdated",
-            data: { picturesQ: this.pictures.length }
-        }, this.ws)
-    }
-
-    reserveMoney(cost) {
-        return this.canPay(cost) && this.changeBalance(this.balance - parseFloat(cost))
-    }
-
-    takePicture(picture) {
-        picture.user = this
-        this.pictures.push(picture)
-        this.picturesUpdated()
-    }
-
-
-
-    sellPicture(picture, cost) {
-        this.changeBalance(this.balance + parseFloat(cost))
-        this.pictures = this.pictures.filter(e => e !== picture)
-        this.picturesUpdated()
-    }
-
-    tryBuy(auction) {
-        return auction.rateIncrease(this)
-    }
-
-
-    joinAuction(auction) {
-        auction.lastBetTime && wsm.currWsSend({
-            action: "runTimer",
-            data: {
-                time: auction.timeInterval - Math.floor((new Date() - auction.lastBetTime) / 1000)
-            }
-        }, this.ws)
-        return auction.userJoin(this)
-    }
-    leaveAuction(auction) {
-        return auction.userLeave(this)
     }
 
     signin(accessToken) {
@@ -87,17 +28,6 @@ module.exports = class User {
     }
 
 
-    me() {   // for NavBar
-        return {
-            id: this.id,
-            name: this.name,
-            surname: this.surname,
-            balance: this.balance,
-            picturesQ: this.pictures.length
-        }
-    }
-
-
     json() {
         return {
             id: this.id,
@@ -105,22 +35,10 @@ module.exports = class User {
             name: this.name,
             surname: this.surname,
             accessToken: this.accessToken,
-            pictures: this.pictures.map(picture => picture.json()),
-            balance: this.balance,
             img: this.img,
         }
     }
-    jsonShort() {
-        return {
-            id: this.id,
-            login: this.login,
-            name: this.name,
-            surname: this.surname,
-            pictures: new Array(this.pictures.length),
-            balance: this.balance,
-            img: this.img,
-        }
-    }
+
 
 }
 

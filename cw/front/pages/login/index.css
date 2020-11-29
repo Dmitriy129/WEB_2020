@@ -1,0 +1,58 @@
+.github,
+.octocat,
+.transition {
+  transition: 0.25s;
+}
+.github:hover,
+.github:hover .octocat {
+  transform: scale(1.1);
+}
+
+.pointer {
+  cursor: pointer;
+}
+.card {
+  box-shadow: 0 0 8px #c4c4c4;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 8px;
+  flex-grow: 1;
+}
+.pre {
+  width: 100vw;
+  height: 100vh;
+  background-image: url(/public/img/github-logo.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.github {
+  border: 1px solid #000;
+  border-radius: 8px;
+  color: #000;
+  padding: 16px;
+  margin: auto;
+  width: fit-content;
+  height: fit-content;
+  position: absolute;
+  top: 50%;
+  bottom: 50%;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  overflow: hidden;
+  text-decoration: none;
+  text-align: center;
+  display: table;
+}
+.github:hover {
+  border-radius: 16px;
+}
+.github span {
+  display: table-cell;
+  vertical-align: middle;
+  padding-right: 8px;
+}
+.octocat {
+  height: 30px;
+}
+/*# sourceMappingURL=Login.css.map */

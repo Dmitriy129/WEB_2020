@@ -83,9 +83,6 @@ router.get("/git", (req, res) => {
               login: response.data.login,
               img: response.data.avatar_url,
             })
-
-
-
           user.accessToken = accessToken;
           res.cookie("userID", response.data.id, {
             maxAge: 900000,
@@ -106,16 +103,16 @@ router.get("/git", (req, res) => {
     })
 });
 
-router.get("/login", (req, res) => {
-  res.render("Login", {
-    clientId: process.env.GIT_CLIENT_ID,
-    redirect_uri: process.env.GIT_REDIRECT_URL,
-  });
-});
-router.get("/logout", (req, res) => {
-  res.clearCookie("userID");
-  res.clearCookie("accessToken");
-  res.redirect("/login");
-});
+// router.get("/login", (req, res) => {
+//   res.render("Login", {
+//     clientId: process.env.GIT_CLIENT_ID,
+//     redirect_uri: process.env.GIT_REDIRECT_URL,
+//   });
+// });
+// router.get("/logout", (req, res) => {
+//   res.clearCookie("userID");
+//   res.clearCookie("accessToken");
+//   res.redirect("/login");
+// });
 
 module.exports = router;

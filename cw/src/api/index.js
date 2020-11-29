@@ -1,7 +1,6 @@
 var fs = require("fs");
 
 module.exports.counter = require("./Counter")
-module.exports.saveImg = require("./ImgSaver")
 
 module.exports.getCookie = function (cookie, name) {
     if (cookie) {
