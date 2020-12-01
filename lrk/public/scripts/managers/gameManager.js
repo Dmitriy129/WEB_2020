@@ -13,9 +13,24 @@ const gameManager = {
     spritesheetJson: 'sprites/sprites.json', // https://www.leshylabs.com/apps/sstool/ JSON-TP-Array
     spritesheet: 'sprites/spritesheet.png', // https://www.leshylabs.com/apps/sstool/
 
+
     play: function () {
-        gameManager.loadAll()
+        console.log("started")
         this.interval = setInterval(this.update.bind(this), 40)
+    },
+
+    pause: function () {
+        console.log("pauseded")
+        clearInterval(this.interval)
+    },
+
+
+    start: function () {
+        gameManager.loadAll()
+        // this.update()
+        // this.interval = setTimeout(() => (setInterval(this.update.bind(this), 40)), 2000)
+        // this.interval = setInterval(this.update.bind(this), 40)
+        this.play()
     },
 
     loadAll: function () {
@@ -23,7 +38,11 @@ const gameManager = {
         // gameManager.factory.Bonus = Bonus
         // gameManager.factory.Player = Player
         // gameManager.factory.Finish = Finish
-        gameManager.factory.Box = Box
+        gameManager.factory.Ghost = Ghost
+        gameManager.factory.PotionMP = PotionMP
+        gameManager.factory.PotionHP = PotionHP
+        gameManager.factory.Chest = Chest
+        gameManager.factory.Waste = Waste
         // Init
         soundManager.init()
         soundManager.loadArray(this.sounds)
@@ -37,6 +56,7 @@ const gameManager = {
     },
 
     update: function () {
+        // console.log(this.player)
         if (this.player === null) return
         // Global input
         if (eventsManager.action.esc) this.end_game()
@@ -86,7 +106,7 @@ const gameManager = {
         // updateRecords() // TODO
     },
 
-    reset_level () {
+    reset_level() {
         this.level--
         this.nextLevel()
     },

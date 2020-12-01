@@ -76,8 +76,10 @@ const mapManager = {
                             const obj = Object.create(gameManager.factory[e.type])
                             obj.gid = e.gid
                             obj.name = e.name
+                            // obj.pos_x = e.x
+                            // obj.pos_y = e.y
                             obj.pos_x = e.x
-                            obj.pos_y = e.y
+                            obj.pos_y = e.y - e.height
                             obj.size_x = e.width
                             obj.size_y = e.height
                             gameManager.entities.push(obj)
@@ -94,7 +96,7 @@ const mapManager = {
     draw: function (ctx) {
         if (!spriteManager.imgLoaded || !spriteManager.jsonLoaded) return
         ctx.rect(0, 0, this.view.w, this.view.h)
-        ctx.fillStyle = '#222222'
+        ctx.fillStyle = '#25131a'
         ctx.fill()
         if (!mapManager.jsonLoaded) {
             setTimeout(function () {
@@ -104,7 +106,9 @@ const mapManager = {
             for (let i = 0; i < this.tLayer.data.length; i++) {
                 if (this.tLayer.data[i] !== 0) {
                     const pX = (i % this.xCount) * this.tSize.x
+                    // const pY = (i / this.xCount) * this.tSize.y
                     const pY = Math.floor(i / this.xCount) * this.tSize.y
+                    debugger
                     spriteManager.drawSprite(ctx, spriteManager.getSpriteBySpriteId(this.tLayer.data[i]), pX, pY)
                 }
             }

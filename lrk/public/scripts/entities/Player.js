@@ -1,12 +1,14 @@
 const Player = Entity.extend({
     // Main
     hp: 100,
+    mp: 100,
     lifetime: 100,
     score: 0,
     // Physics
     move_x: 0,
     move_y: 1,
     speed: 4,
+    mass: 60,
     // Visual
     // dirSprite: null,
     // curFrame: 0,
@@ -28,20 +30,28 @@ const Player = Entity.extend({
     //     //     this.curFrame = 0
     //     // }
     // },
-
-    update () {
-        this.move_x /= 1.3
-        this.move_y /= 1.3
+    update() {
+        // console.log("pl upd")
+        // console.log('this.move_x', this.move_x)
+        // console.log('this.move_y', this.move_y)
+        this.move_x /= 1.5
+        this.move_y /= 1.5
         if (eventsManager.action.up) this.move_y = -1
         if (eventsManager.action.down) this.move_y = 1
         if (eventsManager.action.left) this.move_x = -1
         if (eventsManager.action.right) this.move_x = 1
         if (eventsManager.action.fire) this.fire()
         // const result = physicsManager.update(this)
+
+        if (Math.abs(this.move_x) < 0.1) this.move_x = 0
+        if (Math.abs(this.move_y) < 0.1) this.move_y = 0
+
+
+
         physicsManager.update(this)
     },
 
-    fire () {
+    fire() {
 
     }
 

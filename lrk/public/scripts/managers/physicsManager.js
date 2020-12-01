@@ -20,10 +20,20 @@ const physicsManager = {
             entity.onEntityCollision(destinationEntity)
             destinationEntity.onEntityCollision(entity)
         } else {
+            console.log('destinationSprite', destinationSprite)
             if (destinationSprite === null) {
                 // Collision with bounds
                 entity.onCollision(null)
             } else if (destinationSprite.solid) {
+                if (destinationSprite.name.toLowerCase().includes("finish")) {
+                    console.log("finish?", entity)
+                    gameManager.pause()
+                    entity.move_x *= -1
+                    entity.move_y *= -1
+                    // setTimeout(gameManager.play.bind(gameManager), 2000)
+                    return
+
+                }
                 // Collision with wall
                 entity.onCollision(spriteId)
             } else {
@@ -37,46 +47,47 @@ const physicsManager = {
         }
     },
 
-    moveBox: function (obj, player, moveX, moveY) {
-        const newX = player.pos_x + Math.floor(player.move_x * player.speed)
-        const newY = player.pos_y + Math.floor(player.move_y * player.speed)
+    // moveBox: function (obj, player, moveX, moveY) {
+    //     console.log("moveBox")
+    //     const newX = player.pos_x + Math.floor(player.move_x * player.speed)
+    //     const newY = player.pos_y + Math.floor(player.move_y * player.speed)
 
-        if (this.updateBox(obj, moveX, moveY) === 'move') {
-            player.pos_x = newX
-            player.pos_y = newY
-            gameManager.players_steps++
-        }
-    },
+    //     if (this.updateBox(obj, moveX, moveY) === 'move') {
+    //         player.pos_x = newX
+    //         player.pos_y = newY
+    //         gameManager.players_steps++
+    //     }
+    // },
 
-    updateBox: function (obj, moveX, moveY) {
-        const newX = obj.pos_x + Math.floor(moveX * obj.speed)
-        const newY = obj.pos_y + Math.floor(moveY * obj.speed)
+    // updateBox: function (obj, moveX, moveY) {
+    //     const newX = obj.pos_x + Math.floor(moveX * obj.speed)
+    //     const newY = obj.pos_y + Math.floor(moveY * obj.speed)
 
-        const ts = mapManager.getSpriteId(newX + obj.size_x / 2, newY + obj.size_y / 2)
-        const e = this.entityAtXY(obj, newX, newY)
+    //     const ts = mapManager.getSpriteId(newX + obj.size_x / 2, newY + obj.size_y / 2)
+    //     const e = this.entityAtXY(obj, newX, newY)
 
-        if (e !== null && e.name.match(/finish_[\d]/)) {
-            // объект
-            obj.onTouchEntity(e)
-        }
-        if (ts !== 2 && ts !== 7 && ts !== 31 && (e === null || e.name.match(/finish_[\d]/))) {
-            // препятсвие
-            obj.pos_x = newX
-            obj.pos_y = newY
-            obj.moved++
-            console.log(obj.moved)
-            if (e !== null && e.name.match(/finish_[\d]/) && obj.color === e.color) {
-                obj.status = true
-            } else {
-                obj.status = false
-            }
-        } else {
-            return 'break'
-        }
-        audioManager.playEvent(audioManager.stepsSoung)
-        audioManager.playEvent(audioManager.boxSoung)
-        return 'move'
-    },
+    //     if (e !== null && e.name.match(/finish_[\d]/)) {
+    //         // объект
+    //         obj.onTouchEntity(e)
+    //     }
+    //     if (ts !== 2 && ts !== 7 && ts !== 31 && (e === null || e.name.match(/finish_[\d]/))) {
+    //         // препятсвие
+    //         obj.pos_x = newX
+    //         obj.pos_y = newY
+    //         obj.moved++
+    //         console.log(obj.moved)
+    //         if (e !== null && e.name.match(/finish_[\d]/) && obj.color === e.color) {
+    //             obj.status = true
+    //         } else {
+    //             obj.status = false
+    //         }
+    //     } else {
+    //         return 'break'
+    //     }
+    //     audioManager.playEvent(audioManager.stepsSoung)
+    //     audioManager.playEvent(audioManager.boxSoung)
+    //     return 'move'
+    // },
 
     entityAtXY: function (self, x, y) {
         for (let i = 0; i < gameManager.entities.length; i++) {

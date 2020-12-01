@@ -1,1 +1,1 @@
-gameManager.play()
+gameManager.start()

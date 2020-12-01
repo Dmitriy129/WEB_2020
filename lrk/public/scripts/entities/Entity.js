@@ -5,6 +5,7 @@ const Entity = {
     size_x: 0,
     size_y: 0,
     mass: 10,
+    speed: 0,
 
     extend: function (extendProto) {
         const object = Object.create(this)
@@ -21,19 +22,19 @@ const Entity = {
         spriteManager.drawSprite(ctx, spriteManager.getSpriteBySpriteId(this.gid), this.pos_x, this.pos_y)
     },
 
-    update () {
+    update() {
 
     },
 
-    onCollision (tileIndex) {
+    onCollision(tileIndex) {
 
     },
 
-    onEntityCollision (other) {
+    onEntityCollision(other) {
 
     },
 
-    onMoved (oldX, oldY) { // ?
+    onMoved(oldX, oldY) { // ?
 
     }
 }
