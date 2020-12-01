@@ -6,16 +6,21 @@ const mapManager = {
     imgLoadCount: 0, // количество загруженных изображений
     imgLoaded: false, // изображения не загружены
     jsonLoaded: false, // json не загружен
-    tSize: { x: 50, y: 50 }, // Размер тайла
-    mapSize: { x: 20000, y: 750 }, // Размер карты
+    tSize: { x: 32, y: 32 }, // Размер тайла
+    mapSize: { x: 3200, y: 3200 }, // Размер карты
     tilesets: [], // Наборы тайлов
     view: { x: 0, y: 0, w: 1365, h: 750 }, // Видимая часть
 
-    loadMap: (path) => {
-        $http.get(path)
-            .then(res => mapManager.parseMap(res))
+    loadMap: function (path) {
+        const request = new XMLHttpRequest()
+        request.onreadystatechange = function () {
+            if (request.readyState === 4 && request.status === 200) {
+                mapManager.parseMap(request.responseText)
+            }
+        }
+        request.open('GET', path, true)
+        request.send()
     },
-
     parseMap: function (tilesJSON) {
         this.mapData = JSON.parse(tilesJSON)
         this.xCount = this.mapData.width
@@ -94,7 +99,7 @@ const mapManager = {
             }
         }
     },
-    getTile(tileIndex) {
+    getTile (tileIndex) {
         const tile = {
             img: null,
             px: 0,
@@ -110,7 +115,7 @@ const mapManager = {
         return tile
     },
 
-    getTileset(tileIndex) {
+    getTileset (tileIndex) {
         for (let i = mapManager.tilesets.length - 1; i >= 0; i--) {
             if (mapManager.tilesets[i].firstgid <= tileIndex) {
                 return mapManager.tilesets[i]
@@ -175,7 +180,7 @@ const mapManager = {
                                 if (e.type === 'Box') gameManager.count_target++
                                 obj.color = e.properties[0].value
                                 console.log(obj)
-                                // console.log(e.properties[0].value)
+                            // console.log(e.properties[0].value)
                             }
                             gameManager.entities.push(obj)
                             if (obj.name === 'player') { gameManager.initPlayer(obj) }
@@ -187,7 +192,7 @@ const mapManager = {
             }
         }
     },
-    reset() {
+    reset () {
         this.mapData = null
         this.tLayer = null
         this.xCount = 0
