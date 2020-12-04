@@ -1,12 +1,12 @@
 import { Component, OnInit, EventEmitter, Output } from "@angular/core";
-import { Partner } from "../../classes/Partner";
+import { Broker } from "../../classes/Broker";
 
 @Component({
-  selector: "app-partner-form",
-  templateUrl: "./partner-form.component.html",
-  styleUrls: ["./partner-form.component.css"],
+  selector: "app-broker-form",
+  templateUrl: "./broker-form.component.html",
+  styleUrls: ["./broker-form.component.css"],
 })
-export class PartnerFormComponent implements OnInit {
+export class BrokerFormComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
@@ -17,7 +17,7 @@ export class PartnerFormComponent implements OnInit {
   isBadName: boolean = false;
   isBadMoney: boolean = false;
 
-  @Output() partner = new EventEmitter<Partner>();
+  @Output() broker = new EventEmitter<Broker>();
   @Output() closeModal = new EventEmitter();
 
   add(name: string, money: number): void {
@@ -45,6 +45,6 @@ export class PartnerFormComponent implements OnInit {
       return;
     }
 
-    this.partner.emit(new Partner(name, money));
+    this.broker.emit(new Broker(name, money));
   }
 }

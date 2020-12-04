@@ -1,18 +1,1 @@
-{
-  "partners": [
-    { "name": "fdxghj", "money": 653 },
-    { "name": "sedrtfy", "money": 845 },
-    { "name": "g", "money": 5 },
-    { "name": "ggh", "money": 55 }
-  ],
-  "papers": [
-    {
-      "name": "gbhjk",
-      "rule": "нормальное распределение",
-      "max": 542,
-      "count": 5445,
-      "startPrice": 545
-    }
-  ],
-  "settings": { "start": "08:13", "end": "07:53", "interval": "07:59" }
-}
+{"brokers":[{"name":"fgdhjh","money":63.2}],"papers":[{"name":"sdgfhg","rule":"равномерное распределение","max":653,"count":63666,"startPrice":6536}],"settings":{"start":"07:59","end":"09:59","interval":"03:59"}}
