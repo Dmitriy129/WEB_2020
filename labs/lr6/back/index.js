@@ -1,7 +1,7 @@
 var fs = require("fs");
 const https = require("https");
 const express = require("express");
-// const path = require("path");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 
 /*  */
@@ -17,8 +17,17 @@ const options = {
 
 const app = express();
 const apps = https.createServer(options, app)
+
+var corsOptions = {
+    credentials: true,
+    origin: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Authorization,X-Requested-With,X-HTTP-Method-Override,Content-Type,Cache-Control,Accept'
+};
+
+app.use(cors(corsOptions));
 // const wss = new WebSocket.Server({ server: apps });
- 
+
 // const wsm = new WSManager(wss)
 
 

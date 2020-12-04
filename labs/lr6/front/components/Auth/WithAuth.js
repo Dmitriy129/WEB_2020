@@ -15,23 +15,24 @@ const WithAuth = (props) => {
     const router = useRouter()
 
     useEffect(() => {
-        checkAuth()
-            .catch(() => router.asPath !== '/auth' && router.push('/auth'))
-            .then(() => setChecking(false))
-    })
+        console.log('router-withAuth', router)
+
+        debugger
+        if (router.pathname !== '/auth')
+            checkAuth()
+                .catch(() => router.push('/auth'))
+                .then(() => setChecking(false))
+        else setChecking(false)
+    }, [])
 
     return (
         <>
-
             {
                 checking
                     ? "проверка авторизации"
-                    :
-                    (
-                        (router.asPath === '/auth' || isAuthorized)
-                            ? children
-                            : "не авторизован"
-                    )
+                    : (router.asPath === '/auth' || isAuthorized)
+                        ? children
+                        : "не авторизован"
             }
         </>
     )
