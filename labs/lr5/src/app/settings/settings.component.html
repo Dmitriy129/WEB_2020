@@ -1,0 +1,30 @@
+<div style="width: 600px">
+  <h4>Конфигурация</h4>
+  <div class="formGroup">
+    <label for="startTime">Начало в:</label>
+    <input
+      type="time"
+      id="startTime"
+      class="formInput"
+      [(ngModel)]="result.start"
+    />
+  </div>
+  <div class="formGroup">
+    <label for="endTime">Окончание в:</label>
+    <input
+      type="time"
+      id="endTime"
+      class="formInput"
+      [(ngModel)]="result.end"
+    />
+  </div>
+  <div class="formGroup">
+    <label for="intervalTime">Интервал подсчёта:</label>
+    <input
+      type="time"
+      id="intervalTime"
+      class="formInput"
+      [(ngModel)]="result.interval"
+    />
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div
+  class="d-flex flex-column justify-content-center align-items-center vh-100"
+>
+  <h2>Настройка биржи акций</h2>
+  <div>
+    <app-settings></app-settings>
+  </div>
+  <div>
+    <app-partners></app-partners>
+  </div>
+  <div>
+    <app-paper></app-paper>
+  </div>
+  <div>
+    <hr />
+    <br />
+  </div>
+  <div>
+    <button (click)="submitAll()">Создать</button>
+  </div>
+  <app-info *ngIf="infoModalOpened" (back)="infoModalOpened = false">{{
+    messageInfo
+  }}</app-info>
+</div>

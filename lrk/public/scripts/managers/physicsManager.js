@@ -19,21 +19,22 @@ const physicsManager = {
             // Collision with entity
             entity.onEntityCollision(destinationEntity)
             destinationEntity.onEntityCollision(entity)
+            console.log('destinationSprite', destinationSprite, destinationEntity)
         } else {
-            console.log('destinationSprite', destinationSprite)
             if (destinationSprite === null) {
                 // Collision with bounds
                 entity.onCollision(null)
             } else if (destinationSprite.solid) {
-                if (destinationSprite.name.toLowerCase().includes("finish")) {
-                    console.log("finish?", entity)
-                    gameManager.pause()
-                    entity.move_x *= -1
-                    entity.move_y *= -1
-                    // setTimeout(gameManager.play.bind(gameManager), 2000)
-                    return
+                // if (destinationSprite.name.toLowerCase().includes("finish")) {
+                //     console.log("finish?", entity)
+                //     // gameManager.pause()
+                //     window.location.reload()
+                //     entity.move_x *= -1
+                //     entity.move_y *= -1
+                //     // setTimeout(gameManager.play.bind(gameManager), 2000)
+                //     return
 
-                }
+                // }
                 // Collision with wall
                 entity.onCollision(spriteId)
             } else {

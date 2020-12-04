@@ -78,8 +78,8 @@ const mapManager = {
                             obj.name = e.name
                             // obj.pos_x = e.x
                             // obj.pos_y = e.y
-                            obj.pos_x = e.x
-                            obj.pos_y = e.y - e.height
+                            obj.pos_x = Math.floor(e.x)
+                            obj.pos_y = Math.floor(e.y - e.height)
                             obj.size_x = e.width
                             obj.size_y = e.height
                             gameManager.entities.push(obj)
@@ -96,7 +96,7 @@ const mapManager = {
     draw: function (ctx) {
         if (!spriteManager.imgLoaded || !spriteManager.jsonLoaded) return
         ctx.rect(0, 0, this.view.w, this.view.h)
-        ctx.fillStyle = '#25131a'
+        ctx.fillStyle = '#200b13'
         ctx.fill()
         if (!mapManager.jsonLoaded) {
             setTimeout(function () {

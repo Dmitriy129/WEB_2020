@@ -12,7 +12,7 @@ const gameManager = {
     sounds: ['sounds/background.mp3', 'sounds/jump.wav'],
     spritesheetJson: 'sprites/sprites.json', // https://www.leshylabs.com/apps/sstool/ JSON-TP-Array
     spritesheet: 'sprites/spritesheet.png', // https://www.leshylabs.com/apps/sstool/
-
+    keyFounded: false,
 
     play: function () {
         console.log("started")
@@ -56,6 +56,7 @@ const gameManager = {
     },
 
     update: function () {
+        // console.log("upded")
         // console.log(this.player)
         if (this.player === null) return
         // Global input

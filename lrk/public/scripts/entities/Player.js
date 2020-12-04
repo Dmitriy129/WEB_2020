@@ -8,7 +8,7 @@ const Player = Entity.extend({
     move_x: 0,
     move_y: 1,
     speed: 4,
-    mass: 60,
+    
     // Visual
     // dirSprite: null,
     // curFrame: 0,

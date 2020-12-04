@@ -1,0 +1,21 @@
+<div class="mymodal">
+  <div class="" role="document">
+    <div class="">
+      <div class="">
+        <h5 class="">Сообщение</h5>
+      </div>
+      <div class="">
+        <p>
+          <ng-content></ng-content>
+        </p>
+      </div>
+      <div class="">
+        <button class="" (click)="this.back.emit()" data-dismiss="modal">
+          Понял, принял
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modalBlur" (click)="this.back.emit()"></div>

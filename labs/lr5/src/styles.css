@@ -1,0 +1,116 @@
+/* @import url("./app/styles/bootstrap.min.css"); */
+
+* {
+  font-family: "Monda", sans-serif;
+}
+.badValue {
+  border: 2px solid red;
+  color: red;
+}
+
+.badValue::-webkit-input-placeholder {
+  color: red;
+}
+
+.badValue::-moz-placeholder {
+  color: red;
+}
+
+.mymodal {
+  position: fixed;
+  text-align: center;
+  width: 450px;
+  z-index: 999;
+  left: calc(50% - 225px);
+  top: 0;
+  margin-top: 50px;
+  transition: 0.5s all;
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.modalBlur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 998;
+  transition: 0.5s all;
+}
+button,
+.btnPrim {
+  cursor: pointer;
+  background-color: #17a2b8;
+  border-radius: 4px;
+  color: #fff;
+  border: 2px solid #17a2b8;
+  padding: 8px;
+  transition: 0.25s;
+}
+
+button:hover,
+.btnPrim:hover {
+  background-color: #fff;
+  color: #17a2b8;
+}
+
+.formGroup {
+}
+
+.btnGroup {
+  display: flex;
+  justify-content: space-around;
+}
+
+.formGroup > label {
+  width: 250px;
+}
+.formGroup > input,
+.formGroup > select {
+  width: 250px;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid #000;
+  /* border-bottom: 2px solid #17a2b8; */
+  padding-left: 8px;
+  transition: 0.25s;
+  margin: 16px 0;
+}
+.formGroup > input:focus,
+.formGroup > select:focus {
+  /* border-bottom: 2px solid #000; */
+  border-bottom: 2px solid #17a2b8;
+}
+
+.paperBox {
+  display: flex;
+  direction: ltr;
+  flex-wrap: wrap;
+}
+
+.paper {
+  margin: 4px;
+  width: fit-content;
+  background-color: #fff;
+  box-shadow: -7px 4px 8px -2px #c4c4c4;
+  padding: 16px;
+  border-radius: 16px;
+}
+.paper > * {
+  margin: 16px 0;
+}
+.paper > * > .key {
+  width: 150px;
+  padding-right: 8px;
+}
+.paper > * > .value {
+  width: 100%;
+}
+
+hr {
+  float: left;
+  width: 100px;
+}

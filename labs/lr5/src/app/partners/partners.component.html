@@ -1,0 +1,53 @@
+<h3>Список брокеров</h3>
+<div class="paperBox" *ngIf="partners.length > 0">
+  <div class="paper" *ngFor="let element of partners">
+    <p>
+      <span for="" class="key">Имя</span>
+      <span class="value">{{ element.name }}</span>
+    </p>
+    <p>
+      <span for="" class="key">Баланс</span>
+      <span class="value">{{ element.money }}</span>
+    </p>
+
+    <td>
+      <button
+        (click)="changePartner($event.target)"
+        title="Редактировать брокера"
+      >
+        Ред.
+      </button>
+      <button (click)="deletePartner($event.target)" title="Удалить брокера">
+        Удал.
+      </button>
+    </td>
+  </div>
+</div>
+
+<div
+  *ngIf="partners.length === 0"
+  class="d-flex justify-content-center py-3 border-top border-bottom mb-2"
+>
+  Нет брокеров
+</div>
+
+<button (click)="add()">Добавить брокера</button>
+
+<app-partner-form
+  *ngIf="addModalOpened"
+  (partner)="newPartnerEvent($event)"
+  (closeModal)="addModalOpened = false"
+>
+</app-partner-form>
+
+<app-partner-form-change
+  *ngIf="changeModalOpened"
+  (partner)="changePartnerEvent($event)"
+  (closeModal)="changeModalOpened = false"
+  [name]="changeValue.name"
+  [money]="changeValue.money"
+></app-partner-form-change>
+
+<app-info *ngIf="infoModalOpened" (back)="infoModalOpened = false"
+  >Участник с таким именем уже есть!</app-info
+>

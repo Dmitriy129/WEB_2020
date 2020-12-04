@@ -1,0 +1,68 @@
+<h3>Список акций</h3>
+<div class="paperBox" *ngIf="papers.length > 0">
+  <div class="paper" *ngFor="let element of papers">
+    <p>
+      <span class="key">Фирма:</span>
+      <span class="value">{{ element.name }}</span>
+    </p>
+    <p>
+      <span class="key">Правило изменения:</span>
+      <span class="value">{{ element.rule }}</span>
+    </p>
+    <p>
+      <span class="key">Максимальное значение для изменения:</span>
+      <span class="value">{{ element.max }}</span>
+    </p>
+    <p>
+      <span class="key">Количество:</span>
+      <span class="value">{{ element.count }}</span>
+    </p>
+    <p>
+      <span class="key">Начальная стоимость одной акции:</span>
+      <span class="value">{{ element.startPrice }}</span>
+    </p>
+    <td>
+      <button
+        (click)="changePaper($event.target)"
+        title="Редактировать акцию"
+        class="btn btn-sm btn-primary mr-2"
+      >
+        Ред.
+      </button>
+      <button
+        (click)="deletePaper($event.target)"
+        title="Удалить акцию"
+        class="btn btn-sm btn-primary"
+      >
+        Удал.
+      </button>
+    </td>
+  </div>
+</div>
+
+<div *ngIf="papers.length === 0">Нет акций</div>
+
+<button (click)="add()">Добавить акцию</button>
+
+<app-paper-form
+  *ngIf="addModalOpened"
+  (paper)="newPaperEvent($event)"
+  (closeModal)="this.addModalOpened = false"
+>
+</app-paper-form>
+
+<app-paper-form-change
+  *ngIf="changeModalOpened"
+  (closeModal)="changeModalOpened = false"
+  (paper)="changePaperEvent($event)"
+  [name]="changeValue.name"
+  [rule]="changeValue.rule"
+  [max]="changeValue.max"
+  [count]="changeValue.count"
+  [startPrice]="changeValue.startPrice"
+>
+</app-paper-form-change>
+
+<app-info *ngIf="infoModalOpened" (back)="infoModalOpened = false"
+  >Акция с таким именем уже есть!</app-info
+>
