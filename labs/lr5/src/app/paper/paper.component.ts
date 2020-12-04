@@ -41,7 +41,8 @@ export class PaperComponent implements OnInit {
   }
 
   deletePaper(event): void {
-    const deleteValue = event.closest("div").firstChild.lastElementChild.innerHTML;
+    const deleteValue = event.closest("div").firstChild.lastElementChild
+      .innerHTML;
 
     this.paperService.deleteData(deleteValue);
   }

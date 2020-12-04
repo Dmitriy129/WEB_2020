@@ -12,7 +12,6 @@ export class SettingsComponent implements OnInit {
     interval: "",
   };
 
-  
   constructor() {}
 
   ngOnInit(): void {}

@@ -1,16 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { PaperComponent } from './paper.component';
+import { PaperComponent } from "./paper.component";
 
-describe('PaperComponent', () => {
+describe("PaperComponent", () => {
   let component: PaperComponent;
   let fixture: ComponentFixture<PaperComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PaperComponent ]
-    })
-    .compileComponents();
+      declarations: [PaperComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('PaperComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
