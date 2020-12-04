@@ -1,0 +1,18 @@
+{
+  "name": "lr6",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "(cd ./front && npm start) | (cd ./back && npm start)",
+    "start:front": "cd ./front && npm start",
+    "start:back": " cd ./back && npm start",
+    "dev": " (cd ./back && npm run dev) | (cd ./front && npm run dev)",
+    "dev:front": "cd ./front && npm run  dev",
+    "dev:back": "cd ./back && npm run dev",
+    "build": "cd ./front && npm run build",
+    "i:all": "(cd ./front && npm i) | (cd ./back && npm i)"
+  },
+  "author": "",
+  "license": "ISC"
+}
