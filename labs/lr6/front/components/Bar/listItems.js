@@ -27,14 +27,14 @@ export const mainListItems = (
                 <ListItemText primary="Главная" />
             </ListItem>
         </Link>
-        <Link href="/tours" >
+        {/* <Link href="/tours" >
             <ListItem button>
                 <ListItemIcon>
                     <DirectionsWalkIcon />
                 </ListItemIcon>
                 <ListItemText primary="Туры" />
             </ListItem>
-        </Link>
+        </Link> */}
         <Link href="/users" >
             <ListItem button>
                 <ListItemIcon>
@@ -48,7 +48,7 @@ export const mainListItems = (
 
 export const secondaryListItems = (
     <div>
-        <ListSubheader inset>Тест таблиц</ListSubheader>
+        {/* <ListSubheader inset>Тест таблиц</ListSubheader>
         <Link href="/tce" >
             <ListItem button>
                 <ListItemIcon>
@@ -80,6 +80,6 @@ export const secondaryListItems = (
                 </ListItemIcon>
                 <ListItemText primary="UserTourLocality" />
             </ListItem>
-        </Link>
+        </Link> */}
     </div>
 );

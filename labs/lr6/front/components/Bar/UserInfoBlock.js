@@ -16,7 +16,7 @@ const UserInfoBlock = (props) => {
             balance
         },
         signOut
-    } = props.user
+    } = props.me
 
     const handleSignOut = async () => {
         await router.push('/auth')
@@ -62,4 +62,4 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default inject('user')(observer(UserInfoBlock))
+export default inject('me')(observer(UserInfoBlock))

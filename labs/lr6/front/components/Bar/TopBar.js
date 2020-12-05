@@ -33,11 +33,9 @@ export default function TopBar(props) {
                     <MenuIcon />
                 </IconButton>
                 <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-
                     {title}
                 </Typography>
                 <UserInfoBlock />
-
             </Toolbar>
         </AppBar >
     )
@@ -62,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
+        // marginBottom: theme.spacing(6),
     },
     appBarShift: {
         marginLeft: drawerWidth,

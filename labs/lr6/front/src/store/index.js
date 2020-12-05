@@ -1,11 +1,13 @@
 import React from "react";
-import User from './User'
+import Me from './Me'
+import Users from './Users'
 // import tables from './tables'
 // import currentEntity from './currentEntity'
 
 
 const mainStore = {
-    user: new User(),
+    me: new Me(),
+    users: new Users(),
     // ...tables,
     // ...currentEntity
 }

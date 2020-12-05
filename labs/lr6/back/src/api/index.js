@@ -2,6 +2,7 @@ var fs = require("fs");
 
 module.exports.counter = require("./Counter")
 module.exports.saveImg = require("./ImgSaver")
+module.exports.hmsToMsec = require("./hmsToMsec")
 
 module.exports.getCookie = function (cookie, name) {
     if (cookie) {

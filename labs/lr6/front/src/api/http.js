@@ -22,7 +22,7 @@ axios.interceptors.response.use(
 export const http = (() => {
     function withDefaultHeaders(config, token) {
         return {
-            "baseURL": "http://localhost:3001/",
+            "baseURL": "http://localhost:3001/api",
             ...config,
             headers: {
                 ...config?.headers || {},
@@ -51,6 +51,12 @@ export const http = (() => {
             const { id, accessToken } = user
             const token = id + "#" + accessToken
             return axios.post(url, data, withDefaultHeaders(config, token))
+        },
+        delete(url, data, config) {
+            const user = _localStorage.get('user')
+            const { id, accessToken } = user
+            const token = id + "#" + accessToken
+            return axios.delete(url, data, withDefaultHeaders(config, token))
         },
     }
 })()

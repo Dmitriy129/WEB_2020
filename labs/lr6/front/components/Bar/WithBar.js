@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
         height: '100vh',
         overflow: 'auto',
         scrollBehavior: "smooth",
+        marginTop: theme.spacing(6),
     },
 
 }));

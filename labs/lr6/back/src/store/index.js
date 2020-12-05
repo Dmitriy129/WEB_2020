@@ -1,12 +1,14 @@
 // const defaultState = require(`../../${process.env.DATA_INIT_FILE}`);
 // const wsm = (new (require("../ws"))).getInstance()
 const User = require('./User')
+const Paper = require('./Paper')
 
 
 class Store {
     constructor() {
         this.state = {
             users: [],
+            papers: [],
 
         }
         this.createUser = this.createUser.bind(this)
@@ -24,6 +26,15 @@ class Store {
         // })
         return user
     }
+    createPaper(data) {
+        let paper = new Paper(data)
+        this.state.papers.push(paper)
+        // user && wsm.roomSend('/users/', {
+        //     action: "newCard",
+        //     data: { newCard: UserCard({ user: user.json() }) }
+        // })
+        return paper
+    }
 
     // userConnectWs(userID, ws) {
     //     let user = this.state.users.find(user => user.id == userID)
@@ -37,6 +48,9 @@ class Store {
     findUser(userID) {
         return this.state.users.find(user => user.id == userID)
     }
+    findPaper(paperID) {
+        return this.state.papers.find(paper => paper.id == paperID)
+    }
 
     userCheckAccess(userID, accessToken) {
         let user = this.state.users.find(user => user.id == userID)
@@ -46,11 +60,14 @@ class Store {
     getUsers() {
         return this.state.users.map(user => user.json())
     }
+    getPapers() {
+        return this.state.papers.map(paper => paper.json())
+    }
     json() {
         return {
             users: this.getUsers(),
-            pictures: this.getPictures(),
-            auctions: this.getAuctions()
+            papers: this.getPapers(),
+
         }
     }
 }
@@ -63,6 +80,7 @@ class SingletonStore {
         this.startState = startState || defaultState
         if (this.startState) {
             this.startState.users && this.startState.users.forEach(SingletonStore.instance.createUser)
+            this.startState.paper && this.startState.paper.forEach(SingletonStore.instance.createPaper)
         }
     }
 

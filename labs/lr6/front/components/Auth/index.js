@@ -62,7 +62,7 @@ const useStyles = makeStyles(theme => ({
 
 
 const AuthManager = (props) => {
-    const { signIn } = props.user
+    const { signIn } = props.me
     const classes = useStyles()
     const router = useRouter()
     const [tryingSignIn, setTryingSignIn] = useState(true)
@@ -104,5 +104,5 @@ const AuthManager = (props) => {
     )
 }
 
-export default inject('user')(observer(AuthManager))
+export default inject('me')(observer(AuthManager))
 

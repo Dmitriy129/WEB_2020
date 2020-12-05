@@ -1,14 +1,16 @@
 import { observable, action, toJS } from 'mobx';
 import http from '../api/http'
+import ws from '../api/ws'
 import { _localStorage } from '../api/localStorage'
 // import { Auth } from "aws-amplify";
 // import { signIn, signOut } from '../api/auth'
 
-export default class User {
+export default class Me {
 
     constructor() {
         this.user = observable({})
         this.isAuthorized = observable.box(false)
+        ws.on("changeBalance", data => console.log('balance', data))
     }
 
     setUser = action((newUser) => {
@@ -20,7 +22,7 @@ export default class User {
     checkAuth = action(() => {
         debugger
 
-        return http.get(`/api/access`)
+        return http.get(`/access`)
             .then(user => {
                 debugger
                 console.log('user', user)
@@ -36,7 +38,7 @@ export default class User {
 
     signIn = action(async (code) => {
         debugger
-        return http.get(`/api/git?code=${code}`)
+        return http.get(`/git?code=${code}`)
             .then(user => {
                 debugger
                 console.log('user', user)

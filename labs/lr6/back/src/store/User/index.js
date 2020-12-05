@@ -4,7 +4,7 @@
 // const userCounter = require("../api/Counter")("user")
 
 module.exports = class User {
-    constructor({ id, login, name, img, accessToken }) {
+    constructor({ id, login, name, img, accessToken, balance }) {
         // this.id = userCounter.next()
         this.id = id
         this.login = login
@@ -13,30 +13,45 @@ module.exports = class User {
         this.img = img
         this.accessToken = accessToken
         // this.pictures = []
-        this.balance = 1234567890
+        this.balance = balance || 1234567890
+        this.papers = {}
     }
+
     canPay(cost) {
         return this.balance >= cost
     }
 
+    buyPaper(paper, count) {
+        const finalPrice = paper.price * count
+        const nowCout = this.papers[paper.name]
+        const newCout = nowCout ? nowCout + count : count
+        if (paper.availableQuantity() >= count && this.canPay(finalPrice)) {
+            this.changeBalance(this.balance + finalPrice)
+            this.papers[paper.id] = newCout
+            paper.owners[this.id] = newCout
+        }
+    }
+    sellPaper(paper, count) {
+        const finalPrice = paper.price * count
+        const nowCout = this.papers[paper.name]
+        const newCout = nowCout - count
+        if (nowCout && nowCout >= count) {
+            this.changeBalance(this.balance - finalPrice)
+            this.papers[paper.id] = newCout
+            paper.owners[this.id] = newCout
+        }
+    }
+
     changeBalance(newBalance) {
         this.balance = newBalance
-        wsm.currWsSend({
-            action: "balanceUpdated",
-            data: { newBalance }
-        }, this.ws)
+        console.log("balance changed", this.login, this.balance)
+        // wsm.currWsSend({
+        //     action: "balanceUpdated",
+        //     data: { newBalance }
+        // }, this.ws)
         return true
     }
-    // picturesUpdated() {
-    //     wsm.currWsSend({
-    //         action: "picturesQUpdated",
-    //         data: { picturesQ: this.pictures.length }
-    //     }, this.ws)
-    // }
 
-    reserveMoney(cost) {
-        return this.canPay(cost) && this.changeBalance(this.balance - parseFloat(cost))
-    }
 
     signin(accessToken) {
         this.accessToken = accessToken
@@ -49,10 +64,6 @@ module.exports = class User {
     checkAccess(accessToken) {
         return this.accessToken === accessToken
     }
-
-    // connectWs(ws) {
-    //     this.ws = ws
-    // }
 
 
     me() {   // for NavBar
@@ -73,22 +84,12 @@ module.exports = class User {
             name: this.name,
             surname: this.surname,
             accessToken: this.accessToken,
-            // pictures: this.pictures.map(picture => picture.json()),
             balance: this.balance,
             img: this.img,
+            papers: this.papers,
         }
     }
-    jsonShort() {
-        return {
-            id: this.id,
-            login: this.login,
-            name: this.name,
-            surname: this.surname,
-            // pictures: new Array(this.pictures.length),
-            balance: this.balance,
-            img: this.img,
-        }
-    }
+
 
 }
 

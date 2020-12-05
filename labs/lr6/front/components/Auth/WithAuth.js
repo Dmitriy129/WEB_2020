@@ -5,7 +5,7 @@ import { observer, inject } from 'mobx-react';
 const WithAuth = (props) => {
     const {
         children,
-        user: {
+        me: {
             checkAuth,
             isAuthorized
         }
@@ -38,4 +38,4 @@ const WithAuth = (props) => {
     )
 }
 
-export default inject('user')(observer(WithAuth))
+export default inject('me')(observer(WithAuth))

@@ -1,1 +1,13 @@
-{"brokers":[{"name":"fgdhjh","money":63.2}],"papers":[{"name":"sdgfhg","rule":"равномерное распределение","max":653,"count":63666,"startPrice":6536}],"settings":{"start":"07:59","end":"09:59","interval":"03:59"}}
+{
+  "brokers": [{ "name": "fgdhjh", "money": 63.2 }],
+  "papers": [
+    {
+      "name": "sdgfhg",
+      "rule": "равномерное распределение",
+      "max": 653,
+      "count": 63666,
+      "startPrice": 6536
+    }
+  ],
+  "settings": { "start": "07:59", "end": "09:59", "interval": "03:59" }
+}
