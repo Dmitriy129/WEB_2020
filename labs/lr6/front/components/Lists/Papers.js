@@ -3,6 +3,7 @@ import { Grid, LinearProgress } from '@material-ui/core'
 import { observer, inject } from 'mobx-react';
 import PaperCard from '../Cards/PaperCard';
 import ModalQuestion from './ModalQuestion'
+import OwnersOfPaper from '../CurrentList/OwnersOfPaper'
 import EmiterContext from '../Emiter/EmiterContext'
 import ws from '../../src/api/ws'
 const Papers = (props) => {
@@ -16,8 +17,9 @@ const Papers = (props) => {
         tryAdd
     } = props.papers
 
-    const [modal, setModal] = useState({ open: false, id: "", var: 1 })
-    const { error: showError } = useContext(EmiterContext)
+    const [modalQ, setModalQ] = useState({ open: false, id: "", var: 1 })
+    const [modalUsers, setModalUsers] = useState({ open: false, id: 0, })
+    const { error: showError, warn: showWarning } = useContext(EmiterContext)
     useEffect(() => {
         loadList()
 
@@ -29,29 +31,41 @@ const Papers = (props) => {
 
     const openModalForCard = (id, v) => {
         debugger
-        setModal({ open: true, id, var: v })
+        setModalQ({ open: true, id, var: v })
     }
 
     const handleAgree = (count, v) => {
         if (v === 1)
-            tryBuy({ id: modal.id, count })
+            tryBuy({ id: modalQ.id, count })
                 .catch(error => showError("Не получилось купить", error))
         else if (v === 2)
-            trySell({ id: modal.id, count })
+            trySell({ id: modalQ.id, count })
                 .catch(error => showError("Не получилось продать", error))
         else if (v === 3)
-            tryAdd({ id: modal.id, count })
+            tryAdd({ id: modalQ.id, count })
                 .catch(error => showError("Не получилось добавить", error))
     }
     // const handleAgree2 = (count) => {
-    //     trySell({ id: modal.id, count })
+    //     trySell({ id: modalQ.id, count })
     //         .catch(error => showError("Не получилось продать", error))
-    //     // ws.emit("tryBuyPapers", { id: modal.id, count })
+    //     // ws.emit("tryBuyPapers", { id: modalQ.id, count })
     // }
 
-    const list = elems.map(elem =>
+    const handleOpen = (idx) => {
+        if (elems[idx]?.owners?.length > 0)
+            setModalUsers({ open: true, id: idx })
+        else showWarning("Эти акции еще никто не купил")
+    }
+
+    const list = elems.map((elem, idx) =>
         <Grid item key={elem.id} >
-            <PaperCard data={elem} handleBuy={() => openModalForCard(elem.id, 1)} handleSell={() => openModalForCard(elem.id, 2)} handleAdd={() => openModalForCard(elem.id, 3)} />
+            <PaperCard
+                data={elem}
+                handleBuy={() => openModalForCard(elem.id, 1)}
+                handleSell={() => openModalForCard(elem.id, 2)}
+                handleAdd={() => openModalForCard(elem.id, 3)}
+                handleOpen={() => handleOpen(idx)}
+            />
         </Grid>
     )
 
@@ -68,8 +82,13 @@ const Papers = (props) => {
             >
                 {list}
             </Grid>
-            <ModalQuestion open={modal.open} handleAgree={count => handleAgree(count, modal.var)} handleClose={() => setModal({ open: false })}></ModalQuestion>
-            {/* <ModalQuestion open={modal.open} handleAgree={handleAgree2} handleClose={() => setModal({ open: false })}></ModalQuestion> */}
+            <ModalQuestion open={modalQ.open} handleAgree={count => handleAgree(count, modalQ.var)} handleClose={() => setModalQ({ open: false })}></ModalQuestion>
+            <OwnersOfPaper
+                open={modalUsers.open}
+                paper={elems[modalUsers.id]}
+                onClose={() => setModalUsers({ open: false })}
+            />
+            {/* <ModalQuestion open={modalQ.open} handleAgree={handleAgree2} handleClose={() => setModalQ({ open: false })}></ModalQuestion> */}
         </>
     )
 }

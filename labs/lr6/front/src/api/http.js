@@ -18,7 +18,7 @@ axios.interceptors.response.use(
     (response) => {
         debugger
         //проверить на статус]
-        console.log(response);
+        // console.log(response);
         return response.data;
     },
     (error) => {

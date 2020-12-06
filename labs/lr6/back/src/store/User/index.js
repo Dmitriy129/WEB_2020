@@ -77,7 +77,7 @@ module.exports = class User {
 
     checkBalanceInPaper() {
         this.balanceInPaper = Object.values(this.papers).reduce((a, { paper: { price }, count }) => a + price * count, 0)
-        ws.emit("balanceInPaperChanged", { balanceInPaper: this.balanceInPaper })
+        // ws.emit("balanceInPaperChanged", { balanceInPaper: this.balanceInPaper })
         return this.balanceInPaper
     }
 

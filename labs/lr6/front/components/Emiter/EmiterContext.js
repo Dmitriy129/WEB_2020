@@ -16,37 +16,27 @@ export const EmiterProvider = props => {
     //         msg
     //     })
     // }
-    const error = (title, msg) => {
+    const newMsg = (type, title, msg) => {
+        // setMsg({ show: false })
         setMsg({
-            type: "error",
+            type,
             show: true,
             title,
-            msg
+            msg,
+            time: 500
         })
+    }
+    const error = (title, msg) => {
+        newMsg("error", title, msg)
     }
     const info = (title, msg) => {
-        setMsg({
-            type: "info",
-            show: true,
-            title,
-            msg
-        })
+        newMsg("info", title, msg)
     }
     const warn = (title, msg) => {
-        setMsg({
-            type: "warning",
-            show: true,
-            title,
-            msg
-        })
+        newMsg("warning", title, msg)
     }
     const success = (title, msg) => {
-        setMsg({
-            type: "success",
-            show: true,
-            title,
-            msg
-        })
+        newMsg("success", title, msg)
     }
 
 

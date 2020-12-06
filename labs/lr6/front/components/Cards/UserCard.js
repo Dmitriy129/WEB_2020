@@ -15,11 +15,14 @@ const useStyles = makeStyles({
 
 
 const UserCard = (props) => {
-    const { id, login, name, surname, balance, img, confirmed } = props.data
+    const { data, count, handleOpen } = props
+    const { id, login, name, surname, balance, img, confirmed, balanceInPaper } = data
     const classes = useStyles()
     return (
         <Card className={classes.root}>
-            <CardActionArea>
+            <CardActionArea
+                onClick={handleOpen}
+            >
                 {confirmed
                     ? <>
                         <CardMedia
@@ -36,10 +39,20 @@ const UserCard = (props) => {
                                 {name} {surname}
                                 {/* Шекелей: {balance} */}
                             </Typography>
-                            <Typography variant="body2" color="textSecondary" component="p">
+                            <Typography variant="body1" component="p">
                                 {/* {name} {surname} */}
                                 Шекелей: {balance}
                             </Typography>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                {/* {name} {surname} */}
+                                Шекелей в акциях: {balanceInPaper}
+                            </Typography>
+                            {count != undefined &&
+                                < Typography variant="body1" component="p">
+                                    {/* {name} {surname} */}
+                                Куплено этих акций: {count}
+                                </Typography>
+                            }
                         </CardContent>
                     </>
                     : <>
@@ -56,7 +69,7 @@ const UserCard = (props) => {
                     </>
                 }
             </CardActionArea>
-                Если адмит, то видно, надо логику добавить
+            {/* Если адмит, то видно, надо логику добавить
             <CardActions>
                 <Button size="small" color="primary">
                     Действия
@@ -64,8 +77,8 @@ const UserCard = (props) => {
                 <Button size="small" color="primary">
                     Что-то еще
           </Button>
-            </CardActions>
-        </Card>
+            </CardActions> */}
+        </Card >
     )
 }
 

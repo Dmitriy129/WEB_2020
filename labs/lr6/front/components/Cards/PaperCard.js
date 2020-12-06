@@ -13,13 +13,13 @@ const useStyles = makeStyles({
 
 
 const PaperCard = (props) => {
-    const { handleBuy, handleSell, handleAdd, data } = props
+    const { handleBuy, handleSell, handleAdd, data, handleOpen, /* count */ } = props
     const { id, name, rule, max, price, startPrice, count, availableCount, owners, } = data
     const classes = useStyles()
 
     return (
         <Card className={classes.root}>
-            <CardActionArea>
+            <CardActionArea onClick={handleOpen}>
                 {/* <CardMedia
                     className={classes.media}
                     image={img}
@@ -41,19 +41,24 @@ const PaperCard = (props) => {
                     <Typography variant="body2" color="textSecondary" component="p">
                         Еще не куплено: {availableCount}
                     </Typography>
+                    <Typography variant="body1" component="p">
+                        Куплено этих акций: {count}
+                    </Typography>
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary" onClick={handleBuy}>
-                    Купить еще
-                </Button>
-                <Button size="small" color="primary" onClick={handleSell}>
-                    Продать
-                </Button>
-                {/* Если адмит, надо логику добавить */}
-                <Button size="small" color="primary" onClick={handleAdd}>
-                    Добавить
-                </Button>
+                {handleBuy &&
+                    <Button size="small" color="primary" onClick={handleBuy}>
+                        Купить еще
+                    </Button>}
+                {handleSell &&
+                    <Button size="small" color="primary" onClick={handleSell}>
+                        Продать
+                    </Button>}
+                {handleAdd &&
+                    <Button size="small" color="primary" onClick={handleAdd}>
+                        Добавить
+                    </Button>}
             </CardActions>
         </Card>
     )

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,13 +18,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CustomizedSnackbars(props) {
     const classes = useStyles();
-    const { msg: { title, msg, type, show }, onClose } = props
+    const { msg: { title, msg, type, show, time }, onClose } = props
+
+    useEffect(() => {
+        const t1 = setTimeout(onClose, time)
+        return () => clearTimeout(t1)
+    })
 
 
     return (
         <div className={classes.root}>
-            <Snackbar open={show} autoHideDuration={5000} onClose={onClose}>
-                <Alert /* onClose={onClose} */ severity={type}>
+            <Snackbar open={show} autoHideDuration={1000000} onClose={() => { }}>
+                <Alert onClose={onClose} severity={type}>
                     {title} {msg ? msg + ":" : msg}
                 </Alert>
             </Snackbar>

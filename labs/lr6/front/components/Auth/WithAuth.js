@@ -15,9 +15,6 @@ const WithAuth = (props) => {
     const router = useRouter()
 
     useEffect(() => {
-        console.log('router-withAuth', router)
-
-        debugger
         if (router.pathname !== '/auth')
             checkAuth()
                 .catch(() => router.push('/auth'))

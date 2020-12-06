@@ -1,8 +1,8 @@
 
 const _localStorage = {
     get(key) {
-        debugger
-        console.log("get")
+        // debugger
+        // console.log("get")
         try {
             return JSON.parse(window?.localStorage.getItem(key) || "{}")
         }
@@ -11,8 +11,8 @@ const _localStorage = {
         }
     },
     set(key, value) {
-        debugger
-        console.log("set")
+        // debugger
+        // console.log("set")
         try {
             window?.localStorage.setItem(key, JSON.stringify(value))
         }

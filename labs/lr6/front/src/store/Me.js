@@ -14,13 +14,15 @@ export default class Me {
         this.user = observable({})
         this.isAuthorized = observable.box(false)
 
-        this.wsListnersInit()
+        // this.wsListnersInit()
     }
 
-    wsListnersInit() {
-        ws.on("priceUpdated", (data) => this.checkAuth())
-        ws.on("balanceInPaperChanged", (data) => this.checkAuth())
-    }
+    wsListnersInit = action(() => {
+        ws.on("priceUpdated", this.checkAuth)
+    })
+    wsListnersDel = action(() => {
+        ws.off("priceUpdated", this.checkAuth)
+    })
 
     setUser = action((newUser) => {
         Object.getOwnPropertyNames(this.user).forEach(prop => delete this.user[prop])
@@ -31,11 +33,12 @@ export default class Me {
 
 
     checkAuth = action(() => {
-        debugger
+        // debugger
+        console.log("auth check", new Date())
         return http.get(`/access`)
             .then(user => {
-                debugger
-                console.log('user', user)
+                // debugger
+                // console.log('user', user)
                 this.setUser(user)
                 _localStorage.set("user", user)
             })

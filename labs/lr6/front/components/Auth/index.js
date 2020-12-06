@@ -67,15 +67,12 @@ const AuthManager = (props) => {
     const router = useRouter()
     const [tryingSignIn, setTryingSignIn] = useState(true)
     useEffect(() => {
-        console.log('router-auth', router)
-        // debugger
         if (router.query.code) {
             setTryingSignIn(true)
             signIn(router.query.code)
                 .then((user) => router.push("/"))
                 .catch((error) => {
                     alert("не удалось войти, пробуй еще, что тут сделать")
-                    console.log(error)
                 })
                 .then(() => setTryingSignIn(false))
         }

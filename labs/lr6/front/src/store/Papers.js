@@ -58,13 +58,12 @@ export default class Papers {
         this.setLoading(true)
         Api.readList()
             .then((elems) => {
-                console.log('elems', elems)
                 this.setLoading(false)
                 this.setElems(elems)
                 // this.elems = elems
             })
             .catch((error) => {
-                console.error('error', error)
+                console.warn('error', error)
                 // this.setLoading(false)
             })
         // .then()
