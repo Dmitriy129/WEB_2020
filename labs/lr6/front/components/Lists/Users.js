@@ -6,17 +6,9 @@ import UserCard from '../Cards/UserCard';
 const Users = (props) => {
     const { loadList, elems, loading: { now: nowLoading } } = props.users
     useEffect(() => {
-        console.log("only one")
         loadList()
     }, [])
-    useEffect(() => {
-        console.log("every")
-        // loadList()
-    })
-    useEffect(() => {
-        console.log("on elems", elems[0])
-        // loadList()
-    }, [elems])
+
 
     const list = elems.map(elem =>
         <Grid

@@ -1,6 +1,7 @@
 import React from "react";
 import Me from './Me'
 import Users from './Users'
+import Papers from './Papers'
 // import tables from './tables'
 // import currentEntity from './currentEntity'
 
@@ -8,6 +9,7 @@ import Users from './Users'
 const mainStore = {
     me: new Me(),
     users: new Users(),
+    papers: new Papers(),
     // ...tables,
     // ...currentEntity
 }

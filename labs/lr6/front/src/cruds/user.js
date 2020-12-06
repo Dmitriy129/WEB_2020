@@ -16,11 +16,11 @@ export const read = (id) =>
 export const readList = () =>
     CRUD.readList(name)
 
-export const update = (oldData, newData) =>
-    CRUD.update(oldData, newData)
+export const update = (data) =>
+    CRUD.update(name, data)
 
 export const remove = (id) =>
-    CRUD.delete(id)
+    CRUD.delete(name, id)
 
 
 

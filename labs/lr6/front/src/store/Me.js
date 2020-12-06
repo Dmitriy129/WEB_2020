@@ -10,7 +10,12 @@ export default class Me {
     constructor() {
         this.user = observable({})
         this.isAuthorized = observable.box(false)
-        ws.on("changeBalance", data => console.log('balance', data))
+
+
+    }
+
+    wsListnersInit() {
+        ws.on("balanceChanged", (data) => this.checkAuth())
     }
 
     setUser = action((newUser) => {
@@ -19,9 +24,10 @@ export default class Me {
         this.isAuthorized = Object.keys(this.user).length > 0
     })
 
+
+
     checkAuth = action(() => {
         debugger
-
         return http.get(`/access`)
             .then(user => {
                 debugger
@@ -32,8 +38,12 @@ export default class Me {
         //     if (toJS(this.isAuthorized)) resolve(this.user)
         //     else reject()
         // })
-    }
-    )
+    })
+
+    // tryBuyPapers = action((data) => {
+    //     ws.emit("tryBuyPapers", data)
+    // })
+
 
 
     signIn = action(async (code) => {

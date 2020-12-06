@@ -1,5 +1,10 @@
 import openSocket from 'socket.io-client';
-const socket = openSocket('http://localhost:3001', { transports: ['websocket', 'polling', 'flashsocket'] });
+const socket = openSocket('http://localhost:3001', {
+    transports: ['websocket', 'polling', 'flashsocket'],
+    query: {
+        auth: "123"
+    }
+});
 // var socket = io('http://localhost',);
 
 

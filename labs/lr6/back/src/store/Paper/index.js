@@ -1,12 +1,11 @@
 
 // const wsm = (new (require("../ws"))).getInstance()
 
-const userCounter = require("../../api/Counter")("paper")
+const counter = require("../../api/Counter")("paper")
 
 module.exports = class Paper {
     constructor({ name, rule, max, count, startPrice }) {
-        // this.id = userCounter.next()
-        this.id = userCounter.nextIndex()
+        this.id = counter.next()
         this.name = name
         this.rule = rule
         this.max = max
@@ -30,11 +29,11 @@ module.exports = class Paper {
 
     }
 
-    availableQuantity() {
+    availableCount() {
         return this.count - Object.values(this.owners).reduce((a, b) => a + b, 0)
     }
 
-    changePrice() {
+    updatePrice() {
         if (this.distribution === 'равномерное распределние') {
             this.price = Math.round(this.startPrice + ((Math.random() - 0.5) * this.max * 2));
         } else {
@@ -49,6 +48,7 @@ module.exports = class Paper {
             rule: this.rule,
             max: this.max,
             count: this.count,
+            availableCount: this.availableCount(),
             startPrice: this.startPrice,
             price: this.price,
             owners: this.owners,

@@ -3,6 +3,8 @@ const https = require("https");
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+// const Ws = require("./socket")
+const Ws = (new (require("./socket"))).getInstance();
 
 /*  */
 require('dotenv').config()
@@ -49,7 +51,7 @@ const serverApp = app.listen(process.env.HTTP_PORT || 80, () =>
     console.log(`Listening on port ${process.env.HTTP_PORT || 80}`)
 );
 
-
+Ws.init(serverApp)
 
 console.log("app/apps required")
 

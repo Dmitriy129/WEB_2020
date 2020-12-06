@@ -65,17 +65,22 @@ router.get("/git", (req, res) => {
                 .then(
                     (response) => {
                         let accessToken = uuidv4();
-                        let user =
-                            Store.findUser(response.data.id) ||
-                            Store.createUser({
-                                id: response.data.id,
-                                name: response.data.name,
-                                login: response.data.login,
-                                img: response.data.avatar_url,
-                            })
+                        const userInfo = {
+                            id: response.data.id,
+                            name: response.data.name,
+                            login: response.data.login,
+                            img: response.data.avatar_url,
+                        }
 
+                        let user = Store.findUser(userInfo.id)
 
+                        if (user) {
+                            if (!user.confirmed)
+                                user.confirm()
+                            user.updateInfo(userInfo)
 
+                        }
+                        else Store.createUser(userInfo)
                         user.accessToken = accessToken;
                         // res.cookie("userID", response.data.id, {
                         //     maxAge: 900000,

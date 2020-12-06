@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": "71571215",
+      "balance": 1649
+    }
+  ],
+  "papers": [
+    {
+      "name": "sdgfhg",
+      "rule": "равномерное распределение",
+      "max": 1000,
+      "count": 100,
+      "startPrice": 500
+    }
+  ],
+  "settings": {
+    "start": "07:59",
+    "end": "09:59",
+    "interval": "03:59"
+  }
+}

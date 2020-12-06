@@ -3,17 +3,13 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
-    ListSubheader,
 } from '@material-ui/core';
 import Link from 'next/link'
 import {
     Dashboard as DashboardIcon,
     People as PeopleIcon,
-    DirectionsWalk as DirectionsWalkIcon,
-    EventNote as EventNoteIcon,
-    AccessAlarmsRounded as AccessAlarmsRoundedIcon,
-    Room as RoomIcon,
-    PersonPinCircle as PersonPinCircleIcon,
+    Receipt as ReceiptIcon,
+
 } from '@material-ui/icons';
 
 
@@ -39,6 +35,14 @@ export const mainListItems = (
             <ListItem button>
                 <ListItemIcon>
                     <PeopleIcon />
+                </ListItemIcon>
+                <ListItemText primary="Пользователи" />
+            </ListItem>
+        </Link>
+        <Link href="/papers" >
+            <ListItem button>
+                <ListItemIcon>
+                    <ReceiptIcon />
                 </ListItemIcon>
                 <ListItemText primary="Пользователи" />
             </ListItem>

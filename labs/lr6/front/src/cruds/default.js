@@ -21,10 +21,10 @@ export const readList = (name) => {
     const url = `/${name}s`
     return http.get(url)
 }
-export const update = (name, oldData, newData) => {
+export const update = (name, data) => {
     // name = "user" || "paper" || "settings"
-    const url = `/${name}s/${oldData.id}`
-    return http.post(url, newData)
+    const url = `/${name}s/${data.action}`
+    return http.post(url, data.data)
 }
 export const remove = (name, id) => {
     // name = "user" || "paper" || "settings"

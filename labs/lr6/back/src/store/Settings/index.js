@@ -6,6 +6,8 @@ export default class Settings {
         this.start = start
         this.end = end
         this.interval = interval
+        this.started = false
+        this.ended = false
         this.listners = {
             priceUpdate: [],
             start: [],
@@ -26,13 +28,25 @@ export default class Settings {
         this.t1 = setTimeout(() => {
             clearTimeout(t1)
             this.listners["start"].forEach(cb => cb())
+            this.started = true
+
         }, ms)
         this.t2 = setTimeout(() => {
             clearTimeout(t2)
             this.listners["end"].forEach(cb => cb())
+            this.ended = true
         }, ms)
     }
 
+    json() {
+        return ({
+            start=this.start,
+            end=this.end,
+            interval=this.interval,
+            started=this.started,
+            ended=this.ended,
+        })
+    }
 
 
 }
