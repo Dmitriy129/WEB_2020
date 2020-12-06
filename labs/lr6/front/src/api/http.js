@@ -1,5 +1,19 @@
 import axios from 'axios'
-import { _localStorage } from './localStorage'
+// import { _localStorage } from './localStorage'
+// import _localStorage from './localStorage'
+
+import * as ls from '../api/localStorage'
+const { default: _localStorage } = ls
+
+// import dynamic from 'next/dynamic'
+// const { default: _localStorage } = dynamic(
+//     () => import('../api/localStorage'),
+//     { ssr: false }
+// )
+// const _localStorage = dynamic(
+//     () => import('../api/localStorage'),
+//     { ssr: false }
+// )
 axios.interceptors.response.use(
     (response) => {
         debugger
@@ -47,7 +61,9 @@ export const http = (() => {
             return axios.get(url, withDefaultHeaders(config, token))
         },
         post(url, data, config) {
+            debugger
             const user = _localStorage.get('user')
+            debugger
             const { id, accessToken } = user
             const token = id + "#" + accessToken
             return axios.post(url, data, withDefaultHeaders(config, token))

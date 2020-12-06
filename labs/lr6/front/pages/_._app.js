@@ -5,7 +5,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import theme from '../src/theme';
 import WithAuth from '../components/Auth/WithAuth';
-import { EmiterProvider } from '../components/Emiter/EmiterContext';
+import { ErrorProvider } from '../components/Errors/ErrorContext';
 import { Provider } from "mobx-react";
 import mainStore from "../src/store";
 // import awsConfig from '../src/aws-exports'
@@ -35,12 +35,12 @@ export default function MyApp(props) {
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
-        <EmiterProvider >
+        <ErrorProvider >
           <CssBaseline />
           <WithAuth>
             <Component {...pageProps} />
           </WithAuth>
-        </EmiterProvider>
+        </ErrorProvider>
       </ThemeProvider>
     </Provider>
   );

@@ -2,8 +2,9 @@ const defaultState = require('./defaultState.json');
 // const wsm = (new (require("../ws"))).getInstance()
 const User = require('./User')
 const Paper = require('./Paper')
-const Settings = require('./Paper')
+const Settings = require('./Settings');
 
+const ws = (new (require("../socket"))).api();
 
 class Store {
     constructor() {
@@ -18,15 +19,24 @@ class Store {
     }
 
     onInit() {
+        // debugger
         this.settings.addEventListner("start", () => console.log("started"))
         this.settings.addEventListner("end", () => console.log("ended"))
-        this.settings.priceUpdate("priceUpdate", () => console.log("priceUpdate"))
-        this.settings.priceUpdate("priceUpdate", () => this.state.papers.forEach(paper => paper.updatePrice()))
+        this.settings.addEventListner("priceUpdate", () => console.log("priceUpdate"))
+        this.settings.addEventListner("priceUpdate", () => this.state.papers.forEach(paper => paper.updatePrice()))
+        this.settings.addEventListner("priceUpdate", () => this.state.users.forEach(user => user.checkBalanceInPaper()))
+
+
+        this.settings.addEventListner("start", () => ws.emit("started"))
+        this.settings.addEventListner("end", () => ws.emit("ended"))
+        this.settings.addEventListner("priceUpdate", () => ws.emit("priceUpdated"))
+
     }
     getStore() {
         return this.state;
     }
     createSettings(data) {
+
         this.settings = new Settings(data)
         return this.settings
     }
@@ -65,16 +75,16 @@ class Store {
     tryBuyPaper(userID, paperID, count) {
         const paper = this.findPaper(paperID)
         const user = this.findUser(userID)
-        if (paper && user) user.buyPaper(paper, count)
+        if (paper && user) user.buyPaper(paper, parseInt(count))
     }
     trySellPaper(userID, paperID, count) {
         const paper = this.findPaper(paperID)
         const user = this.findUser(userID)
-        if (paper && user) user.sellPaper(paper, count)
+        if (paper && user) user.sellPaper(paper, parseInt(count))
     }
     addPapers(paperID, count) {
         const paper = this.findPaper(paperID)
-        if (paper) paper.add(count)
+        if (paper) paper.add(parseInt(count))
     }
     json() {
         return {
@@ -95,6 +105,7 @@ class SingletonStore {
             this.startState?.users?.forEach(SingletonStore.instance.createUser)
             this.startState?.papers?.forEach(SingletonStore.instance.createPaper)
             SingletonStore.instance.createSettings(this.startState?.settings)
+            SingletonStore.instance.onInit()
         }
     }
 

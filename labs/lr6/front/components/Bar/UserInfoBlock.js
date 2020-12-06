@@ -13,7 +13,8 @@ const UserInfoBlock = (props) => {
             login,
             name,
             surname,
-            balance
+            balance,
+            balanceInPaper
         },
         signOut
     } = props.me
@@ -35,6 +36,9 @@ const UserInfoBlock = (props) => {
             </Typography>
             <Typography component="h1" variant="body2" color="inherit" noWrap className={classes.title}>
                 Баланс: {balance}
+            </Typography>
+            <Typography component="h1" variant="body2" color="inherit" noWrap className={classes.title}>
+                В акциях: {balanceInPaper}
             </Typography>
             {/* <Link href={{ pathname: `/users/${email}` }} >
                 <Typography component="h1" variant="body1" color="inherit" noWrap className={classes.title}>

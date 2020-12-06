@@ -3,7 +3,8 @@ import { Grid, LinearProgress } from '@material-ui/core'
 import { observer, inject } from 'mobx-react';
 import PaperCard from '../Cards/PaperCard';
 import ModalQuestion from './ModalQuestion'
-import ErrorContext from '../Errors/ErrorContext'
+import EmiterContext from '../Emiter/EmiterContext'
+import ws from '../../src/api/ws'
 const Papers = (props) => {
     const {
         loadList,
@@ -11,13 +12,19 @@ const Papers = (props) => {
         loading: { now: nowLoading },
         // tryBuyPapers
         tryBuy,
-        trySell
+        trySell,
+        tryAdd
     } = props.papers
 
     const [modal, setModal] = useState({ open: false, id: "", var: 1 })
-    const { showError } = useContext(ErrorContext)
+    const { error: showError } = useContext(EmiterContext)
     useEffect(() => {
         loadList()
+
+        ws.on("priceUpdated", loadList)
+        return () => {
+            ws.off("priceUpdated", loadList)
+        }
     }, [])
 
     const openModalForCard = (id, v) => {
@@ -59,16 +66,6 @@ const Papers = (props) => {
                 alignContent="space-between"
                 spacing={2}
             >
-                {list}
-                {list}
-                {list}
-                {list}
-                {list}
-                {list}
-                {list}
-                {list}
-                {list}
-                {list}
                 {list}
             </Grid>
             <ModalQuestion open={modal.open} handleAgree={count => handleAgree(count, modal.var)} handleClose={() => setModal({ open: false })}></ModalQuestion>

@@ -1,9 +1,24 @@
 
-export const _localStorage = {
+const _localStorage = {
     get(key) {
-        return JSON.parse(window?.localStorage.getItem(key) || "{}")
+        debugger
+        console.log("get")
+        try {
+            return JSON.parse(window?.localStorage.getItem(key) || "{}")
+        }
+        catch (error) {
+            return {}
+        }
     },
     set(key, value) {
-        window?.localStorage.setItem(key, JSON.stringify(value))
+        debugger
+        console.log("set")
+        try {
+            window?.localStorage.setItem(key, JSON.stringify(value))
+        }
+        catch (error) {
+        }
     }
 }
+
+export default _localStorage

@@ -1,7 +1,10 @@
 import { observable, action, toJS } from 'mobx';
 import http from '../api/http'
 import ws from '../api/ws'
-import { _localStorage } from '../api/localStorage'
+import * as ls from '../api/localStorage'
+
+const { default: _localStorage } = ls
+
 // import { Auth } from "aws-amplify";
 // import { signIn, signOut } from '../api/auth'
 
@@ -11,11 +14,12 @@ export default class Me {
         this.user = observable({})
         this.isAuthorized = observable.box(false)
 
-
+        this.wsListnersInit()
     }
 
     wsListnersInit() {
-        ws.on("balanceChanged", (data) => this.checkAuth())
+        ws.on("priceUpdated", (data) => this.checkAuth())
+        ws.on("balanceInPaperChanged", (data) => this.checkAuth())
     }
 
     setUser = action((newUser) => {

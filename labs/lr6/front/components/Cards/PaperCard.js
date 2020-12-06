@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 
 
 const PaperCard = (props) => {
-    const { handleBuy, handleSell, data } = props
+    const { handleBuy, handleSell, handleAdd, data } = props
     const { id, name, rule, max, price, startPrice, count, availableCount, owners, } = data
     const classes = useStyles()
 
@@ -50,9 +50,9 @@ const PaperCard = (props) => {
                 <Button size="small" color="primary" onClick={handleSell}>
                     Продать
                 </Button>
-                Если адмит, то еще удалить, надо логику добавить
-                <Button size="small" color="primary">
-                    Выпустить новые акции
+                {/* Если адмит, надо логику добавить */}
+                <Button size="small" color="primary" onClick={handleAdd}>
+                    Добавить
                 </Button>
             </CardActions>
         </Card>

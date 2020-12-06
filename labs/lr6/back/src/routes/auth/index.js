@@ -75,13 +75,14 @@ router.get("/git", (req, res) => {
                         let user = Store.findUser(userInfo.id)
 
                         if (user) {
-                            if (!user.confirmed)
-                                user.confirm()
+
                             user.updateInfo(userInfo)
 
                         }
-                        else Store.createUser(userInfo)
+                        else user = Store.createUser(userInfo)
                         user.accessToken = accessToken;
+                        if (!user?.confirmed)
+                            user?.confirm()
                         // res.cookie("userID", response.data.id, {
                         //     maxAge: 900000,
                         //     // httpOnly: true,
@@ -112,7 +113,7 @@ router.get("/logout", (req, res) => {
     res.redirect("/login");
 });
 router.get("/access", (req, res) => {
-    res.send(req.user)
-});
+    res.send(req.user.json());
+})
 
 module.exports = router;

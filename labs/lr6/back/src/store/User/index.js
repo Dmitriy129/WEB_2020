@@ -4,7 +4,8 @@
 // const userCounter = require("../api/Counter")("user")
 
 // const ws = require("../../socket")
-const ws = (new (require("../../socket"))).getInstance();
+const ws = (new (require("../../socket"))).api();
+// const ws = req
 
 
 module.exports = class User {
@@ -17,7 +18,7 @@ module.exports = class User {
         this.img = img
         this.accessToken = accessToken
         // this.pictures = []
-        this.balance = balance || 1234567890
+        this.balance = balance || 10000001
         this.papers = {}
         this.confirmed = false
     }
@@ -37,35 +38,47 @@ module.exports = class User {
 
     buyPaper(paper, count) {
         const finalPrice = paper.price * count
-        const nowCout = this.papers[paper.name]
-        const newCout = nowCout ? nowCout + count : count
         if (paper.availableCount() >= count && this.canPay(finalPrice)) {
+            if (!this.papers[paper.id] || !paper.owners[this.id]) {
+                this.papers[paper.id] = { paper: paper, count: 0 }
+                paper.owners[this.id] = { user: this, count: 0 }
+            }
+            const nowCout = this.papers[paper.id].count
+            const newCout = nowCout ? nowCout + parseInt(count) : parseInt(count)
             this.changeBalance(this.balance - finalPrice)
-            this.papers[paper.id] = newCout
-            paper.owners[this.id] = newCout
+            this.papers[paper.id].count = newCout
+            paper.owners[this.id].count = newCout
         }
     }
     sellPaper(paper, count) {
+        if (!this.papers[paper.id]) return
         const finalPrice = paper.price * count
-        const nowCout = this.papers[paper.id]
-        const newCout = nowCout - count
+        const nowCout = this.papers[paper.id].count
+        const newCout = nowCout - parseInt(count)
         if (nowCout && nowCout >= count) {
             this.changeBalance(this.balance + finalPrice)
-            this.papers[paper.id] = newCout
-            paper.owners[this.id] = newCout
+            this.papers[paper.id].count = newCout
+            paper.owners[this.id].count = newCout
         }
     }
 
     changeBalance(newBalance) {
-        this.balance = newBalance
+        this.balance = parseInt(newBalance)
         console.log("balance changed", this.login, this.balance)
-        debugger
+        // debugger
         ws.emit("balanceChanged", { balance: this.balance })
+        this.checkBalanceInPaper()
         // wsm.currWsSend({
         //     action: "balanceUpdated",
         //     data: { newBalance }
         // }, this.ws)
         return true
+    }
+
+    checkBalanceInPaper() {
+        this.balanceInPaper = Object.values(this.papers).reduce((a, { paper: { price }, count }) => a + price * count, 0)
+        ws.emit("balanceInPaperChanged", { balanceInPaper: this.balanceInPaper })
+        return this.balanceInPaper
     }
 
 
@@ -97,6 +110,21 @@ module.exports = class User {
     }
 
 
+    shortJson() {
+        return {
+            id: this.id,
+            login: this.login,
+            name: this.name,
+            surname: this.surname,
+            accessToken: this.accessToken,
+            balance: this.balance,
+            balanceInPaper: this.checkBalanceInPaper(),
+            img: this.img,
+            // papers: this.papers.map(e => ({})),
+            confirmed: this.confirmed,
+        }
+    }
+
     json() {
         return {
             id: this.id,
@@ -105,8 +133,9 @@ module.exports = class User {
             surname: this.surname,
             accessToken: this.accessToken,
             balance: this.balance,
+            balanceInPaper: this.checkBalanceInPaper(),
             img: this.img,
-            papers: this.papers,
+            papers: Object.values(this.papers).map(({ paper, count }) => ({ paper: paper.json(), count })),
             confirmed: this.confirmed,
         }
     }

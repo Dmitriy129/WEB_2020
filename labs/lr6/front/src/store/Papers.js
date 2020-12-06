@@ -9,6 +9,7 @@ import { paper as Api } from '../cruds'
 export default class Papers {
 
     constructor() {
+
     }
 
     elems = observable.array([])
@@ -39,13 +40,18 @@ export default class Papers {
 
     tryBuy = action((data) => {
         return Api.update({ action: "tryBuy", data })
+            .then(() => this.loadList())
     })
 
     trySell = action((data) => {
         return Api.update({ action: "trySell", data })
+            .then(() => this.loadList())
+
     })
     tryAdd = action((data) => {
         return Api.update({ action: "tryAdd", data })
+            .then(() => this.loadList())
+
     })
 
     loadList = action(() => {

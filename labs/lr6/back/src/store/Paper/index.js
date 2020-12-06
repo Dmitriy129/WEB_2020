@@ -21,7 +21,7 @@ module.exports = class Paper {
 
     add(count) {
         if (count >= 0) {
-            this.count += count
+            this.count += parseInt(count)
             /* 
             wsm.emit("count upd",{count: this.count})
             */
@@ -30,15 +30,17 @@ module.exports = class Paper {
     }
 
     availableCount() {
-        return this.count - Object.values(this.owners).reduce((a, b) => a + b, 0)
+        return this.count - Object.values(this.owners).reduce((a, { count: b }) => a + b, 0)
     }
 
     updatePrice() {
-        if (this.distribution === 'равномерное распределние') {
+        if (this.distribution === 'равномерное распределение') {
             this.price = Math.round(this.startPrice + ((Math.random() - 0.5) * this.max * 2));
         } else {
             this.price = Math.round(this.startPrice + ((randNorm() - 0.5) * this.max * 2));
         }
+        if (this.price < 0)
+            this.price = 20
     }
 
     json() {
@@ -51,7 +53,9 @@ module.exports = class Paper {
             availableCount: this.availableCount(),
             startPrice: this.startPrice,
             price: this.price,
-            owners: this.owners,
+            // owners: this.owners,
+            owners: Object.values(this.owners).map(({ user, count }) => ({ user: user.shortJson(), count })),
+
         }
     }
 

@@ -3,8 +3,8 @@ const https = require("https");
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const Ws = require("./socket")
-// const Ws = (new (require("./socket"))).getInstance();
+// const Ws = require("./socket")
+const Ws = (new (require("./socket"))).getInstance();
 
 /*  */
 require('dotenv').config()
@@ -43,23 +43,19 @@ app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ limit: "20mb", extended: false }));
 app.use(bodyParser.json({ limit: "20mb" }));
 
+app.use('/api', require("./routes"));
 
 const serverApps = apps.listen(process.env.HTTPS_PORT || 443);
 
 const serverApp = app.listen(process.env.HTTP_PORT || 80, () =>
     console.log(`Listening on port ${process.env.HTTP_PORT || 80}`)
 );
-// app.use('/api', require("./routes"))
-// setTimeout(() =>
-//     new Ws(serverApp)
-//     , 1000)
 
-
-// Ws.init(serverApp)
+Ws.init(serverApp)
 
 console.log("app/apps required")
 
-module.exports = { app, apps, serverApps, serverApp };
+module.exports = { app, apps, serverApps, serverApp/* wsm */ };
 
 
 
