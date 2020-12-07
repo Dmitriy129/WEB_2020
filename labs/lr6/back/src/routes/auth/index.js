@@ -95,8 +95,11 @@ router.get("/git", (req, res) => {
                         // });
                         // res.redirect("/");
                         if (!Store.settings.started)
-                            if (user.role !== "admin")
+                            if (user.role !== "admin") {
                                 res.status(403).send("Ошибка аутетификации")
+                                return
+                            }
+
                         res.send(user.json())
                     })
                 .catch((err) => {
@@ -119,8 +122,10 @@ router.get("/logout", (req, res) => {
 });
 router.get("/access", (req, res) => {
     if (!Store.settings.started)
-        if (req.user.role !== "admin")
+        if (req.user.role !== "admin") {
             res.status(403).send("Ошибка аутетификации")
+            return
+        }
     res.send(req.user.json());
 })
 

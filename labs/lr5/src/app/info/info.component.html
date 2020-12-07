@@ -1,15 +1,14 @@
 <div class="mymodal">
   <h5 class="">Сообщение</h5>
+  <div class="">
+    <p>
+      <ng-content></ng-content>
+    </p>
+  </div>
+  <div class="">
+    <button class="" (click)="this.back.emit()" data-dismiss="modal">
+      Понял, принял
+    </button>
+  </div>
 </div>
-<div class="">
-  <p>
-    <ng-content></ng-content>
-  </p>
-</div>
-<div class="">
-  <button class="" (click)="this.back.emit()" data-dismiss="modal">
-    Понял, принял
-  </button>
-</div>
-
 <div class="modalBlur" (click)="this.back.emit()"></div>
