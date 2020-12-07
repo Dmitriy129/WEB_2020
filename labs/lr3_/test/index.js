@@ -1,5 +1,4 @@
 const start = require('../src')
-
 start({
     startData: {
         "pictures": [{

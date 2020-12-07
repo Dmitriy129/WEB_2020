@@ -3,5 +3,5 @@ savedImg
 keys
 front/public
 node_modules
-.env*
+# .env*
 .vscode
