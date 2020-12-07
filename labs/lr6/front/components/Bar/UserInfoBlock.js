@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { makeStyles } from '@material-ui/core/styles';
 import { observer, inject } from 'mobx-react';
 import { Typography, IconButton } from '@material-ui/core';
-import { PlayCircleOutlineRounded as PlayCircleOutlineRoundedIcon, ExitToApp as ExitToAppIcon } from '@material-ui/icons';
+import { PlayCircleOutlineRounded as PlayCircleOutlineRoundedIcon, ExitToApp as ExitToAppIcon, Tune } from '@material-ui/icons';
 import ws from '../../src/api/ws'
 import http from '../../src/api/http'
 
@@ -33,7 +33,7 @@ const UserInfoBlock = (props) => {
     useEffect(() => {
         const cb1 = () => checkAuth().catch(() => handleSignOut())
         ws.on("priceUpdated", cb1)
-
+        ws.once("started", () => setStarted(true))
         http.get('/settings').then(({ started }) => setStarted(started))
         return () => {
             ws.off("priceUpdated", cb1)
