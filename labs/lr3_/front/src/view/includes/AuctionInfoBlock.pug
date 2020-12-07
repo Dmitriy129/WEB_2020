@@ -21,23 +21,18 @@
 .row
   .card.left
     p Стартовая ставка: 
-      span.start(id='auction-costStart') #{auction.costStart}ILS
+      span.start(id='auction-costStart') #{auction.costStart}
     p Сейчас ставка: 
-      span.now(id='auction-costNow') #{auction.costNow}ILS
+      span.now(id='auction-costNow') #{auction.costNow}
     p Следующая ставка: 
-      span.now(id='auction-costNext') #{auction.costNow * auction.rateMultiplier}ILS
+      span.now(id='auction-costNext') #{auction.costNow * auction.rateMultiplier}
     p Множитель ставки: 
       span.now(id='auction-rateMultiplier') #{auction.rateMultiplier}
     p Временный интервал: 
       span.now(id='auction-timeInterval') #{auction.timeInterval}
-  if auction.access
-    .card.right
+    if auction.access
       .timer
         h2 0
-        svg(width='160' height='160' xmlns='http://www.w3.org/2000/svg')
-          g
-            title Layer 1
-            circle.circle_animation(id='circle' r='69.85699' cy='81' cx='81' stroke-width='8' stroke='#6fdb6f' fill='none')
 .card.btnBox
   if auction.access
     button.primaryBtn(id='tryBuyBtn' onclick=`tryBuy('${auction.id}')`)

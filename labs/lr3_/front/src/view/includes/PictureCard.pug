@@ -10,7 +10,7 @@ if picture
             h2.name #{picture.name}
             p.author #{picture.author}
             p.cost Начальная цена: 
-                span #{picture.cost}ILS
+                span #{picture.cost}
         a.primaryBtn(href=`/picture/${picture.id}`)  Подробнее...
         if picture.auction
             a.successBtn(href=`/auction/${picture.auction.id}`)  Идет аукцион
