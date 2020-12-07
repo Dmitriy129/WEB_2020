@@ -1,32 +1,31 @@
 <div class="mymodal">
   <h5 class="">Новый брокер</h5>
-</div>
-<div class="formGroup">
-  <input
-    type="text"
-    placeholder="Имя"
-    [(ngModel)]="name"
-    [class.badValue]="isBadName"
-    (keydown.enter)="add(name, money)"
-  />
-  <p></p>
+  <div class="formGroup">
+    <input
+      type="text"
+      placeholder="id"
+      [(ngModel)]="name"
+      [class.badValue]="isBadName"
+      (keydown.enter)="add(name, money)"
+    />
+    <p></p>
 
-  <input
-    type="number"
-    min="0"
-    step="1"
-    placeholder="Баланс"
-    [(ngModel)]="money"
-    [class.badValue]="isBadMoney"
-    (keydown.enter)="add(name, money)"
-  />
-  <p></p>
+    <input
+      type="number"
+      min="0"
+      step="1"
+      placeholder="Баланс"
+      [(ngModel)]="money"
+      [class.badValue]="isBadMoney"
+      (keydown.enter)="add(name, money)"
+    />
+    <p></p>
+  </div>
+  <div class="btnGroup">
+    <button (click)="add(name, money)" type="button">Добавить</button>
+    <button (click)="this.closeModal.emit()" type="button" data-dismiss="modal">
+      Закрыть
+    </button>
+  </div>
 </div>
-<div class="btnGroup">
-  <button (click)="add(name, money)" type="button">Добавить</button>
-  <button (click)="this.closeModal.emit()" type="button" data-dismiss="modal">
-    Закрыть
-  </button>
-</div>
-
 <div class="modalBlur" (click)="this.closeModal.emit()"></div>

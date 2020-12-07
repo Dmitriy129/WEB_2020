@@ -8,7 +8,7 @@
         <div class="formGroup">
           <input
             type="text"
-            placeholder="Компания"
+            placeholder="Название компании"
             [(ngModel)]="name"
             [class.badValue]="isBadName"
             (keydown.enter)="add(name, rule, max, count, startPrice)"
@@ -19,15 +19,15 @@
             [class.badValue]="isBadRule"
             (keydown.enter)="add(name, rule, max, count, startPrice)"
           >
-            <option>равномерное распределение</option>
             <option>нормальное распределение</option>
+            <option>равномерное распределение</option>
           </select>
           <p></p>
           <input
             type="number"
             min="0"
             step="1"
-            placeholder="Макс. изменение цены"
+            placeholder="Макс. люфт цены"
             [(ngModel)]="max"
             [class.badValue]="isBadMax"
             (keydown.enter)="add(name, rule, max, count, startPrice)"
@@ -37,7 +37,7 @@
             type="number"
             min="0"
             step="1"
-            placeholder="Количество"
+            placeholder="Количество бумаг"
             [(ngModel)]="count"
             [class.badValue]="isBadCount"
             (keydown.enter)="add(name, rule, max, count, startPrice)"
@@ -47,7 +47,7 @@
             type="number"
             min="0"
             step="1"
-            placeholder="Стартовая цена"
+            placeholder="Цена"
             [(ngModel)]="startPrice"
             [class.badValue]="isBadPrice"
             (keydown.enter)="add(name, rule, max, count, startPrice)"
