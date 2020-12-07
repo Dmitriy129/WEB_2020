@@ -1,4 +1,5 @@
 import openSocket from 'socket.io-client';
+import _localStorage from './localStorage';
 const socket = openSocket('http://localhost:3001', {
     transports: ['websocket', 'polling', 'flashsocket'],
     query: {
@@ -15,5 +16,6 @@ socket.on('disconnect', data => console.log('disconnect', data));
 
 
 socket.emit("checkSocket", { propName: "prop value" })
+socket.emit("connectToUser", _localStorage.get("user").id)
 
 export default socket

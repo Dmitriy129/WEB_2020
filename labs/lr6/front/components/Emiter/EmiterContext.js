@@ -23,7 +23,7 @@ export const EmiterProvider = props => {
             show: true,
             title,
             msg,
-            time: 500
+            time: 4000
         })
     }
     const error = (title, msg) => {
@@ -43,8 +43,14 @@ export const EmiterProvider = props => {
     useEffect(() => {
         const cb1 = (data) => info("Баланс обновлен")
         const cb2 = (data) => info("Цена акций поменялась")
+        const cb3 = (data) => info("Не хватает денег")
+        const cb4 = (data) => info("Нет столько акций")
+        // const cb5 = (data) => info("Не хватает денег")
+
         ws.on("balanceChanged", cb1)
         ws.on("priceUpdated", cb2)
+        ws.on("notEnoughMoney", cb3)
+        ws.on("notEnoughPapers", cb4)
 
         ws.once("started", () => info("Начался"))
         ws.once("ended", () => warn("Кончился"))

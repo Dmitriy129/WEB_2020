@@ -1,6 +1,7 @@
 const http = require('http')
 
 const open = (app) => require('socket.io')(app)
+// const Store = (new (require("./store"))).getInstance();
 
 
 
@@ -32,8 +33,6 @@ class Ws {
                 // Store.findUserByWs(ws)
                 console.log("tryBuyPapers", data)
             });
-
-
 
             socket.on('disconnect', function () {
                 console.log('Got disconnect!');

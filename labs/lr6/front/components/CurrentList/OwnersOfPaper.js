@@ -25,7 +25,7 @@ const OwnersOfPaper = (props) => {
             item
             key={elem.id}
         >
-            <UserCard data={elem} count={count} />
+            <UserCard data={elem} count={count} paperPrice={paper.price} />
         </Grid>)
 
 

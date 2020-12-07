@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { makeStyles } from '@material-ui/core/styles';
 import { observer, inject } from 'mobx-react';
 import { Typography, IconButton } from '@material-ui/core';
-import { Notifications as NotificationsIcon, ExitToApp as ExitToAppIcon } from '@material-ui/icons';
+import { PlayCircleOutlineRounded as PlayCircleOutlineRoundedIcon, ExitToApp as ExitToAppIcon } from '@material-ui/icons';
+import ws from '../../src/api/ws'
+import http from '../../src/api/http'
 
 const UserInfoBlock = (props) => {
     const router = useRouter()
@@ -15,11 +17,13 @@ const UserInfoBlock = (props) => {
             surname,
             balance,
             balanceInPaper,
+            role
         },
-        wsListnersInit,
-        wsListnersDel,
-        signOut
+        signOut,
+        checkAuth
     } = props.me
+
+    const [started, setStarted] = useState(true)
 
     const handleSignOut = async () => {
         await router.push('/auth')
@@ -27,13 +31,17 @@ const UserInfoBlock = (props) => {
     }
 
     useEffect(() => {
-        wsListnersInit()
+        const cb1 = () => checkAuth().catch(() => handleSignOut())
+        ws.on("priceUpdated", cb1)
 
+        http.get('/settings').then(({ started }) => setStarted(started))
         return () => {
-            wsListnersDel()
+            ws.off("priceUpdated", cb1)
         }
     }, [])
     const classes = useStyles();
+
+    const handleStart = () => http.post("/settings/start")
 
     return (
         <>
@@ -54,9 +62,10 @@ const UserInfoBlock = (props) => {
                     {email}
                 </Typography>
             </Link> */}
-            <IconButton color="inherit">
-                <NotificationsIcon />
-            </IconButton>
+            {role === "admin" && !started &&
+                <IconButton color="inherit" onClick={handleStart}>
+                    <PlayCircleOutlineRoundedIcon />
+                </IconButton>}
             <IconButton color="inherit" onClick={handleSignOut}>
                 <ExitToAppIcon />
             </IconButton>

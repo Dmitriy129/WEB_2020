@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 
 
 const UserCard = (props) => {
-    const { data, count, handleOpen } = props
+    const { data, count, paperPrice, handleOpen } = props
     const { id, login, name, surname, balance, img, confirmed, balanceInPaper } = data
     const classes = useStyles()
     return (
@@ -33,25 +33,25 @@ const UserCard = (props) => {
                         <CardContent>
                             <Typography variant="body1" component="p">
                                 {login}
-                                {/* Шекелей: {balance} */}
                             </Typography>
                             <Typography variant="body2" color="textSecondary" component="p">
                                 {name} {surname}
-                                {/* Шекелей: {balance} */}
                             </Typography>
                             <Typography variant="body1" component="p">
-                                {/* {name} {surname} */}
                                 Шекелей: {balance}
                             </Typography>
                             <Typography variant="body2" color="textSecondary" component="p">
-                                {/* {name} {surname} */}
                                 Шекелей в акциях: {balanceInPaper}
                             </Typography>
                             {count != undefined &&
-                                < Typography variant="body1" component="p">
-                                    {/* {name} {surname} */}
-                                Куплено этих акций: {count}
-                                </Typography>
+                                <>
+                                    < Typography variant="body1" component="p">
+                                        Куплено этих акций: {count}
+                                    </Typography>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        Шекелей в данном виде акций: {paperPrice * count}
+                                    </Typography>
+                                </>
                             }
                         </CardContent>
                     </>

@@ -72,7 +72,7 @@ const AuthManager = (props) => {
             signIn(router.query.code)
                 .then((user) => router.push("/"))
                 .catch((error) => {
-                    alert("не удалось войти, пробуй еще, что тут сделать")
+                    alert("пока входить не надо")
                 })
                 .then(() => setTryingSignIn(false))
         }

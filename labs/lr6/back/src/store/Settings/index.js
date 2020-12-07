@@ -21,30 +21,35 @@ module.exports = class Settings {
     addEventListner(eventID, cb) {
         this.listners[eventID].push(cb)
     }
+    run() {
+        clearTimeout(this.t1)
+        this.listners["start"].forEach(cb => cb())
+        this.started = true
+    }
 
     onInit() {
         // debugger
-        const ms = hmsToMsec(this.interval)
+        const msI = hmsToMsec(this.interval)
+        const msS = hmsToMsec(this.start)
+        const msE = hmsToMsec(this.end)
         this.t1 = setTimeout(() => {
-            clearTimeout(this.t1)
             this.i1 = setInterval(() => {
                 this.listners["priceUpdate"].forEach(cb => cb())
                 // ws.emit("started", { started: true })
 
-            }, ms)
-            this.listners["start"].forEach(cb => cb())
-            this.started = true
+            }, msI)
+            this.run()
 
             // ws.emit("started", { started: true })
 
-        }, ms)
+        }, msS)
         this.t2 = setTimeout(() => {
             clearTimeout(this.t2)
             this.listners["end"].forEach(cb => cb())
             this.ended = true
             // ws.emit("ended", { ended: true })
 
-        }, ms)
+        }, msE)
     }
 
     json() {

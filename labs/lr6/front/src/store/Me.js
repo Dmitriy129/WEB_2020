@@ -17,12 +17,12 @@ export default class Me {
         // this.wsListnersInit()
     }
 
-    wsListnersInit = action(() => {
-        ws.on("priceUpdated", this.checkAuth)
-    })
-    wsListnersDel = action(() => {
-        ws.off("priceUpdated", this.checkAuth)
-    })
+    // wsListnersInit = action(() => {
+    //     ws.on("priceUpdated", this.checkAuth)
+    // })
+    // wsListnersDel = action(() => {
+    //     ws.off("priceUpdated", this.checkAuth)
+    // })
 
     setUser = action((newUser) => {
         Object.getOwnPropertyNames(this.user).forEach(prop => delete this.user[prop])
@@ -42,6 +42,7 @@ export default class Me {
                 this.setUser(user)
                 _localStorage.set("user", user)
             })
+            // .catch(() => this.signOut())
         //     if (toJS(this.isAuthorized)) resolve(this.user)
         //     else reject()
         // })
@@ -67,7 +68,8 @@ export default class Me {
 
     signOut = action(async () => {
         this.setUser({})
-    }
-    )
+    })
+
+    
 
 }

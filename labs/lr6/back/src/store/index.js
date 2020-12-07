@@ -31,6 +31,13 @@ class Store {
         this.settings.addEventListner("end", () => ws.emit("ended"))
         this.settings.addEventListner("priceUpdate", () => ws.emit("priceUpdated"))
 
+        // ws.on("wsToUser", (id) => this.findUser(id))
+        // ws.on('connection', (socket) => this.connectWsToUser(socket, id))
+        ws.on('connection', (socket) =>
+            socket.on("connectToUser",
+                id =>
+                    this.connectWsToUser(socket, id))
+        )
     }
     getStore() {
         return this.state;
@@ -67,7 +74,9 @@ class Store {
         return this.state.papers.map(paper => paper.json())
     }
     connectWsToUser(ws, id) {
-        this.findUser(id).ws = ws
+        console.log('id', id)
+        const user = this.findUser(id)
+        user && (user.ws = ws)
     }
     findUserByWs(ws) {
         return this.state.users.find(user => user.ws == ws)
@@ -85,6 +94,9 @@ class Store {
     addPapers(paperID, count) {
         const paper = this.findPaper(paperID)
         if (paper) paper.add(parseInt(count))
+    }
+    start() {
+        this.settings?.run()
     }
     json() {
         return {

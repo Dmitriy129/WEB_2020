@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 
 
 const PaperCard = (props) => {
-    const { handleBuy, handleSell, handleAdd, data, handleOpen, /* count */ } = props
+    const { handleBuy, handleSell, handleAdd, data, handleOpen, count: userCount } = props
     const { id, name, rule, max, price, startPrice, count, availableCount, owners, } = data
     const classes = useStyles()
 
@@ -41,9 +41,11 @@ const PaperCard = (props) => {
                     <Typography variant="body2" color="textSecondary" component="p">
                         Еще не куплено: {availableCount}
                     </Typography>
-                    <Typography variant="body1" component="p">
-                        Куплено этих акций: {count}
-                    </Typography>
+                    {userCount &&
+                        <Typography variant="body1" component="p">
+                            Куплено этих акций: {userCount}
+                        </Typography>
+                    }
                 </CardContent>
             </CardActionArea>
             <CardActions>
@@ -65,3 +67,4 @@ const PaperCard = (props) => {
 }
 
 export default PaperCard
+

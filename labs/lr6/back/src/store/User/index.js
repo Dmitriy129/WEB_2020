@@ -9,7 +9,7 @@ const ws = (new (require("../../socket"))).api();
 
 
 module.exports = class User {
-    constructor({ id, login, name, img, accessToken, balance }) {
+    constructor({ id, login, name, img, accessToken, balance, role }) {
         // this.id = userCounter.next()
         this.id = id
         this.login = login
@@ -21,6 +21,7 @@ module.exports = class User {
         this.balance = balance || 10000001
         this.papers = {}
         this.confirmed = false
+        this.role = role || "user"
     }
     updateInfo({ id, login, name, img, accessToken, balance }) {
         id && (this.id = id)
@@ -38,17 +39,22 @@ module.exports = class User {
 
     buyPaper(paper, count) {
         const finalPrice = paper.price * count
-        if (paper.availableCount() >= count && this.canPay(finalPrice)) {
-            if (!this.papers[paper.id] || !paper.owners[this.id]) {
-                this.papers[paper.id] = { paper: paper, count: 0 }
-                paper.owners[this.id] = { user: this, count: 0 }
+        if (paper.availableCount() >= count) {
+            if (this.canPay(finalPrice)) {
+                if (!this.papers[paper.id] || !paper.owners[this.id]) {
+                    this.papers[paper.id] = { paper: paper, count: 0 }
+                    paper.owners[this.id] = { user: this, count: 0 }
+                }
+                const nowCout = this.papers[paper.id].count
+                const newCout = nowCout ? nowCout + parseInt(count) : parseInt(count)
+                this.changeBalance(this.balance - finalPrice)
+                this.papers[paper.id].count = newCout
+                paper.owners[this.id].count = newCout
             }
-            const nowCout = this.papers[paper.id].count
-            const newCout = nowCout ? nowCout + parseInt(count) : parseInt(count)
-            this.changeBalance(this.balance - finalPrice)
-            this.papers[paper.id].count = newCout
-            paper.owners[this.id].count = newCout
+            else this.ws?.emit("notEnoughMoney")
         }
+        else this.ws?.emit("notEnoughPapers")
+
     }
     sellPaper(paper, count) {
         if (!this.papers[paper.id]) return
@@ -60,14 +66,16 @@ module.exports = class User {
             this.papers[paper.id].count = newCout
             paper.owners[this.id].count = newCout
         }
+        else this.ws?.emit("notEnoughPapers")
     }
 
     changeBalance(newBalance) {
         this.balance = parseInt(newBalance)
         console.log("balance changed", this.login, this.balance)
+        this.ws?.emit("balanceChanged", { balance: this.balance })
+        // ws.emit("balanceChanged", { balance: this.balance })
         // debugger
-        ws.emit("balanceChanged", { balance: this.balance })
-        this.checkBalanceInPaper()
+        // this.checkBalanceInPaper()
         // wsm.currWsSend({
         //     action: "balanceUpdated",
         //     data: { newBalance }
@@ -122,6 +130,7 @@ module.exports = class User {
             img: this.img,
             // papers: this.papers.map(e => ({})),
             confirmed: this.confirmed,
+            role: this.role,
         }
     }
 
@@ -137,6 +146,7 @@ module.exports = class User {
             img: this.img,
             papers: Object.values(this.papers).map(({ paper, count }) => ({ paper: paper.json(), count })),
             confirmed: this.confirmed,
+            role: this.role,
         }
     }
 

@@ -13,6 +13,8 @@ router.use((req, res, next) => {
 
     if (user) {
         req.user = user;
+
+
         // res.cookie("userID", user.id, {
         //     maxAge: 900000,
         //     // httpOnly: true,
@@ -92,6 +94,9 @@ router.get("/git", (req, res) => {
                         //     // httpOnly: true,
                         // });
                         // res.redirect("/");
+                        if (!Store.settings.started)
+                            if (user.role !== "admin")
+                                res.status(403).send("Ошибка аутетификации")
                         res.send(user.json())
                     })
                 .catch((err) => {
@@ -113,6 +118,9 @@ router.get("/logout", (req, res) => {
     res.redirect("/login");
 });
 router.get("/access", (req, res) => {
+    if (!Store.settings.started)
+        if (req.user.role !== "admin")
+            res.status(403).send("Ошибка аутетификации")
     res.send(req.user.json());
 })
 

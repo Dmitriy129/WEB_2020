@@ -17,6 +17,8 @@ const Papers = (props) => {
         tryAdd
     } = props.papers
 
+    const { me: { user: { role } } } = props
+
     const [modalQ, setModalQ] = useState({ open: false, id: "", var: 1 })
     const [modalUsers, setModalUsers] = useState({ open: false, id: 0, })
     const { error: showError, warn: showWarning } = useContext(EmiterContext)
@@ -63,7 +65,7 @@ const Papers = (props) => {
                 data={elem}
                 handleBuy={() => openModalForCard(elem.id, 1)}
                 handleSell={() => openModalForCard(elem.id, 2)}
-                handleAdd={() => openModalForCard(elem.id, 3)}
+                handleAdd={role === "admin" && (() => openModalForCard(elem.id, 3))}
                 handleOpen={() => handleOpen(idx)}
             />
         </Grid>
@@ -93,5 +95,5 @@ const Papers = (props) => {
     )
 }
 
-export default inject('papers')(observer(Papers))
+export default inject('papers', 'me')(observer(Papers))
 
