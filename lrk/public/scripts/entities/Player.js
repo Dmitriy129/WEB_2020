@@ -1,7 +1,7 @@
 const Player = Entity.extend({
     // Main
     hp: 3,
-    mp: 1000,
+    mp: 100,
     lifetime: 100,
     score: 0,
     // Physics
@@ -40,7 +40,7 @@ const Player = Entity.extend({
 
     update() {
         if (this.hp <= 0) {
-            soundManager.play(gameManager.sounds.loose[0], { volume: 0.5 })
+            soundManager.play(gameManager.sounds.loose[0], { volume: 0.2 })
             alert('Ну ты умер, поздравлю')
             gameManager.endGame()
 

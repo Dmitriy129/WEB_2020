@@ -98,7 +98,7 @@ const gameManager = {
         eventsManager.setup(this.canvas)
         // BarManager.init()
         // Run
-        // soundManager.play(this.sounds.background[4], { looping: true, volume: 0.75 })
+        soundManager.play(this.sounds.background[4], { looping: true, volume: 0.75 })
         // mapManager.loadMap(this.levels[1])
 
     },
