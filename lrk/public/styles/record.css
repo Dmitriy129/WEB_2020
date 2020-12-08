@@ -1,0 +1,111 @@
+* {
+  font-family: "system-ui";
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.title {
+  margin: auto;
+  text-align: center;
+  margin-top: 80px;
+  font-size: larger;
+}
+/* 
+table {
+  margin: auto;
+  margin-top: 16px;
+  border-collapse: separate;
+  border: solid black 1px;
+  border: 1px solid hsl(0, 0%, 100%);
+  width: 350px;
+  height: 200px;
+  text-align: center;
+  border-collapse: collapse;
+  border-radius: 8px;
+}
+table td,
+table th {
+  border: 1px solid #ffffff;
+  padding: 3px 2px;
+}
+table tbody td {
+  font-size: 13px;
+}
+table tr:nth-child(even) {
+  background: #d0e4f5;
+}
+table thead {
+  background: #0b6fa4;
+  border-bottom: 5px solid #ffffff;
+}
+table thead th {
+  font-size: 17px;
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+  border-left: 3px solid #ffffff;
+}
+table thead th:first-child {
+  border-left: none;
+} */
+table {
+  text-align: center;
+  margin: auto;
+  margin-top: 16px;
+  border-collapse: separate;
+  border: solid black 1px;
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  width: 350px;
+}
+
+td,
+th {
+  border-left: solid #285fe0 1px;
+  border-top: solid #285fe0 1px;
+}
+
+th {
+  /* background-color: #1742a5; */
+  border-top: none;
+  color: #285fe0;
+  padding: 4px;
+  /* height: 60px; */
+}
+
+td:first-child,
+th:first-child {
+  border-left: none;
+}
+
+.bntBox {
+  width: 100%;
+  text-align: center;
+}
+
+.toGame {
+  margin: auto;
+  margin-top: 16px;
+  color: #285fe0;
+  border: 1px solid #285fe0;
+  border-radius: 20px;
+  text-align: center;
+  margin-top: 32px;
+  display: flex;
+  /* font-size: 24px; */
+  /* line-height: 32px; */
+  padding: 8px;
+  transition: transform 0.25s ease, opacity 0.3s ease 0.1s, color 0.25s,
+    background-color 0.25s;
+  background-color: white;
+  outline: none;
+}
+.toGame:hover {
+  cursor: pointer;
+  color: white;
+  background-color: #285fe0;
+}

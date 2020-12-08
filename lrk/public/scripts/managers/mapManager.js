@@ -7,7 +7,20 @@ const mapManager = {
     tSize: { x: 4, y: 4 },
     mapSize: { x: 4, y: 4 },
     // tilesets: [],
-    view: { x: 0, y: 0, w: 800, h: 600 },
+    view: { x: 0, y: 0, w: 100, h: 100 },
+
+    // view: { x: 0, y: 0, w: 400, h: 300 },
+
+    init: function (canvas) {
+        const resize = () => {
+            const width = document.body.offsetWidth / 2
+            const height = document.body.clientHeight / 2
+            this.view.w = canvas.width = width
+            this.view.h = canvas.height = height
+        }
+        resize()
+        window.onresize = resize
+    },
 
     loadMap: function (path) {
         const request = new XMLHttpRequest()
@@ -53,6 +66,7 @@ const mapManager = {
             for (let id = 0; id < this.mapData.layers.length; id++) {
                 const layer = this.mapData.layers[id]
                 if (layer.type === 'tilelayer') {
+                    // if
                     this.tLayer = layer
                     break
                 }
@@ -73,17 +87,17 @@ const mapManager = {
                     for (let i = 0; i < entities.objects.length; i++) {
                         const e = entities.objects[i]
                         try {
-                            const obj = Object.create(gameManager.factory[e.type])
-                            obj.gid = e.gid
-                            obj.name = e.name
-                            // obj.pos_x = e.x
-                            // obj.pos_y = e.y
-                            obj.pos_x = Math.floor(e.x)
-                            obj.pos_y = Math.floor(e.y - e.height)
-                            obj.size_x = e.width
-                            obj.size_y = e.height
-                            gameManager.entities.push(obj)
-                            if (obj.name === 'Player') gameManager.player = obj // TODO
+                            const obj = gameManager.genObj(e)
+                            if (obj.name === 'Player') {
+                                const lastPlayer = gameManager.player
+                                if (lastPlayer) {
+                                    obj.money < lastPlayer.money && (obj.money = lastPlayer.money)
+                                    obj.hp < lastPlayer.hp && (obj.hp = lastPlayer.hp)
+                                    obj.mp < lastPlayer.mp && (obj.mp = lastPlayer.mp)
+
+                                }
+                                gameManager.player = obj // TODO}
+                            }
                         } catch (ex) {
                             console.log('Ошибка создания: [' + e.gid + ']' + e.type + ',' + ex)
                         }
@@ -96,7 +110,7 @@ const mapManager = {
     draw: function (ctx) {
         if (!spriteManager.imgLoaded || !spriteManager.jsonLoaded) return
         ctx.rect(0, 0, this.view.w, this.view.h)
-        ctx.fillStyle = '#200b13'
+        ctx.fillStyle = '#222222'
         ctx.fill()
         if (!mapManager.jsonLoaded) {
             setTimeout(function () {
@@ -106,12 +120,11 @@ const mapManager = {
             for (let i = 0; i < this.tLayer.data.length; i++) {
                 if (this.tLayer.data[i] !== 0) {
                     const pX = (i % this.xCount) * this.tSize.x
-                    // const pY = (i / this.xCount) * this.tSize.y
                     const pY = Math.floor(i / this.xCount) * this.tSize.y
-                    debugger
                     spriteManager.drawSprite(ctx, spriteManager.getSpriteBySpriteId(this.tLayer.data[i]), pX, pY)
                 }
             }
+            // for
         }
     },
 

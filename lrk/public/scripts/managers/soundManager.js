@@ -40,18 +40,23 @@ const soundManager = {
         request.send()
     },
 
-    loadArray: function (array) {
-        for (let i = 0; i < array.length; i++) {
-            soundManager.load(array[i], function () {
-                if (array.length === Object.keys(soundManager.clips).length) {
-                    for (const sd in soundManager.clips) {
-                        if (!soundManager.clips[sd].loaded) return
+    loadAll: function (obj) {
+        const len = Object.values(obj).reduce((a, b) => a + b.length, 0)
+        for (key in obj) {
+            let array = obj[key]
+            for (let i = 0; i < array.length; i++) {
+                soundManager.load(array[i], function () {
+                    if (len === Object.keys(soundManager.clips).length) {
+                        for (const sd in soundManager.clips) {
+                            if (!soundManager.clips[sd].loaded) return
+                        }
+                        soundManager.loaded = true
                     }
-                    soundManager.loaded = true
-                }
-            })
+                })
+            }
         }
     },
+    
 
     play: function (path, settings) {
         if (!soundManager.loaded) {

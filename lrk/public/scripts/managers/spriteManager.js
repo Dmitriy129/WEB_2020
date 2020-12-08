@@ -2,7 +2,7 @@ const spriteManager = {
     image: new Image(),
     sprites: [],
     imgLoaded: false,
-    jsonLoaded: false,
+    jsonLoadedm: false,
 
     loadImg: function (imgName) {
         this.image.onload = function () {
@@ -26,28 +26,17 @@ const spriteManager = {
 
     parseAtlas: function (atlasJSON) {
         const atlas = JSON.parse(atlasJSON)
-        // const sorted = atlas.frames.sort((f1, f2) => f1.frame.y !== f2.frame.y ? f1.frame.y - f2.frame.y : f1.frame.x - f2.frame.x)
-        const sorted = atlas.frames.sort(({ frame: { x1, y1 } }, { frame: { x2, y2 } }) => y1 - y2 || x1 - x2)
+        const sorted = atlas.frames.sort((f1, f2) => f1.frame.y !== f2.frame.y ? f1.frame.y - f2.frame.y : f1.frame.x - f2.frame.x)
         sorted.forEach(obj => {
             const frame = obj.frame
             this.sprites.push({
                 name: obj.filename,
-                // id: parseInt(obj.filename.match(/[0-9]*$/)[0] - 1),
                 x: frame.x,
                 y: frame.y,
                 w: frame.w,
                 h: frame.h,
                 solid: obj.filename.toLowerCase().includes('wall') // TODO custom check
             })
-            // this.sprites[parseInt(obj.filename.match(/[0-9]*$/)[0]) - 1] = {
-            //     name: obj.filename,
-            //     // id: parseInt(obj.filename.match(/[0-9]*$/)[0] - 1),
-            //     x: frame.x,
-            //     y: frame.y,
-            //     w: frame.w,
-            //     h: frame.h,
-            //     solid: obj.filename.toLowerCase().includes('wall') // TODO custom check
-            // }
         })
         this.jsonLoaded = true
     },
@@ -65,12 +54,10 @@ const spriteManager = {
             console.error(`Unknown sprite id ${id}`)
             return this.sprites[0]
         }
-        // console.log('this.sprites.find(sprite => sprite.id == id)', this.sprites.find(sprite => sprite.id == id))
         return this.sprites[id]
-        // return this.sprites.find(sprite => sprite.id == id)
     },
 
-    drawSprite: function (ctx, sprite, x, y) {
+    drawSprite: function (ctx, sprite, x, y, deg) {
         if (!this.imgLoaded || !this.jsonLoaded) {
             // setTimeout(function () {
             //     spriteManager.drawSprite(ctx, sprite, x, y, 1)
@@ -79,10 +66,18 @@ const spriteManager = {
             if (!mapManager.isVisible(x, y, sprite.w, sprite.h)) return
             x -= mapManager.view.x
             y -= mapManager.view.y
-
-            sprite.w === sprite.h === sprite.w === sprite.h === 16 && console.log(sprite.w, sprite.h, sprite.w, sprite.h)
+            // if (deg) rotateAndPaintImage(ctx, this.image, deg / 180 * Math.PI, sprite.x, sprite.y, sprite.x, sprite.y, sprite.w, sprite.h, x, y)
+            // else ctx.drawImage(this.image, sprite.x, sprite.y, sprite.w, sprite.h, x, y, sprite.w, sprite.h)
             ctx.drawImage(this.image, sprite.x, sprite.y, sprite.w, sprite.h, x, y, sprite.w, sprite.h)
-            // ctx.drawImage(this.image, sprite.x, sprite.y, 16, 16, x, y, 16, 16)
         }
-    }
+    },
+
+}
+function rotateAndPaintImage(context, image, angleInRad, positionX, positionY, sprite_x, sprite_y, sprite_w, sprite_h, x, y) {
+    console.log("painted", positionX, positionY)
+    // context.translate(positionX, positionY);
+    // context.rotate(angleInRad);
+    context.drawImage(image, 64, 64, 16, 16, 0, 0, 16, 16);
+    // context.rotate(-angleInRad);
+    // context.translate(-positionX, -positionY);
 }

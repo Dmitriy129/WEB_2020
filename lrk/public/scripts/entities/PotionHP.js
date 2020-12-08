@@ -2,6 +2,7 @@ const PotionHP = Entity.extend({
     move_x: 0,
     move_y: 0,
     speed: 0,
+    type: 'PotionHP',
 
     update() {
         // console.log('speed', this.speed)
@@ -13,9 +14,10 @@ const PotionHP = Entity.extend({
     },
 
     onEntityCollision(other) {
-        if (other.name = "Player") {
-            other.hp += 100
-            console.log("then delete this object")
+        if (other.name === 'Player') {
+            other.hp += Math.round(Math.random() * 2)
+            gameManager.remove(this)
+            soundManager.play(gameManager.sounds.potion[0], { volume: 0.01 })
 
         }
     },

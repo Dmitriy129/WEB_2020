@@ -7,7 +7,7 @@
     "build": "npx webpack",
     "build-gulp": "gulp",
     "start": "NODE_ENV=dev node index.js",
-    "test": "NODE_ENV=dev ./node_modules/mocha/bin/mocha --delay",
+    "test": "./node_modules/mocha/bin/mocha ",
     "flow": "flow"
   },
   "author": "",

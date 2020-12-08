@@ -1,26 +1,34 @@
 const Arrow = Entity.extend({
     move_x: 0,
     move_y: 0,
-    speed: 0.3,
+    speed: 0.2,
+    solid: false,
+    type: 'Arrow',
 
     update() {
-        // console.log("waste upd")
         physicsManager.update(this)
-        this.move_x *= 0.8
-        this.move_y *= 0.8
-        if (Math.abs(this.move_x) < 0.001) this.move_x = 0
-        if (Math.abs(this.move_y) < 0.001) this.move_y = 0
+        this.move_x *= 0.9
+        this.move_y *= 0.9
+        // if (Math.abs(this.move_x) < 1) this.move_x = 0
+        // if (Math.abs(this.move_y) < 1) this.move_y = 0
+        if (Math.abs(this.move_x) < 5 && Math.abs(this.move_y) < 5) gameManager.remove(this)
 
     },
 
     onCollision(tileIndex) {
-        this.move_x = -this.move_x
-        this.move_y = -this.move_y
+        gameManager.remove(this)
     },
 
     onEntityCollision(other) {
-        this.move_x = (this.pos_x - other.pos_x) * (this.speed /* + other.speed */) /* / 2 */ // TODO normalize
-        this.move_y = (this.pos_y - other.pos_y) * (this.speed /* + other.speed */) /* / 2 */
+        if (other.type !== 'Enemy') {
+            gameManager.remove(this)
+            if (other.hp != null) {
+                if (other.type === 'Player') {
+                    other.hp -= 1
+                    soundManager.play(gameManager.sounds.damage[1], { volume: 1 })
+                }
+            }
+        } /* else { gameManager.remove(this) } */
     },
 
     onMoved(oldX, oldY) { // ?

@@ -62,7 +62,12 @@ export class PaperFormComponent implements OnInit {
       return;
     }
 
-    if (count === undefined || count === null || count < 0) {
+    if (
+      count === undefined ||
+      count === null ||
+      count < 0 ||
+      !Number.isInteger(count)
+    ) {
       if (this.isBadCount === true) {
         return;
       }
