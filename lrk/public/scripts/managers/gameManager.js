@@ -5,16 +5,16 @@ const gameManager = {
     factory: {},
     entities: [],
     player: null,
-    fireNum: 0, // TODO
-    forRemove: [], // TODO
-    level: 0, // TODO
-    levels: ['maps/1.json', 'maps/2.json'], // https://www.mapeditor.org/ Export -> JSON
+    fireNum: 0, 
+    forRemove: [], 
+    level: 0, 
+    levels: ['maps/1.json', 'maps/2.json'], 
     sounds: {
         background: [
-            "/sounds/background.mp3",
-            "/sounds/background_1.mp3",
-            "/sounds/background_2.wav",
-            "/sounds/background_3.wav",
+            // "/sounds/background.mp3",
+            // "/sounds/background_1.mp3",
+            // "/sounds/background_2.wav",
+            // "/sounds/background_3.wav",
             "/sounds/background_main.mp3",
         ],
         bomb: [
@@ -25,8 +25,8 @@ const gameManager = {
             "/sounds/arrow_1.wav",
         ],
         fire: [
-            "/sounds/fire_loop_1.wav",
             "/sounds/fire_2.mp3",
+            // "/sounds/fire_loop_1.wav",
         ],
         goblin: [
             "/sounds/goblin_1.wav",
@@ -36,14 +36,14 @@ const gameManager = {
         ],
         loose: [
             "/sounds/loose_1.wav",
-            "/sounds/loose_2.wav",
-            "/sounds/loose_3.wav",
+            // "/sounds/loose_2.wav",
+            // "/sounds/loose_3.wav",
         ],
         damage: [
-            "/sounds/damageGhost_1.wav",
             "/sounds/damageMe_1.wav",
             "/sounds/damageMe_2.wav",
-            "/sounds/damageSkeleton_1.mp3",
+            "/sounds/damageGhost_1.wav",
+            // "/sounds/damageSkeleton_1.mp3",
             "/sounds/damageSkeleton_2.wav",
         ],
         achievement: [
@@ -60,12 +60,10 @@ const gameManager = {
             "/sounds/potionMP_2.wav",
         ],
     },
-    // sounds: ["/sounds/arrow_1.wav", "/sounds/background.mp3", "/sounds/background_1.mp3", "/sounds/background_2.wav", "/sounds/background_3.wav", "/sounds/background_main.mp3", "/sounds/bomb_1.wav", "/sounds/bomb_2.wav", "/sounds/damageGhost_1.wav", "/sounds/damageMe_1.wav", "/sounds/damageMe_2.wav", "/sounds/damageSkeleton_1.mp3", "/sounds/damageSkeleton_2.wav", "/sounds/fire_loop_1.wav", "/sounds/goblin_1.wav", "/sounds/jump.wav", "/sounds/loose_1.wav", "/sounds/loose_2.wav", "/sounds/loose_3.wav", "/sounds/lvlup_1.wav", "/sounds/lvlup_2.wav", "/sounds/money_1.wav", "/sounds/money_2.wav", "/sounds/potionHP_1.wav", "/sounds/potionMP_1.wav", "/sounds/potionMP_2.wav", "/sounds/win_1.wav",],
-    spritesheetJson: 'sprites/sprites.json', // https://www.leshylabs.com/apps/sstool/ JSON-TP-Array
-    spritesheet: 'sprites/spritesheet.png', // https://www.leshylabs.com/apps/sstool/
+    spritesheetJson: 'sprites/sprites.json',
+    spritesheet: 'sprites/spritesheet.png',
 
     play: function () {
-        // alert("Псс, теперь не стрелы, а бомбочки( не важно, что похожи на грибы), можно подорваться")
         gameManager.loadAll()
         this.interval = setInterval(this.update.bind(this), 40)
     },
@@ -73,9 +71,6 @@ const gameManager = {
     loadAll: function () {
         gameManager.factory.Player = Player
         gameManager.factory.Finish = Finish
-        // gameManager.factory.Bonus = Bonus
-        // gameManager.factory.Player = Player
-        // gameManager.factory.Finish = Finish
         gameManager.factory.Bombs = Bombs
         gameManager.factory.Arrow = Arrow
         gameManager.factory.Money = Money
@@ -86,7 +81,6 @@ const gameManager = {
         gameManager.factory.PotionHP = PotionHP
         gameManager.factory.Chest = Chest
         gameManager.factory.Waste = Waste
-        // Init
         mapManager.init(this.canvas)
         soundManager.init()
         HTMLManager.init()
@@ -96,23 +90,16 @@ const gameManager = {
         mapManager.parseEntities()
         mapManager.draw(this.ctx)
         eventsManager.setup(this.canvas)
-        // BarManager.init()
-        // Run
-        soundManager.play(this.sounds.background[4], { looping: true, volume: 0.75 })
-        // mapManager.loadMap(this.levels[1])
-
+        soundManager.play(this.sounds.background[0], { looping: true, volume: 0.75 })
     },
 
     update: function () {
         if (this.player === null) return
         HTMLManager.updateAll()
-        // Global input
         if (eventsManager.action.esc) this.end_game()
-        // Entities update
         this.entities.forEach(function (entity) {
             entity.update()
         })
-        // Entities destroy
         for (let i = 0; i < this.forRemove.length; i++) {
             const idx = this.entities.indexOf(this.forRemove[i])
             if (idx > -1) {
@@ -120,20 +107,15 @@ const gameManager = {
             }
         }
         this.forRemove.length = 0
-        // Render
         mapManager.centerAt(this.player?.pos_x || 0, this.player?.pos_y || 0)
-        // Draw background
         mapManager.draw(this.ctx)
-        // Draw foreground
         for (let e = 0; e < this.entities.length; e++) {
             this.entities[e].draw(this.ctx)
         }
-        // End game check
         if (this.isGameOver()) {
             if (this.level + 1 === this.levels_path.length) {
                 this.endGame()
             } else {
-                // this.nextLevel()
             }
         }
         BarManager.updateAll(this.ctx)
@@ -141,7 +123,6 @@ const gameManager = {
 
     isGameOver: function () {
         return false
-        // TODO custom logic
     },
 
     endGame: function () {
@@ -158,17 +139,14 @@ const gameManager = {
         if (confirm("Посмотреть на таблицу результатов?")) window.location = "records"
         else window.location.reload()
         clearInterval(this.interval)
-        //   alert("Вы прошли игру")
     },
     playerStatsHTMLUpdate: () => {
         const { hp, mp, haveKey, score } = this.player
     },
 
     nextLevel: function () {
-        // Clear
         clearInterval(this.interval)
         gameManager.entities = []
-        // gameManager.player = null
         mapManager.reset(this.ctx)
         this.level++
         if (this.levels[this.level]) {

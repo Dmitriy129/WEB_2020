@@ -3,15 +3,13 @@ const eventsManager = {
     action: [],
 
     setup: function (canvas) {
-        this.bind[27] = 'esc' // escape
-        this.bind[87] = 'up' // w
-        this.bind[65] = 'left' // a
-        this.bind[83] = 'down' // s
-        this.bind[68] = 'right' // d
-        // this.bind[32] = 'fire' // space
-        this.bind[16] = 'nitro' // shift
-        // this.bind[17] = 'nitro' // ctrl
-        this.bind[18] = 'slow' // alt
+        this.bind[27] = 'esc' 
+        this.bind[87] = 'up' 
+        this.bind[65] = 'left' 
+        this.bind[83] = 'down' 
+        this.bind[68] = 'right' 
+        this.bind[16] = 'nitro' 
+        this.bind[18] = 'slow' 
         canvas.addEventListener('mousedown', this.onMouseDown)
         canvas.addEventListener('mouseup', this.onMouseUp)
         canvas.addEventListener('mousemove', this.onMouseMove)

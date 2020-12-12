@@ -3,16 +3,6 @@ const PotionHP = Entity.extend({
     move_y: 0,
     speed: 0,
     type: 'PotionHP',
-
-    update() {
-        // console.log('speed', this.speed)
-        // console.log('move_x', this.move_x)
-        // console.log('move_y', this.move_y)
-    },
-
-    onCollision(tileIndex) {
-    },
-
     onEntityCollision(other) {
         if (other.name === 'Player') {
             other.hp += Math.round(Math.random() * 2)
@@ -21,8 +11,4 @@ const PotionHP = Entity.extend({
 
         }
     },
-
-    onMoved(oldX, oldY) { // ?
-
-    }
 })

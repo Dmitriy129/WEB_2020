@@ -3,7 +3,6 @@ const spriteManager = {
     sprites: [],
     imgLoaded: false,
     jsonLoadedm: false,
-
     loadImg: function (imgName) {
         this.image.onload = function () {
             spriteManager.imgLoaded = true
@@ -11,7 +10,6 @@ const spriteManager = {
         this.image.src = imgName
         this.image.id = imgName
     },
-
     loadAtlas: function (atlasJson, atlasImg) {
         const request = new XMLHttpRequest()
         request.onreadystatechange = function () {
@@ -23,7 +21,6 @@ const spriteManager = {
         request.send()
         this.loadImg(atlasImg)
     },
-
     parseAtlas: function (atlasJSON) {
         const atlas = JSON.parse(atlasJSON)
         const sorted = atlas.frames.sort((f1, f2) => f1.frame.y !== f2.frame.y ? f1.frame.y - f2.frame.y : f1.frame.x - f2.frame.x)
@@ -35,18 +32,16 @@ const spriteManager = {
                 y: frame.y,
                 w: frame.w,
                 h: frame.h,
-                solid: obj.filename.toLowerCase().includes('wall') // TODO custom check
+                solid: obj.filename.toLowerCase().includes('wall') 
             })
         })
         this.jsonLoaded = true
     },
-
     getSpriteByName: function (name) {
         const sprite = this.sprites.find(sprite => sprite.name === name)
         if (sprite === null) console.error(`Unknown sprite name ${name}`)
         return sprite
     },
-
     getSpriteBySpriteId: function (id) {
         if (id === 0) return this.sprites[0]
         id--
@@ -56,12 +51,8 @@ const spriteManager = {
         }
         return this.sprites[id]
     },
-
     drawSprite: function (ctx, sprite, x, y, deg) {
         if (!this.imgLoaded || !this.jsonLoaded) {
-            // setTimeout(function () {
-            //     spriteManager.drawSprite(ctx, sprite, x, y, 1)
-            // }, 100) // Stackoverflow warning
         } else {
             if (!mapManager.isVisible(x, y, sprite.w, sprite.h)) return
             x -= mapManager.view.x
@@ -71,7 +62,6 @@ const spriteManager = {
             ctx.drawImage(this.image, sprite.x, sprite.y, sprite.w, sprite.h, x, y, sprite.w, sprite.h)
         }
     },
-
 }
 function rotateAndPaintImage(context, image, angleInRad, positionX, positionY, sprite_x, sprite_y, sprite_w, sprite_h, x, y) {
     console.log("painted", positionX, positionY)

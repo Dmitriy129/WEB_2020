@@ -3,13 +3,11 @@ const soundManager = {
     context: null,
     gainNode: null,
     loaded: false,
-
     init: function () {
         this.context = new AudioContext()
         this.gainNode = this.context.createGain ? this.context.createGain() : this.context.createGainNode()
         this.gainNode.connect(this.context.destination)
     },
-
     load: function (path, callback) {
         if (this.clips[path]) {
             callback(this.clips[path])
@@ -39,7 +37,6 @@ const soundManager = {
         }
         request.send()
     },
-
     loadAll: function (obj) {
         const len = Object.values(obj).reduce((a, b) => a + b.length, 0)
         for (key in obj) {
@@ -56,8 +53,6 @@ const soundManager = {
             }
         }
     },
-    
-
     play: function (path, settings) {
         if (!soundManager.loaded) {
             setTimeout(function () {
@@ -85,7 +80,6 @@ const soundManager = {
         sound.start(0)
         return true
     },
-
     stopAll: function () {
         this.gainNode.disconnect()
     }

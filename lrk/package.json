@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "http-server public -a localhost -p 3333 -o",
-    "build": "webpack"
+    "dev": "http-server public -a localhost -p 3333 -o",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",

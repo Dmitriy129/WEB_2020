@@ -3,13 +3,6 @@ const PotionMP = Entity.extend({
     move_y: 0,
     speed: 0,
     type: 'PotionMP',
-
-    update() {
-    },
-
-    onCollision(tileIndex) {
-    },
-
     onEntityCollision(other) {
         if (other.name == 'Player') {
             // other.mp += 100
@@ -18,8 +11,4 @@ const PotionMP = Entity.extend({
             soundManager.play(gameManager.sounds.potion[1], { volume: 0.01 })
         }
     },
-
-    onMoved(oldX, oldY) { // ?
-
-    }
 })

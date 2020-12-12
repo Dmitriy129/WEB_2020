@@ -7,7 +7,6 @@ const BarManager = {
             spriteManager.drawSprite(ctx, sprite, x, y)
         }
     },
-
     updateMoney: function (ctx) {
         const sprite = spriteManager.getSpriteBySpriteId(76)
         const count = gameManager.player?.money
@@ -34,5 +33,4 @@ const BarManager = {
         this.updateMP(ctx)
         this.updateKey(ctx)
     }
-
 }

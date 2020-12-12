@@ -1,8 +1,4 @@
 const HTMLManager = {
-
-    // HP: document.getElementById('hp_label'),
-    // MP: document.getElementById('mp_label'),
-    // Key: document.getElementById('key_label'),
     init: function () {
         this.HP = document.getElementById('hp_label')
         this.MP = document.getElementById('mp_label')

@@ -6,10 +6,7 @@ const mapManager = {
     jsonLoaded: false,
     tSize: { x: 4, y: 4 },
     mapSize: { x: 4, y: 4 },
-    // tilesets: [],
     view: { x: 0, y: 0, w: 100, h: 100 },
-
-    // view: { x: 0, y: 0, w: 400, h: 300 },
 
     init: function (canvas) {
         const resize = () => {
@@ -41,32 +38,10 @@ const mapManager = {
         this.tSize.y = this.mapData.tileheight
         this.mapSize.x = this.xCount * this.tSize.x
         this.mapSize.y = this.yCount * this.tSize.y
-        // for (let i = 0; i < this.mapData.tilesets.length; i++) {
-        //     //
-        //     // const img = new Image()
-        //     // img.onload = function () {
-        //     //     mapManager.imgLoadCount++
-        //     //     if (mapManager.imgLoadCount === mapManager.mapData.tilesets.length) {
-        //     //         mapManager.imgLoaded = true
-        //     //     }
-        //     // }
-        //     // img.src = this.mapData.tilesets[i].image
-        //     //
-        //     const t = this.mapData.tilesets[i]
-        //     const ts = {
-        //         // firstgid: t.firstgid,
-        //         // image: img,
-        //         // name: t.name,
-        //         // xCount: Math.floor(t.imagewidth / mapManager.tSize.x),
-        //         // yCount: Math.floor(t.imageheight / mapManager.tSize.y)
-        //     }
-        //     this.tilesets.push(ts)
-        // }
         if (this.tLayer === null) {
             for (let id = 0; id < this.mapData.layers.length; id++) {
                 const layer = this.mapData.layers[id]
                 if (layer.type === 'tilelayer') {
-                    // if
                     this.tLayer = layer
                     break
                 }
@@ -96,7 +71,7 @@ const mapManager = {
                                     obj.mp < lastPlayer.mp && (obj.mp = lastPlayer.mp)
 
                                 }
-                                gameManager.player = obj // TODO}
+                                gameManager.player = obj 
                             }
                         } catch (ex) {
                             console.log('Ошибка создания: [' + e.gid + ']' + e.type + ',' + ex)
@@ -124,35 +99,9 @@ const mapManager = {
                     spriteManager.drawSprite(ctx, spriteManager.getSpriteBySpriteId(this.tLayer.data[i]), pX, pY)
                 }
             }
-            // for
         }
     },
 
-    // getTile (tileIndex) {
-    //     const tile = {
-    //         img: null,
-    //         px: 0,
-    //         py: 0
-    //     }
-    //     let tileset = null
-    //     for (let i = mapManager.tilesets.length - 1; i >= 0; i--) {
-    //         if (mapManager.tilesets[i].firstgid <= tileIndex) {
-    //             tileset = mapManager.tilesets[i]
-    //             break
-    //         }
-    //     }
-    //     if (tileset === null) {
-    //         console.error(`No tileset for tile ${tileIndex} found`)
-    //         tileset = mapManager.tilesets[0]
-    //     }
-    //     tile.img = tileset.image
-    //     const id = tileIndex - tileset.firstgid
-    //     const x = id % tileset.xCount
-    //     const y = Math.floor(id / tileset.xCount)
-    //     tile.px = x * mapManager.tSize.x
-    //     tile.py = y * mapManager.tSize.y
-    //     return tile
-    // },
 
     isVisible: function (x, y, width, height) {
         return !(
@@ -163,7 +112,7 @@ const mapManager = {
         )
     },
 
-    getSpriteId: function (x, y) { // Get tile sprite id
+    getSpriteId: function (x, y) { 
         const wX = x
         const wY = y
         const idx = Math.floor(wY / this.tSize.y) * this.xCount + Math.floor(wX / this.tSize.x)
