@@ -1,5 +1,4 @@
 const BarManager = {
-
     drawStat: function (ctx, sprite, { count = 1, x: x0 = 4, y: y0 = 4, padding = 8 }) {
         for (let i = 0; i < count; i++) {
             const x = mapManager.view.x + x0 + padding * i
