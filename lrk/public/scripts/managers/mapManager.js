@@ -1,152 +1,162 @@
 const mapManager = {
-    mapData: null,
-    tLayer: null,
-    xCount: 0,
-    yCount: 0,
-    jsonLoaded: false,
-    tSize: { x: 4, y: 4 },
-    mapSize: { x: 4, y: 4 },
-    view: { x: 0, y: 0, w: 100, h: 100 },
+  mapData: null,
+  tLayer: null,
+  xCount: 0,
+  yCount: 0,
+  jsonLoaded: false,
+  tSize: { x: 4, y: 4 },
+  mapSize: { x: 4, y: 4 },
+  view: { x: 0, y: 0, w: 100, h: 100 },
 
-    init: function (canvas) {
-        const resize = () => {
-            const width = document.body.offsetWidth / 2
-            const height = document.body.clientHeight / 2
-            this.view.w = canvas.width = width
-            this.view.h = canvas.height = height
+  init: function (canvas) {
+    const resize = () => {
+      const width = document.body.offsetWidth / 2;
+      const height = document.body.clientHeight / 2;
+      this.view.w = canvas.width = width;
+      this.view.h = canvas.height = height;
+    };
+    resize();
+    window.onresize = resize;
+  },
+
+  loadMap: function (path) {
+    const request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+      if (request.readyState === 4 && request.status === 200) {
+        mapManager.parseMap(request.responseText);
+      }
+    };
+    request.open("GET", path, true);
+    request.send();
+  },
+
+  parseMap: function (tilesJSON) {
+    this.mapData = JSON.parse(tilesJSON);
+    this.xCount = this.mapData.width;
+    this.yCount = this.mapData.height;
+    this.tSize.x = this.mapData.tilewidth;
+    this.tSize.y = this.mapData.tileheight;
+    this.mapSize.x = this.xCount * this.tSize.x;
+    this.mapSize.y = this.yCount * this.tSize.y;
+    if (this.tLayer === null) {
+      for (let id = 0; id < this.mapData.layers.length; id++) {
+        const layer = this.mapData.layers[id];
+        if (layer.type === "tilelayer") {
+          this.tLayer = layer;
+          break;
         }
-        resize()
-        window.onresize = resize
-    },
-
-    loadMap: function (path) {
-        const request = new XMLHttpRequest()
-        request.onreadystatechange = function () {
-            if (request.readyState === 4 && request.status === 200) {
-                mapManager.parseMap(request.responseText)
-            }
-        }
-        request.open('GET', path, true)
-        request.send()
-    },
-
-    parseMap: function (tilesJSON) {
-        this.mapData = JSON.parse(tilesJSON)
-        this.xCount = this.mapData.width
-        this.yCount = this.mapData.height
-        this.tSize.x = this.mapData.tilewidth
-        this.tSize.y = this.mapData.tileheight
-        this.mapSize.x = this.xCount * this.tSize.x
-        this.mapSize.y = this.yCount * this.tSize.y
-        if (this.tLayer === null) {
-            for (let id = 0; id < this.mapData.layers.length; id++) {
-                const layer = this.mapData.layers[id]
-                if (layer.type === 'tilelayer') {
-                    this.tLayer = layer
-                    break
-                }
-            }
-        }
-        this.jsonLoaded = true
-    },
-
-    parseEntities: function () {
-        if (!mapManager.jsonLoaded) {
-            setTimeout(function () {
-                mapManager.parseEntities()
-            }, 100)
-        } else {
-            for (let j = 0; j < this.mapData.layers.length; j++) {
-                if (this.mapData.layers[j].type === 'objectgroup') {
-                    const entities = this.mapData.layers[j]
-                    for (let i = 0; i < entities.objects.length; i++) {
-                        const e = entities.objects[i]
-                        try {
-                            const obj = gameManager.genObj(e)
-                            if (obj.name === 'Player') {
-                                const lastPlayer = gameManager.player
-                                if (lastPlayer) {
-                                    obj.money < lastPlayer.money && (obj.money = lastPlayer.money)
-                                    obj.hp < lastPlayer.hp && (obj.hp = lastPlayer.hp)
-                                    obj.mp < lastPlayer.mp && (obj.mp = lastPlayer.mp)
-
-                                }
-                                gameManager.player = obj 
-                            }
-                        } catch (ex) {
-                            console.log('Ошибка создания: [' + e.gid + ']' + e.type + ',' + ex)
-                        }
-                    }
-                }
-            }
-        }
-    },
-
-    draw: function (ctx) {
-        if (!spriteManager.imgLoaded || !spriteManager.jsonLoaded) return
-        ctx.rect(0, 0, this.view.w, this.view.h)
-        ctx.fillStyle = '#222222'
-        ctx.fill()
-        if (!mapManager.jsonLoaded) {
-            setTimeout(function () {
-                mapManager.draw(ctx)
-            }, 100)
-        } else {
-            for (let i = 0; i < this.tLayer.data.length; i++) {
-                if (this.tLayer.data[i] !== 0) {
-                    const pX = (i % this.xCount) * this.tSize.x
-                    const pY = Math.floor(i / this.xCount) * this.tSize.y
-                    spriteManager.drawSprite(ctx, spriteManager.getSpriteBySpriteId(this.tLayer.data[i]), pX, pY)
-                }
-            }
-        }
-    },
-
-
-    isVisible: function (x, y, width, height) {
-        return !(
-            x + width < this.view.x ||
-            y + height < this.y ||
-            x > this.view.x + this.view.w ||
-            y > this.view.y + this.view.h
-        )
-    },
-
-    getSpriteId: function (x, y) { 
-        const wX = x
-        const wY = y
-        const idx = Math.floor(wY / this.tSize.y) * this.xCount + Math.floor(wX / this.tSize.x)
-        return this.tLayer.data[idx]
-    },
-
-    centerAt: function (x, y) {
-        if (x < this.view.w / 2) {
-            this.view.x = 0
-        } else if (x > this.mapSize.x - this.view.w / 2) {
-            this.view.x = this.mapSize.x - this.view.w
-        } else {
-            this.view.x = x - this.view.w / 2
-        }
-
-        if (y < this.view.h / 2) {
-            this.view.y = 0
-        } else if (y > this.mapSize.y - this.view.h / 2) {
-            this.view.y = this.mapSize.y - this.view.h
-        } else {
-            this.view.y = y - this.view.h / 2
-        }
-    },
-
-    reset: function (ctx) {
-        ctx.clearRect(0, 0, mapManager.view.w, mapManager.view.h)
-        this.mapData = null
-        this.tLayer = null
-        this.xCount = 0
-        this.yCount = 0
-        this.tSize = { x: 4, y: 4 }
-        this.mapSize = { x: 4, y: 4 }
-        this.tilesets = []
-        this.jsonLoaded = false
-        this.view = { x: 0, y: 0, w: 1365, h: 750 }
+      }
     }
-}
+    this.jsonLoaded = true;
+  },
+
+  parseEntities: function () {
+    if (!mapManager.jsonLoaded) {
+      setTimeout(function () {
+        mapManager.parseEntities();
+      }, 100);
+    } else {
+      for (let j = 0; j < this.mapData.layers.length; j++) {
+        if (this.mapData.layers[j].type === "objectgroup") {
+          const entities = this.mapData.layers[j];
+          for (let i = 0; i < entities.objects.length; i++) {
+            const e = entities.objects[i];
+            try {
+              const obj = gameManager.genObj(e);
+              if (obj.name === "Player") {
+                const lastPlayer = gameManager.player;
+                if (lastPlayer) {
+                  obj.money < lastPlayer.money &&
+                    (obj.money = lastPlayer.money);
+                  obj.hp < lastPlayer.hp && (obj.hp = lastPlayer.hp);
+                  obj.mp < lastPlayer.mp && (obj.mp = lastPlayer.mp);
+                }
+                gameManager.player = obj;
+              }
+            } catch (ex) {
+              console.log(
+                "Ошибка создания: [" + e.gid + "]" + e.type + "," + ex
+              );
+            }
+          }
+        }
+      }
+    }
+  },
+
+  draw: function (ctx) {
+    if (!spriteManager.imgLoaded || !spriteManager.jsonLoaded) return;
+    ctx.rect(0, 0, this.view.w, this.view.h);
+    ctx.fillStyle = "#222222";
+    ctx.fill();
+    if (!mapManager.jsonLoaded) {
+      setTimeout(function () {
+        mapManager.draw(ctx);
+      }, 100);
+    } else {
+      for (let i = 0; i < this.tLayer.data.length; i++) {
+        if (this.tLayer.data[i] !== 0) {
+          const pX = (i % this.xCount) * this.tSize.x;
+          const pY = Math.floor(i / this.xCount) * this.tSize.y;
+          spriteManager.drawSprite(
+            ctx,
+            spriteManager.getSpriteBySpriteId(this.tLayer.data[i]),
+            pX,
+            pY
+          );
+        }
+      }
+    }
+  },
+
+  isVisible: function (x, y, width, height) {
+    return !(
+      x + width < this.view.x ||
+      y + height < this.y ||
+      x > this.view.x + this.view.w ||
+      y > this.view.y + this.view.h
+    );
+  },
+
+  getSpriteId: function (x, y) {
+    const wX = x;
+    const wY = y;
+    const idx =
+      Math.floor(wY / this.tSize.y) * this.xCount +
+      Math.floor(wX / this.tSize.x);
+    return this.tLayer.data[idx];
+  },
+
+  centerAt: function (x, y) {
+    if (x < this.view.w / 2) {
+      this.view.x = 0;
+    } else if (x > this.mapSize.x - this.view.w / 2) {
+      this.view.x = this.mapSize.x - this.view.w;
+    } else {
+      this.view.x = x - this.view.w / 2;
+    }
+
+    if (y < this.view.h / 2) {
+      this.view.y = 0;
+    } else if (y > this.mapSize.y - this.view.h / 2) {
+      this.view.y = this.mapSize.y - this.view.h;
+    } else {
+      this.view.y = y - this.view.h / 2;
+    }
+    this.view.y = Math.round(this.view.y);
+    this.view.x = Math.round(this.view.x);
+  },
+
+  reset: function (ctx) {
+    ctx.clearRect(0, 0, mapManager.view.w, mapManager.view.h);
+    this.mapData = null;
+    this.tLayer = null;
+    this.xCount = 0;
+    this.yCount = 0;
+    this.tSize = { x: 4, y: 4 };
+    this.mapSize = { x: 4, y: 4 };
+    this.tilesets = [];
+    this.jsonLoaded = false;
+    this.view = { x: 0, y: 0, w: 1365, h: 750 };
+  },
+};

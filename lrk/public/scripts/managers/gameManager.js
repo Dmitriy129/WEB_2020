@@ -7,7 +7,7 @@ const gameManager = {
   player: null,
   fireNum: 0,
   forRemove: [],
-  level: 1,
+  level: 0,
   levels: ["maps/1.json", "maps/2.json"],
   sounds: {
     background: ["/sounds/background_main.mp3"],

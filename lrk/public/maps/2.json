@@ -1230,6 +1230,42 @@
                  "width":16,
                  "x":799.899461400359,
                  "y":45.8599640933573
+                }, 
+                {
+                 "gid":76,
+                 "height":16,
+                 "id":125,
+                 "name":"",
+                 "rotation":0,
+                 "type":"Money",
+                 "visible":true,
+                 "width":16,
+                 "x":799.899461400359,
+                 "y":45.8599640933573
+                }, 
+                {
+                 "gid":74,
+                 "height":16,
+                 "id":128,
+                 "name":"",
+                 "rotation":0,
+                 "type":"Chest",
+                 "visible":true,
+                 "width":16,
+                 "x":381.825119236884,
+                 "y":1281.03020667727
+                }, 
+                {
+                 "gid":74,
+                 "height":16,
+                 "id":129,
+                 "name":"",
+                 "rotation":0,
+                 "type":"Chest",
+                 "visible":true,
+                 "width":16,
+                 "x":1469.90143084261,
+                 "y":797.723370429253
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1238,7 +1274,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":125,
+ "nextobjectid":130,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",
