@@ -17,6 +17,7 @@
     "eslint-plugin-promise": "^4.2.1"
   },
   "dependencies": {
+    "express": "^4.17.1",
     "http-server": "^0.12.3"
   }
 }
