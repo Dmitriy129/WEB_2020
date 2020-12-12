@@ -75,10 +75,12 @@ const soundManager = {
     const sd = this.clips[path];
     if (sd === null) return false;
     const sound = soundManager.context.createBufferSource();
+    soundManager.context.resume();
     sound.buffer = sd.buffer;
     sound.connect(soundManager.gainNode);
     sound.loop = looping;
     soundManager.gainNode.gain.value = volume;
+    // sound.resume();
     sound.start(0);
     return true;
   },

@@ -7,14 +7,14 @@ const gameManager = {
   player: null,
   fireNum: 0,
   forRemove: [],
-  level: 0,
+  level: 1,
   levels: ["maps/1.json", "maps/2.json"],
   sounds: {
     background: ["/sounds/background_main.mp3"],
     bomb: [
-      "/sounds/bomb*.wav",
+      // "/sounds/bomb*.wav",
       // "/sounds/bomb_1.wav",
-      // "/sounds/bomb_2.wav",
+      "/sounds/bomb_2.wav",
     ],
     arrow: ["/sounds/arrow_1.wav"],
     fire: ["/sounds/fire_2.mp3"],
@@ -27,7 +27,7 @@ const gameManager = {
     damage: [
       "/sounds/damageMe_1.wav",
       "/sounds/damageMe_2.wav",
-      "/sounds/damageGhost_1.wav",
+      "/sounds/ghost*.wav",
       "/sounds/damageSkeleton_2.wav",
     ],
     achievement: [
@@ -57,7 +57,6 @@ const gameManager = {
   },
 
   loadAll: function () {
-    soundManager.init();
     gameManager.factory.Player = Player;
     gameManager.factory.Finish = Finish;
     gameManager.factory.Bombs = Bombs;
@@ -72,6 +71,7 @@ const gameManager = {
     gameManager.factory.Waste = Waste;
     mapManager.init(this.canvas);
     HTMLManager.init();
+    soundManager.init();
     soundManager.loadAll(this.sounds);
     mapManager.loadMap(this.levels[this.level]);
     spriteManager.loadAtlas(this.spritesheetJson, this.spritesheet);
@@ -80,7 +80,7 @@ const gameManager = {
     eventsManager.setup(this.canvas);
     soundManager.play(this.sounds.background[0], {
       looping: true,
-      volume: 0.75,
+      volume: 0.5,
     });
   },
 
@@ -145,9 +145,9 @@ const gameManager = {
     this.level++;
     if (this.levels[this.level]) {
       gameManager.play();
-      soundManager.play(gameManager.sounds.achievement[0], { volume: 0.5 });
+      soundManager.play(gameManager.sounds.achievement[0]);
     } else {
-      soundManager.play(gameManager.sounds.win[0], { volume: 0.5 });
+      soundManager.play(gameManager.sounds.win[0]);
       alert("Поздравляю, ты победил");
       this.endGame();
     }
