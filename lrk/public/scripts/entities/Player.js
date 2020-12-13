@@ -10,15 +10,15 @@ const Player = Entity.extend({
   money: 10,
   type: "Player",
   canFire: true,
-  draw: function (ctx) {
-    spriteManager.drawSprite(
-      ctx,
-      spriteManager.getSpriteBySpriteId(this.gid),
-      this.pos_x,
-      this.pos_y,
-      this.direction
-    );
-  },
+  // draw: function (ctx) {
+  //   spriteManager.drawSprite(
+  //     ctx,
+  //     spriteManager.getSpriteBySpriteId(this.gid),
+  //     this.pos_x,
+  //     this.pos_y,
+  //     this.direction
+  //   );
+  // },
   update() {
     if (this.hp <= 0) {
       soundManager.play(gameManager.sounds.loose[0]);

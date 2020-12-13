@@ -55,7 +55,7 @@ const spriteManager = {
     }
     return this.sprites[id];
   },
-  drawSprite: function (ctx, sprite, x, y, deg) {
+  drawSprite: function (ctx, sprite, x, y, r = 0) {
     // if (!Number.isInteger(x) || !Number.isInteger(y)) console.log("x,y", x, y);
     if (!this.imgLoaded || !this.jsonLoaded) {
     } else {
@@ -64,19 +64,82 @@ const spriteManager = {
       y -= mapManager.view.y;
       // if (deg) rotateAndPaintImage(ctx, this.image, deg / 180 * Math.PI, sprite.x, sprite.y, sprite.x, sprite.y, sprite.w, sprite.h, x, y)
       // else ctx.drawImage(this.image, sprite.x, sprite.y, sprite.w, sprite.h, x, y, sprite.w, sprite.h)
-      ctx.drawImage(
-        this.image,
-        sprite.x,
-        sprite.y,
-        sprite.w,
-        sprite.h,
-        x,
-        y,
-        sprite.w,
-        sprite.h
-      );
+      if (r === 0) {
+        ctx.drawImage(
+          this.image,
+          sprite.x,
+          sprite.y,
+          sprite.w,
+          sprite.h,
+          Math.round(x),
+          Math.round(y),
+          sprite.w,
+          sprite.h
+        );
+      } else {
+        ctx.save();
+        ctx.translate(x + sprite.w / 2, y + sprite.h / 2);
+        ctx.rotate((r / 180) * Math.PI + Math.PI / 2);
+        ctx.drawImage(
+          this.image,
+          sprite.x,
+          sprite.y,
+          sprite.w,
+          sprite.h,
+          -sprite.w / 2,
+          -sprite.h / 2,
+          sprite.w,
+          sprite.h
+        );
+        ctx.restore();
+      }
+      //   ctx.drawImage(
+      //     this.image,
+      //     sprite.x,
+      //     sprite.y,
+      //     sprite.w,
+      //     sprite.h,
+      //     Math.round(x),
+      //     Math.round(y),
+      //     sprite.w,
+      //     sprite.h
+      //   );
     }
   },
+  //   drawSprite: function (sprite, x, y, r) {
+  //     if (!this.camera.isVisible(x, y, sprite.w, sprite.h)) return;
+  //     x -= this.camera.x;
+  //     y -= this.camera.y;
+  //     if (r === 0) {
+  //       this.ctx.drawImage(
+  //         sprite.sheet,
+  //         sprite.x,
+  //         sprite.y,
+  //         sprite.w,
+  //         sprite.h,
+  //         Math.round(x),
+  //         Math.round(y),
+  //         sprite.w,
+  //         sprite.h
+  //       );
+  //     } else {
+  //       this.ctx.save();
+  //       this.ctx.translate(x + sprite.w / 2, y + sprite.h / 2);
+  //       this.ctx.rotate(r + Math.PI / 2);
+  //       this.ctx.drawImage(
+  //         sprite.sheet,
+  //         sprite.x,
+  //         sprite.y,
+  //         sprite.w,
+  //         sprite.h,
+  //         -sprite.w / 2,
+  //         -sprite.h / 2,
+  //         sprite.w,
+  //         sprite.h
+  //       );
+  //       this.ctx.restore();
+  //     }
+  //   },
 };
 function rotateAndPaintImage(
   context,

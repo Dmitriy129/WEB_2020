@@ -11,6 +11,15 @@ const Arrow = Entity.extend({
     if (Math.abs(this.move_x) < 5 && Math.abs(this.move_y) < 5)
       gameManager.remove(this);
   },
+  draw: function (ctx) {
+    spriteManager.drawSprite(
+      ctx,
+      spriteManager.getSpriteBySpriteId(this.gid),
+      this.pos_x,
+      this.pos_y,
+      this.direction - 180
+    );
+  },
   onCollision(tileIndex) {
     gameManager.remove(this);
   },
