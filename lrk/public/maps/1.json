@@ -491,8 +491,8 @@
                  "type":"Finish",
                  "visible":true,
                  "width":16,
-                 "x":64,
-                 "y":16
+                 "x":63.9439771626585,
+                 "y":15.9377116213749
                 }, 
                 {
                  "gid":126,
@@ -503,8 +503,8 @@
                  "type":"Finish",
                  "visible":true,
                  "width":16,
-                 "x":64,
-                 "y":16
+                 "x":79.9439771626585,
+                 "y":15.9377116213749
                 }],
          "opacity":1,
          "type":"objectgroup",

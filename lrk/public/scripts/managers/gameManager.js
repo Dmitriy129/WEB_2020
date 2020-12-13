@@ -80,7 +80,7 @@ const gameManager = {
     eventsManager.setup(this.canvas);
     soundManager.play(this.sounds.background[0], {
       looping: true,
-      volume: 0.5,
+      volume: 0.3,
     });
   },
 
