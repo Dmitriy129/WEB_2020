@@ -23,7 +23,7 @@ const soundManager = {
     clip.play = function (volume, loop) {
       soundManager.play(this.path, {
         looping: loop || false,
-        volume: volume || 1,
+        volume: volume || 0.3,
       });
     };
     this.clips[path] = clip;
@@ -63,7 +63,7 @@ const soundManager = {
       return;
     }
     let looping = false;
-    let volume = 1;
+    let volume = 0.3;
     if (settings) {
       if (settings.looping) {
         looping = settings.looping;
