@@ -1,5 +1,5 @@
 const Player = Entity.extend({
-  hp: 3,
+  hp: 5,
   mp: 100,
   lifetime: 100,
   score: 0,
