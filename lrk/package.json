@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "http-server public -a 0.0.0.0 -p 3333 -o",
+    "dev": "http-server public -a 0.0.0.0 -p 80 -o",
     "pm2:start:dev": "pm2 start npm --name 'cw_game' -- dev",
     "pm2:stop:dev": "pm2 stop cw_game"
   },
