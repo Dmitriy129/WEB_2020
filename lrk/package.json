@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "dev": "http-server public -a 0.0.0.0 -p 8080 -o",
-    "pm2:start:dev": "pm2 start npm --name 'cw_game' -- dev",
+    "pm2:start:dev": "pm2 start npm --name 'cw_game' -- run -- dev",
     "pm2:stop:dev": "pm2 stop cw_game"
   },
   "keywords": [],
